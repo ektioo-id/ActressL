@@ -309,7 +309,11 @@
             { id: 25, name: "Go Min-si", avatar: "https://i.mydramalist.com/B8bR5_5c.jpg", rating: 88, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
             { id: 26, name: "Kang Hye-won", avatar: "https://i.mydramalist.com/LwV167_5c.jpg", rating: 84, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
             { id: 27, name: "Jin Ki-joo", avatar: "https://i.mydramalist.com/nOYKnL_5c.jpg", rating: 86, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 28, name: "Jo Yuri", avatar: "https://i.mydramalist.com/VXzNrQ_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 }
+            { id: 28, name: "Jo Yuri", avatar: "https://i.mydramalist.com/VXzNrQ_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 29, name: "Park Shin-Hye", avatar: "https://i.mydramalist.com/Q3Nz7_5c.jpg", rating: 88, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 30, name: "Kim Hye-Jun", avatar: "https://i.mydramalist.com/YYJDeP_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 31, name: "Park Gyu Young", avatar: "https://i.mydramalist.com/oQBr6N_5c.jpg", rating: 86, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 32, name: "Kim Min-Ju", avatar: "https://i.mydramalist.com/l0nvob_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 }
         ];
 
         let appState = {
@@ -494,13 +498,13 @@
                 stageLabel.innerText = "FASE LIGA";
                 stageTitle.innerText = `Matchday ${mdNum} (${mdNum <= 3 ? 'Mode 2 vs 2' : 'Mode Solo 1 vs 1'})`;
                 
-                const pool = [...appState.actresses].sort((a, b) => (a.id * mdNum * 7) % 29 - (b.id * mdNum * 7) % 29);
+                const pool = [...appState.actresses].sort((a, b) => (a.id * mdNum * 7) % 33 - (b.id * mdNum * 7) % 33);
                 if (mdNum <= 3) {
-                    for (let i = 0; i < 28; i += 4) {
+                    for (let i = 0; i < 32; i += 4) {
                         appState.matches.push({ id: `MD${mdNum}_M${(i/4)+1}`, type: 'LEAGUE_2V2', teamA: [pool[i], pool[i+1]], teamB: [pool[i+2], pool[i+3]], scoreA: null, scoreB: null, completed: false });
                     }
                 } else {
-                    for (let i = 0; i < 28; i += 2) {
+                    for (let i = 0; i < 32; i += 2) {
                         appState.matches.push({ id: `MD${mdNum}_M${(i/2)+1}`, type: 'LEAGUE_1V1', playerA: pool[i], playerB: pool[i+1], scoreA: null, scoreB: null, completed: false });
                     }
                 }
