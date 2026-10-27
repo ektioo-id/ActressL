@@ -1,0 +1,1175 @@
+
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>K-ACTRESS LEAGUE MANAGER</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            gold: '#F59E0B',
+                            purple: '#8B5CF6',
+                            pink: '#EC4899',
+                            cyan: '#06B6D4',
+                            dark: '#060911'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Mobile First & Liquid Glass Aesthetics */
+        body {
+            background-color: #060911;
+            color: #f3f4f6;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .liquid-blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.35;
+            z-index: 0;
+            pointer-events: none;
+            animation: float 20s infinite ease-in-out alternate;
+        }
+
+        .blob-1 {
+            top: -10%; left: -10%;
+            width: 350px; height: 350px;
+            background: linear-gradient(135deg, #7c3aed, #db2777);
+        }
+
+        .blob-2 {
+            bottom: -10%; right: -10%;
+            width: 400px; height: 400px;
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
+            animation-delay: -5s;
+        }
+
+        .blob-3 {
+            top: 40%; left: 30%;
+            width: 300px; height: 300px;
+            background: linear-gradient(135deg, #f59e0b, #ec4899);
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0px, 0px) scale(1); }
+            50% { transform: translate(40px, 30px) scale(1.05); }
+            100% { transform: translate(-30px, 50px) scale(0.95); }
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card-hover:hover {
+            background: rgba(30, 41, 59, 0.9);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.25);
+        }
+
+        .glass-input {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            transition: all 0.2s;
+        }
+        .glass-input:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Avatar Glow Rings */
+        .avatar-ring-gold { box-shadow: 0 0 15px rgba(245, 158, 11, 0.9); border: 2.5px solid #F59E0B; }
+        .avatar-ring-silver { box-shadow: 0 0 15px rgba(226, 232, 240, 0.8); border: 2.5px solid #E2E8F0; }
+        .avatar-ring-bronze { box-shadow: 0 0 15px rgba(217, 119, 6, 0.8); border: 2.5px solid #D97706; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.4); }
+        ::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.5); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(139, 92, 246, 0.9); }
+
+        .pb-mobile-nav { padding-bottom: 6rem; }
+        @media (min-width: 768px) { .pb-mobile-nav { padding-bottom: 2rem; } }
+        
+        /* Smooth progress bar transitions */
+        .progress-bar { transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body class="min-h-screen relative flex flex-col justify-between pb-mobile-nav">
+
+    <!-- Ambient Liquid Glass Blobs -->
+    <div class="liquid-blob blob-1"></div>
+    <div class="liquid-blob blob-2"></div>
+    <div class="liquid-blob blob-3"></div>
+
+    <!-- MAIN WRAPPER -->
+    <div class="relative z-10 flex-1 flex flex-col">
+
+        <!-- HEADER / BRAND NAVIGATION BAR -->
+        <header class="glass-card sticky top-0 z-40 border-b border-white/10 px-4 sm:px-6 py-3 backdrop-blur-2xl">
+            <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
+                
+                <!-- Brand Title & Season Badge -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-amber-400 via-pink-500 to-purple-600 p-0.5 shadow-lg shadow-purple-500/40 flex-shrink-0">
+                        <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+                            <i class="fa-solid fa-crown text-amber-400 text-lg sm:text-xl"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <span id="leagueTitleBadge" class="text-[10px] sm:text-xs font-black px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 tracking-wider uppercase">SAMSUNG</span>
+                            <span id="seasonBadge" class="text-[10px] sm:text-xs font-extrabold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">SEASON 1</span>
+                        </div>
+                        <h1 class="text-base sm:text-xl font-black font-display tracking-tight text-white flex items-center gap-1 mt-0.5">
+                            K-ACTRESS LEAGUE
+                        </h1>
+                    </div>
+                </div>
+
+                <!-- Editable Sponsors Header -->
+                <div class="hidden md:flex items-center gap-2 text-sm">
+                    <span id="badgeMajorSponsor" class="px-3 py-1.5 rounded-xl bg-pink-500/20 text-pink-300 border border-pink-500/30 font-bold flex items-center gap-1.5">
+                        <i class="fa-solid fa-gem text-xs text-pink-400"></i> DIOR
+                    </span>
+                    <div id="badgeBroadcastRights" class="flex items-center gap-1.5">
+                        <span class="px-3 py-1.5 rounded-xl bg-red-600/20 text-red-400 border border-red-500/30 font-extrabold flex items-center gap-1.5">
+                            <i class="fa-solid fa-play text-[10px]"></i> NETFLIX
+                        </span>
+                        <span class="px-3 py-1.5 rounded-xl bg-cyan-600/20 text-cyan-300 border border-cyan-500/30 font-bold">
+                            SBS
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Buttons -->
+                <nav class="hidden md:flex items-center gap-2 bg-slate-950/70 p-1.5 rounded-2xl border border-white/10 text-sm font-semibold">
+                    <button onclick="switchTab('tabKlasemen')" id="nav-tabKlasemen" class="nav-btn px-4 py-2 rounded-xl transition-all duration-200 bg-purple-600 text-white shadow-md shadow-purple-600/30 flex items-center gap-2 font-bold">
+                        <i class="fa-solid fa-trophy text-amber-300"></i> <span>Klasemen</span>
+                    </button>
+                    <button onclick="switchTab('tabMatch')" id="nav-tabMatch" class="nav-btn px-4 py-2 rounded-xl transition-all duration-200 text-slate-400 hover:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-gamepad"></i> <span>Pertandingan</span>
+                    </button>
+                    <button onclick="switchTab('tabBracket')" id="nav-tabBracket" class="nav-btn px-4 py-2 rounded-xl transition-all duration-200 text-slate-400 hover:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-sitemap"></i> <span>Knockout</span>
+                    </button>
+                    <button onclick="switchTab('tabHallOfFame')" id="nav-tabHallOfFame" class="nav-btn px-4 py-2 rounded-xl transition-all duration-200 text-slate-400 hover:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-landmark"></i> <span>Hall of Fame</span>
+                    </button>
+                    <button onclick="switchTab('tabPengaturan')" id="nav-tabPengaturan" class="nav-btn px-4 py-2 rounded-xl transition-all duration-200 text-slate-400 hover:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-sliders"></i> <span>Kelola</span>
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- EVENT & NOTIFICATION BAR (PURE NATURAL RULES) -->
+        <div class="bg-gradient-to-r from-indigo-950/80 via-slate-900/90 to-purple-950/80 backdrop-blur-md border-b border-indigo-500/20 px-4 py-2 text-xs text-indigo-200 shadow-inner">
+            <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2 overflow-hidden text-[11px] sm:text-xs">
+                    <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30 flex-shrink-0">INFO LIGA</span>
+                    <span class="truncate" id="eventText">Natural Rules: Menang +3 Pts | Telak (≥65%) +4 Pts | Seri (50%-50%) +1 Pt Masing-masing.</span>
+                </div>
+                <button onclick="toggleEventRulesModal()" class="text-indigo-300 hover:text-white underline text-[10px] sm:text-xs font-bold flex-shrink-0 transition">
+                    <i class="fa-solid fa-book-open mr-1"></i>Format Liga
+                </button>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT CONTAINER -->
+        <main class="max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-5 flex-1">
+
+            <!-- TAB 1: KLASEMEN (LEADERBOARD) -->
+            <section id="tabKlasemen" class="tab-content block space-y-5 sm:space-y-8">
+                <!-- TOP 3 HERO PODIUM -->
+                <div class="grid grid-cols-3 gap-3 sm:gap-6 max-w-3xl mx-auto pt-2" id="topPodiumCards">
+                    <!-- Dynamic Podium Injection -->
+                </div>
+
+                <!-- Leaderboard Card -->
+                <div class="glass-card rounded-3xl p-4 sm:p-7">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
+                        <div>
+                            <h2 class="text-lg sm:text-2xl font-bold font-display text-white flex items-center gap-2.5">
+                                <i class="fa-solid fa-list-ol text-amber-400"></i> Klasemen Resmi Liga
+                            </h2>
+                            <p class="text-xs sm:text-sm text-slate-400 mt-1">Disortir Ketat: 1. Poin Utama → 2. Total Persentase (%) Tie-Breaker.</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="relative w-full sm:w-64">
+                                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                                <input type="text" id="searchActress" oninput="renderStandings()" placeholder="Cari aktris..." class="glass-input pl-9 pr-4 py-2 rounded-xl text-sm w-full font-medium">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table Rows -->
+                    <div class="space-y-2.5" id="standingsContainer">
+                        <!-- Dynamic JS Injection -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: PERTANDINGAN (MATCHES) -->
+            <section id="tabMatch" class="tab-content hidden space-y-5">
+                <!-- Match Control Header -->
+                <div class="glass-card rounded-3xl p-4 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 border border-purple-500/20">
+                    <div class="flex items-center gap-4 w-full md:w-auto">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white text-xl shadow-lg shadow-purple-600/40 flex-shrink-0">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-purple-300 font-bold uppercase tracking-widest" id="currentStageLabel">Tahap Kompetisi</span>
+                            <h2 class="text-base sm:text-2xl font-black font-display text-white mt-0.5" id="currentMatchdayTitle">Matchday 1 (Mode 2 vs 2)</h2>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex flex-wrap items-center gap-2.5 w-full md:w-auto justify-end">
+                        <button onclick="simCurrentStage()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 text-white font-bold text-sm shadow-lg shadow-purple-600/30 transition flex items-center gap-2 flex-1 sm:flex-none justify-center">
+                            <i class="fa-solid fa-bolt text-amber-300"></i> <span>Simulasi Tahap</span>
+                        </button>
+                        <button onclick="advanceToNextStage()" id="btnAdvanceStage" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/30 transition flex items-center gap-2 flex-1 sm:flex-none justify-center">
+                            <span>Lanjut Tahap</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Match Cards Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="matchListGrid">
+                    <!-- Dynamic Matches Rendered Here -->
+                </div>
+            </section>
+
+            <!-- TAB 3: FASE GUGUR / BRACKET PROGRESSION -->
+            <section id="tabBracket" class="tab-content hidden space-y-5">
+                <div class="glass-card rounded-3xl p-5 sm:p-7">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 border-b border-white/10 pb-5">
+                        <div>
+                            <h2 class="text-xl sm:text-2xl font-bold font-display text-white flex items-center gap-2.5">
+                                <i class="fa-solid fa-sitemap text-pink-400"></i> Peta Fase Gugur & Knockout
+                            </h2>
+                            <p class="text-sm text-slate-400 mt-1">Playoff → 16 Besar → 8 Besar (Mini Liga F1 & F2) → Semifinal (BO3) → Final (BO5)!</p>
+                        </div>
+                    </div>
+
+                    <!-- Knockout Bracket Grid -->
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                        
+                        <!-- Column 1: Playoff & 16 Besar -->
+                        <div class="space-y-4">
+                            <div class="glass-card rounded-2xl p-4 border border-amber-500/20">
+                                <div class="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
+                                    <span class="font-bold text-sm text-amber-400">Playoff</span>
+                                </div>
+                                <div id="bracketPlayoffList" class="space-y-2 text-xs"></div>
+                            </div>
+                            <div class="glass-card rounded-2xl p-4 border border-purple-500/20">
+                                <div class="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
+                                    <span class="font-bold text-sm text-purple-400">16 Besar</span>
+                                </div>
+                                <div id="bracketR16List" class="space-y-2 text-xs"></div>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 & 3: 8 Besar Mini League (Takes up 2 columns) -->
+                        <div class="lg:col-span-2 glass-card rounded-2xl p-4 border border-cyan-500/20">
+                            <div class="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
+                                <span class="font-bold text-sm text-cyan-400 flex items-center gap-1.5"><i class="fa-solid fa-star"></i> Babak 8 Besar (Mini Liga)</span>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="bracketR8List">
+                                <!-- Injected via JS -->
+                                <div class="p-3 rounded-xl bg-slate-900/50 text-slate-500 italic text-center">Menunggu 16 Besar selesai...</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Column 4: Semis & Finals -->
+                        <div class="space-y-4">
+                            <div class="glass-card rounded-2xl p-4 border border-rose-500/20">
+                                <div class="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
+                                    <span class="font-bold text-sm text-rose-400 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-fire"></i> Semifinal (BO3)
+                                    </span>
+                                </div>
+                                <div id="bracketSemisList" class="space-y-2.5 text-xs"></div>
+                            </div>
+                            <div class="glass-card rounded-2xl p-4 border border-amber-300/30">
+                                <div class="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
+                                    <span class="font-bold text-sm text-amber-300 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-trophy"></i> Finals
+                                    </span>
+                                </div>
+                                <div id="bracketFinalsList" class="space-y-2.5 text-xs"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: HALL OF FAME -->
+            <section id="tabHallOfFame" class="tab-content hidden space-y-5">
+                <div class="glass-card rounded-3xl p-5 sm:p-7">
+                    <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-5">
+                        <div>
+                            <h2 class="text-xl sm:text-3xl font-black font-display text-white flex items-center gap-3">
+                                <i class="fa-solid fa-landmark text-amber-400"></i> Hall of Fame Abadi
+                            </h2>
+                            <p class="text-sm text-slate-400 mt-1">Arsip resmi juara, podium, dan sejarah setiap musim yang telah diselesaikan.</p>
+                        </div>
+                        <div class="px-4 py-2 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/30 font-bold text-sm flex items-center gap-2 w-fit">
+                            <i class="fa-solid fa-shield-cat"></i> Official Archive
+                        </div>
+                    </div>
+                    <div id="hallOfFameContainer" class="space-y-6"></div>
+                </div>
+            </section>
+
+            <!-- TAB 5: PENGATURAN (SETTINGS) -->
+            <section id="tabPengaturan" class="tab-content hidden space-y-5">
+                <div class="glass-card rounded-3xl p-5 sm:p-7">
+                    <div class="mb-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-white/10 pb-5">
+                        <div>
+                            <h2 class="text-lg sm:text-2xl font-bold font-display text-white flex items-center gap-2.5">
+                                <i class="fa-solid fa-sliders text-purple-400"></i> Kelola Aktris & Sistem
+                            </h2>
+                            <p class="text-sm text-slate-400 mt-1">Ubah nama aktris, link foto dari internet, rating, atau reset data.</p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2.5">
+                            <button onclick="saveAllCustomizerChanges()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/30 transition flex items-center gap-2">
+                                <i class="fa-solid fa-floppy-disk"></i> Simpan Semua
+                            </button>
+                            <button onclick="openSponsorModal()" class="px-4 py-2 rounded-xl bg-pink-600/80 hover:bg-pink-600 text-white font-bold text-sm shadow-lg transition flex items-center gap-2">
+                                <i class="fa-solid fa-gem"></i> Edit Sponsor
+                            </button>
+                            <button onclick="resetSeason()" class="px-4 py-2 rounded-xl bg-rose-600/80 hover:bg-rose-600 text-white font-bold text-sm shadow-lg transition flex items-center gap-2">
+                                <i class="fa-solid fa-rotate-right"></i> Reset & Hapus Data
+                            </button>
+                        </div>
+                    </div>
+                    <div class="space-y-3" id="customizerContainer"></div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="glass-card border-t border-white/10 px-5 py-4 text-center text-xs sm:text-sm text-slate-400 mt-auto">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div>
+                    <span id="footerLeagueTitle" class="font-bold text-slate-200">SAMSUNG K-ACT LEAGUE</span> &copy; 2026. All Rights Reserved.
+                </div>
+                <div class="flex items-center gap-2.5 text-slate-400 font-medium text-xs" id="footerSponsorsText">
+                    <span>DIOR Official</span> • <span>NETFLIX</span> • <span>SBS TV</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- MOBILE BOTTOM NAVIGATION BAR -->
+    <div class="fixed bottom-0 left-0 right-0 z-50 glass-card border-t border-white/10 p-2 md:hidden backdrop-blur-2xl shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
+        <div class="grid grid-cols-5 gap-1 text-center">
+            <button onclick="switchTab('tabKlasemen')" id="mob-tabKlasemen" class="mob-btn flex flex-col items-center py-1.5 text-purple-400 font-bold transition">
+                <i class="fa-solid fa-trophy text-lg mb-1"></i>
+                <span class="text-[10px]">Klasemen</span>
+            </button>
+            <button onclick="switchTab('tabMatch')" id="mob-tabMatch" class="mob-btn flex flex-col items-center py-1.5 text-slate-400 transition hover:text-slate-200">
+                <i class="fa-solid fa-gamepad text-lg mb-1"></i>
+                <span class="text-[10px]">Laga</span>
+            </button>
+            <button onclick="switchTab('tabBracket')" id="mob-tabBracket" class="mob-btn flex flex-col items-center py-1.5 text-slate-400 transition hover:text-slate-200">
+                <i class="fa-solid fa-sitemap text-lg mb-1"></i>
+                <span class="text-[10px]">Knockout</span>
+            </button>
+            <button onclick="switchTab('tabHallOfFame')" id="mob-tabHallOfFame" class="mob-btn flex flex-col items-center py-1.5 text-slate-400 transition hover:text-slate-200">
+                <i class="fa-solid fa-landmark text-lg mb-1"></i>
+                <span class="text-[10px]">Hall Fame</span>
+            </button>
+            <button onclick="switchTab('tabPengaturan')" id="mob-tabPengaturan" class="mob-btn flex flex-col items-center py-1.5 text-slate-400 transition hover:text-slate-200">
+                <i class="fa-solid fa-sliders text-lg mb-1"></i>
+                <span class="text-[10px]">Kelola</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL MANUAL EDIT SCORE -->
+    <div id="scoreModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden">
+        <div class="glass-card rounded-3xl max-w-md w-full p-6 border border-white/20 shadow-2xl relative">
+            <button onclick="closeScoreModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 class="text-lg font-bold text-white mb-5 flex items-center gap-2">
+                <i class="fa-solid fa-pen-to-square text-purple-400"></i> Edit Hasil Pertandingan
+            </h3>
+
+            <form id="scoreForm" onsubmit="saveManualScore(event)" class="space-y-5">
+                <input type="hidden" id="modalMatchIndex">
+                <div class="space-y-4 p-5 rounded-2xl bg-slate-900/80 border border-white/10 shadow-inner">
+                    <div class="flex items-center justify-between text-sm font-bold text-white">
+                        <span id="teamANames" class="truncate pr-2">Tim A</span>
+                        <span id="teamAScoreDisplay" class="text-purple-400 flex-shrink-0">50</span>
+                    </div>
+                    <input type="range" id="scoreRange" min="0" max="100" value="50" oninput="updateScoreRangeDisplay(this.value)" class="w-full accent-purple-500 cursor-pointer h-2 bg-slate-800 rounded-lg appearance-none">
+                    <div class="flex items-center justify-between text-sm font-bold text-white">
+                        <span id="teamBNames" class="truncate pr-2">Tim B</span>
+                        <span id="teamBScoreDisplay" class="text-pink-400 flex-shrink-0">50</span>
+                    </div>
+                    <p class="text-[10px] text-center text-slate-400 mt-2">Mode BO3/BO5: Slider ini akan menentukan JUMLAH KEMENANGAN (Wins) tim A.</p>
+                </div>
+
+                <div class="flex items-center justify-end gap-3 pt-2">
+                    <button type="button" onclick="closeScoreModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm transition">Batal</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm shadow-lg shadow-purple-600/30 transition">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL SPONSOR -->
+    <div id="sponsorModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden">
+        <div class="glass-card rounded-3xl max-w-md w-full p-6 border border-white/20 shadow-2xl relative space-y-5">
+            <button onclick="closeSponsorModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h3 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2"><i class="fa-solid fa-gem text-pink-400"></i> Edit Sponsor & Branding</h3>
+            <div class="space-y-4 text-sm">
+                <div><label class="block text-slate-300 font-semibold mb-1.5">Judul Utama Liga</label><input type="text" id="inputLeagueTitle" class="glass-input px-4 py-2.5 rounded-xl w-full font-bold text-white" value="SAMSUNG"></div>
+                <div><label class="block text-slate-300 font-semibold mb-1.5">Major Sponsor</label><input type="text" id="inputMajorSponsor" class="glass-input px-4 py-2.5 rounded-xl w-full font-bold text-pink-300" value="DIOR"></div>
+                <div><label class="block text-slate-300 font-semibold mb-1.5">Hak Siar (Pisahkan koma)</label><input type="text" id="inputBroadcastRights" class="glass-input px-4 py-2.5 rounded-xl w-full font-bold text-cyan-300" value="NETFLIX, SBS"></div>
+            </div>
+            <div class="flex items-center justify-end gap-3 pt-3">
+                <button onclick="closeSponsorModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-sm font-semibold transition">Batal</button>
+                <button onclick="saveSponsors()" class="px-5 py-2 rounded-xl bg-pink-600 text-white text-sm font-bold shadow-lg shadow-pink-600/30 transition">Simpan Sponsor</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ATURAN LIGA -->
+    <div id="eventRulesModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden">
+        <div class="glass-card rounded-3xl max-w-lg w-full p-6 border border-white/20 shadow-2xl relative space-y-5">
+            <button onclick="toggleEventRulesModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h3 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2"><i class="fa-solid fa-scale-balanced text-amber-400"></i> Format Resmi Kompetisi</h3>
+            <div class="space-y-4 text-sm text-slate-300">
+                <div class="p-4 rounded-xl bg-slate-900/60 border border-white/10 shadow-inner">
+                    <div class="font-bold text-amber-400 mb-2 text-base">Sistem Poin (Natural Rules)</div>
+                    <ul class="list-disc list-inside space-y-2 text-slate-300">
+                        <li>Kemenangan Normal: <b class="text-white">+3 Poin</b></li>
+                        <li>Menang Telak (≥ 65%): <b class="text-emerald-400">+4 Poin</b></li>
+                        <li>Seri Tepat (50%-50%): <b class="text-cyan-300">+1 Poin Keduanya</b></li>
+                    </ul>
+                </div>
+                <div class="p-4 rounded-xl bg-slate-900/60 border border-purple-500/30 shadow-inner">
+                    <div class="font-bold text-purple-300 mb-2 text-base">Fase & Babak Gugur</div>
+                    <ul class="list-disc list-inside space-y-2 text-slate-300 text-xs">
+                        <li><b>Liga (MD1-MD3):</b> Mode 2 vs 2. <b>Liga (MD4-MD7):</b> Solo 1 vs 1.</li>
+                        <li><b>8 Besar (Fase 1):</b> 4 Laga 1v1. Top 1 lolos Semifinal. Rank 2 vs 3 berebut tiket Semifinal. Sisanya lanjut ke Fase 2.</li>
+                        <li><b>8 Besar (Fase 2):</b> Sisa 6 Aktris, main 3 Laga 1v1. Top 1 Semifinal, Rank 2 vs 3 Duel Semifinal. Rank 4-6 Gugur.</li>
+                        <li><b>Semifinal / Juara 3:</b> BO-3. <b>Grand Final:</b> BO-5.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-right pt-2">
+                <button onclick="toggleEventRulesModal()" class="px-6 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 transition text-white font-bold text-sm shadow-lg">Paham</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        // DEFAULT DATA - FOTO KOSONGAN (NO AI)
+        const DEFAULT_ACTRESSES = [
+            { id: 1, name: "Kim Ji-won", avatar: "", rating: 96, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 2, name: "IU (Lee Ji-eun)", avatar: "", rating: 95, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 3, name: "Park Bo-young", avatar: "", rating: 93, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 4, name: "Go Youn-jung", avatar: "", rating: 92, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 5, name: "Kim Tae-ri", avatar: "", rating: 94, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 6, name: "Kim Da-mi", avatar: "", rating: 91, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 7, name: "Shin Hye-sun", avatar: "", rating: 90, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 8, name: "Lim Yoona", avatar: "", rating: 92, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 9, name: "Park Eun-bin", avatar: "", rating: 94, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 10, name: "Bae Suzy", avatar: "", rating: 91, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 11, name: "Song Hye-kyo", avatar: "", rating: 95, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 12, name: "Han So-hee", avatar: "", rating: 93, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 13, name: "Kim Go-eun", avatar: "", rating: 92, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 14, name: "Park Min-young", avatar: "", rating: 90, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 15, name: "Kim Yoo-jung", avatar: "", rating: 91, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 16, name: "Kim So-hyun", avatar: "", rating: 90, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 17, name: "Jung So-min", avatar: "", rating: 89, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 18, name: "Shin Si-ah", avatar: "", rating: 86, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 19, name: "Seorina (Seol In-ah)", avatar: "", rating: 88, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 20, name: "Chae Soo-bin", avatar: "", rating: 87, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 21, name: "Kim Se-jeong", avatar: "", rating: 89, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 22, name: "Roh Yoon-seo", avatar: "", rating: 88, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 23, name: "Shin Eun-soo", avatar: "", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 24, name: "Park Ji-hyun", avatar: "", rating: 87, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 25, name: "Go Min-si", avatar: "", rating: 88, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 26, name: "Kang Hye-won", avatar: "", rating: 84, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 27, name: "Jin Ki-joo", avatar: "", rating: 86, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 28, name: "Jo Yuri", avatar: "", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 }
+        ];
+
+        let appState = {
+            seasonNumber: 1,
+            sponsors: { leagueTitle: 'SAMSUNG', major: 'DIOR', rights: ['NETFLIX', 'SBS'] },
+            actresses: JSON.parse(JSON.stringify(DEFAULT_ACTRESSES)),
+            currentStage: 'MD1',
+            matches: [],
+            hallOfFame: [],
+            tournament: {
+                playoffW: [], r16W: [],
+                r8f1_standings: null, r8f2_pool: [], r8f2_standings: null,
+                semis_pool: [] // Will contain 4 players
+            }
+        };
+
+        // UI AVATAR FALLBACK
+        function getSafeAvatar(avatarUrl, name) {
+            if (avatarUrl && avatarUrl.trim() !== '') return avatarUrl;
+            return `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'Aktris')}&background=7c3aed&color=ffffff&bold=true&size=128`;
+        }
+        function handleImageError(imgEl, name) {
+            if (!imgEl) return;
+            imgEl.onerror = null; 
+            imgEl.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'Aktris')}&background=7c3aed&color=ffffff&bold=true&size=128`;
+        }
+        function getActress(id) { return appState.actresses.find(a => a.id === id) || { name: 'Aktris', avatar: '' }; }
+
+        function loadStateFromStorage() {
+            try {
+                const saved = localStorage.getItem('k_actress_league_state_v4');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    if (parsed && parsed.actresses) appState = parsed;
+                    if (!appState.tournament) appState.tournament = { playoffW: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [] };
+                }
+            } catch(e) { console.error("Load data error:", e); }
+        }
+        function saveStateToStorage() { localStorage.setItem('k_actress_league_state_v4', JSON.stringify(appState)); }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = "fixed bottom-20 md:bottom-10 right-4 z-50 bg-emerald-600/95 text-white px-5 py-3 rounded-2xl shadow-2xl backdrop-blur-md border border-emerald-400/30 text-sm font-bold flex items-center gap-2.5 transition-all duration-300";
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-amber-300 text-lg"></i> <span>${message}</span>`;
+            document.body.appendChild(toast);
+            setTimeout(() => { toast.classList.add('opacity-0', 'translate-y-4'); setTimeout(() => toast.remove(), 400); }, 2500);
+        }
+
+        // TAB LOGIC
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId)?.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.className = "nav-btn px-4 py-2 rounded-xl transition-all duration-200 text-slate-400 hover:text-white flex items-center gap-2");
+            document.getElementById(`nav-${tabId}`)?.classList.add('bg-purple-600', 'text-white', 'shadow-md', 'font-bold');
+
+            document.querySelectorAll('.mob-btn').forEach(btn => btn.className = "mob-btn flex flex-col items-center py-1.5 text-slate-400 transition hover:text-slate-200");
+            document.getElementById(`mob-${tabId}`)?.classList.add('text-purple-400', 'font-bold');
+
+            if (tabId === 'tabKlasemen') renderStandings();
+            if (tabId === 'tabMatch') renderMatchList();
+            if (tabId === 'tabBracket') renderBracket();
+            if (tabId === 'tabHallOfFame') renderHallOfFame();
+            if (tabId === 'tabPengaturan') renderCustomizer();
+        }
+
+        function renderSponsorsUI() {
+            document.getElementById('seasonBadge').innerText = `SEASON ${appState.seasonNumber}`;
+            document.getElementById('leagueTitleBadge').innerText = appState.sponsors.leagueTitle;
+            document.getElementById('badgeMajorSponsor').innerHTML = `<i class="fa-solid fa-gem text-[10px] text-pink-400"></i> ${appState.sponsors.major}`;
+            document.getElementById('footerLeagueTitle').innerText = `${appState.sponsors.leagueTitle} K-ACT LEAGUE`;
+
+            const rightsContainer = document.getElementById('badgeBroadcastRights');
+            rightsContainer.innerHTML = '';
+            appState.sponsors.rights.forEach(r => {
+                rightsContainer.innerHTML += `<span class="px-3 py-1.5 rounded-xl bg-red-600/20 text-red-400 border border-red-500/30 font-extrabold flex items-center gap-1.5 text-[10px]"><i class="fa-solid fa-play text-[10px]"></i> ${r.trim()}</span>`;
+            });
+            document.getElementById('footerSponsorsText').innerHTML = `<span>${appState.sponsors.major}</span> • <span>${appState.sponsors.rights.join(', ')}</span>`;
+        }
+
+        function openSponsorModal() {
+            document.getElementById('inputLeagueTitle').value = appState.sponsors.leagueTitle;
+            document.getElementById('inputMajorSponsor').value = appState.sponsors.major;
+            document.getElementById('inputBroadcastRights').value = appState.sponsors.rights.join(', ');
+            document.getElementById('sponsorModal').classList.remove('hidden');
+        }
+        function closeSponsorModal() { document.getElementById('sponsorModal').classList.add('hidden'); }
+        function saveSponsors() {
+            appState.sponsors.leagueTitle = document.getElementById('inputLeagueTitle').value.trim() || "SAMSUNG";
+            appState.sponsors.major = document.getElementById('inputMajorSponsor').value.trim() || "DIOR";
+            appState.sponsors.rights = document.getElementById('inputBroadcastRights').value.split(',').map(s => s.trim()).filter(Boolean);
+            saveStateToStorage(); renderSponsorsUI(); closeSponsorModal(); showToast("Sponsor disimpan!");
+        }
+
+        // STANDINGS
+        function getSortedStandings() {
+            return [...appState.actresses].sort((a, b) => {
+                if (b.points !== a.points) return b.points - a.points; 
+                return b.totalPercentage - a.totalPercentage;
+            });
+        }
+
+        function renderStandings() {
+            const sorted = getSortedStandings();
+            const filterText = document.getElementById('searchActress')?.value.toLowerCase() || '';
+            const container = document.getElementById('standingsContainer');
+            const podiumContainer = document.getElementById('topPodiumCards');
+            
+            podiumContainer.innerHTML = '';
+            const podiumRanks = [
+                { pos: 2, data: sorted[1], ring: 'avatar-ring-silver', color: 'text-slate-200', bg: 'bg-slate-800/80', order: 'order-1' },
+                { pos: 1, data: sorted[0], ring: 'avatar-ring-gold', color: 'text-amber-400', bg: 'bg-amber-950/40', order: 'order-2 scale-105 shadow-xl shadow-amber-500/10' },
+                { pos: 3, data: sorted[2], ring: 'avatar-ring-bronze', color: 'text-amber-600', bg: 'bg-amber-900/30', order: 'order-3' }
+            ];
+
+            podiumRanks.forEach(item => {
+                if (!item.data) return;
+                const avatarStr = getSafeAvatar(item.data.avatar, item.data.name);
+                const card = document.createElement('div');
+                card.className = `glass-card rounded-2xl p-3 sm:p-4 flex flex-col items-center text-center justify-between border border-white/10 ${item.bg} ${item.order}`;
+                card.innerHTML = `
+                    <div class="relative mb-2">
+                        <img src="${avatarStr}" referrerpolicy="no-referrer" onerror="handleImageError(this, '${item.data.name.replace(/'/g, "\\'")}')" class="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover ${item.ring}">
+                        <span class="absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-950 font-black text-[10px] sm:text-xs ${item.color} border border-white/20 flex items-center justify-center">#${item.pos}</span>
+                    </div>
+                    <div class="font-extrabold text-xs sm:text-sm text-white truncate w-full mt-1">${item.data.name}</div>
+                    <div class="text-[11px] sm:text-xs font-black ${item.color} mt-0.5">${item.data.points} Pts</div>
+                    <div class="text-[10px] sm:text-[11px] text-purple-300 font-semibold">${item.data.totalPercentage}%</div>
+                `;
+                podiumContainer.appendChild(card);
+            });
+
+            container.innerHTML = '';
+            sorted.forEach((actress, index) => {
+                if (filterText && !actress.name.toLowerCase().includes(filterText)) return;
+                const rank = index + 1;
+                let statusBadge = ''; let rowBorder = 'border-l-4 border-slate-700';
+
+                if (rank <= 12) { statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold text-[10px]">Aman 16</span>`; rowBorder = 'border-l-4 border-emerald-500'; }
+                else if (rank <= 20) { statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold text-[10px]">Playoff</span>`; rowBorder = 'border-l-4 border-amber-500'; }
+                else { statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/30 font-bold text-[10px]">Gugur</span>`; rowBorder = 'border-l-4 border-rose-500'; }
+
+                if (rank === 1) rowBorder = 'border-l-4 border-amber-400 bg-amber-500/10';
+                else if (rank === 2) rowBorder = 'border-l-4 border-slate-300 bg-slate-400/10';
+                else if (rank === 3) rowBorder = 'border-l-4 border-amber-600 bg-amber-700/10';
+
+                const avatarStr = getSafeAvatar(actress.avatar, actress.name);
+                const row = document.createElement('div');
+                row.className = `glass-card-hover rounded-2xl p-3 sm:p-4 flex items-center justify-between gap-3 border border-white/10 ${rowBorder}`;
+                row.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <span class="w-6 text-center font-black text-slate-300 text-sm sm:text-base">${rank}</span>
+                        <img src="${avatarStr}" referrerpolicy="no-referrer" onerror="handleImageError(this, '${actress.name.replace(/'/g, "\\'")}')" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border border-white/20 flex-shrink-0">
+                        <div class="truncate">
+                            <div class="font-bold text-sm sm:text-base text-white truncate flex items-center gap-2">
+                                ${actress.name}
+                                <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">⭐ ${actress.rating || 85}</span>
+                                ${actress.initialPoints > 0 ? `<span class="text-[10px] px-1.5 py-0.5 rounded bg-purple-500/30 text-purple-200 font-bold">+${actress.initialPoints}</span>` : ''}
+                            </div>
+                            <div class="text-[10px] sm:text-xs text-slate-400 flex items-center gap-2.5 mt-0.5">
+                                <span>Main: <b>${actress.matchesPlayed}</b></span>
+                                <span>Total: <b class="text-purple-300">${actress.totalPercentage}%</b></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 flex-shrink-0">
+                        <div class="text-right">
+                            <div class="font-black text-amber-400 text-sm sm:text-lg">${actress.points} Pts</div>
+                        </div>
+                        <div class="hidden sm:block">${statusBadge}</div>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        // GENERATE MATCHES
+        function generateMatchesForCurrentStage() {
+            const stage = appState.currentStage;
+            const stageLabel = document.getElementById('currentStageLabel');
+            const stageTitle = document.getElementById('currentMatchdayTitle');
+            appState.matches = [];
+
+            if (stage.startsWith('MD')) {
+                const mdNum = parseInt(stage.replace('MD', ''));
+                stageLabel.innerText = "FASE LIGA";
+                stageTitle.innerText = `Matchday ${mdNum} (${mdNum <= 3 ? 'Mode 2 vs 2' : 'Mode Solo 1 vs 1'})`;
+                
+                const pool = [...appState.actresses].sort((a, b) => (a.id * mdNum * 7) % 29 - (b.id * mdNum * 7) % 29);
+                if (mdNum <= 3) {
+                    for (let i = 0; i < 28; i += 4) {
+                        appState.matches.push({ id: `MD${mdNum}_M${(i/4)+1}`, type: 'LEAGUE_2V2', teamA: [pool[i], pool[i+1]], teamB: [pool[i+2], pool[i+3]], scoreA: null, scoreB: null, completed: false });
+                    }
+                } else {
+                    for (let i = 0; i < 28; i += 2) {
+                        appState.matches.push({ id: `MD${mdNum}_M${(i/2)+1}`, type: 'LEAGUE_1V1', playerA: pool[i], playerB: pool[i+1], scoreA: null, scoreB: null, completed: false });
+                    }
+                }
+            } 
+            else if (stage === 'PLAYOFF') {
+                stageLabel.innerText = "FASE GUGUR - BO1"; stageTitle.innerText = "Babak Playoff (Rank 13-20)";
+                const s = getSortedStandings();
+                appState.matches = [
+                    { id: 'P1', type: 'BO1', playerA: s[12], playerB: s[19], scoreA: null, scoreB: null, completed: false },
+                    { id: 'P2', type: 'BO1', playerA: s[13], playerB: s[18], scoreA: null, scoreB: null, completed: false },
+                    { id: 'P3', type: 'BO1', playerA: s[14], playerB: s[17], scoreA: null, scoreB: null, completed: false },
+                    { id: 'P4', type: 'BO1', playerA: s[15], playerB: s[16], scoreA: null, scoreB: null, completed: false }
+                ];
+            }
+            else if (stage === 'R16') {
+                stageLabel.innerText = "FASE GUGUR - BO1"; stageTitle.innerText = "Babak 16 Besar";
+                const s = getSortedStandings(); const pW = appState.tournament.playoffW;
+                appState.matches = [
+                    { id: 'R16_1', type: 'BO1', playerA: s[0], playerB: pW[3] || s[19], scoreA: null, scoreB: null, completed: false },
+                    { id: 'R16_2', type: 'BO1', playerA: s[1], playerB: pW[2] || s[18], scoreA: null, scoreB: null, completed: false },
+                    { id: 'R16_3', type: 'BO1', playerA: s[2], playerB: pW[1] || s[17], scoreA: null, scoreB: null, completed: false },
+                    { id: 'R16_4', type: 'BO1', playerA: s[3], playerB: pW[0] || s[16], scoreA: null, scoreB: null, completed: false },
+                    { id: 'R16_5', type: 'BO1', playerA: s[4], playerB: s[11], scoreA: null, scoreB: null, completed: false },
+                    { id: 'R16_6', type: 'BO1', playerA: s[5], playerB: s[10], scoreA: null, scoreB: null, completed: false },
+                    { id: 'R16_7', type: 'BO1', playerA: s[6], playerB: s[9], scoreA: null, scoreB: null, completed: false },
+                    { id: 'R16_8', type: 'BO1', playerA: s[7], playerB: s[8], scoreA: null, scoreB: null, completed: false },
+                ];
+            }
+            else if (stage === 'R8_F1') {
+                stageLabel.innerText = "MINI LIGA - FASE 1"; stageTitle.innerText = "Babak 8 Besar (1 Laga)";
+                const w = appState.tournament.r16W;
+                appState.matches = [
+                    { id: 'R8F1_1', type: 'BO1', playerA: w[0], playerB: w[7], scoreA: null, scoreB: null, completed: false },
+                    { id: 'R8F1_2', type: 'BO1', playerA: w[1], playerB: w[6], scoreA: null, scoreB: null, completed: false },
+                    { id: 'R8F1_3', type: 'BO1', playerA: w[2], playerB: w[5], scoreA: null, scoreB: null, completed: false },
+                    { id: 'R8F1_4', type: 'BO1', playerA: w[3], playerB: w[4], scoreA: null, scoreB: null, completed: false },
+                ];
+            }
+            else if (stage === 'R8_F1_TIE') {
+                stageLabel.innerText = "DUEL TIKET SEMIFINAL 1"; stageTitle.innerText = "Rank 2 vs Rank 3 (Fase 1)";
+                const std = appState.tournament.r8f1_standings;
+                appState.matches = [ { id: 'R8F1_T', type: 'BO1', title: 'Perebutan Semifinal', playerA: std[1].player, playerB: std[2].player, scoreA: null, scoreB: null, completed: false } ];
+            }
+            else if (stage === 'R8_F2') {
+                stageLabel.innerText = "MINI LIGA - FASE 2"; stageTitle.innerText = "Sisa 6 Aktris (1 Laga)";
+                const p = appState.tournament.r8f2_pool;
+                appState.matches = [
+                    { id: 'R8F2_1', type: 'BO1', playerA: p[0], playerB: p[5], scoreA: null, scoreB: null, completed: false },
+                    { id: 'R8F2_2', type: 'BO1', playerA: p[1], playerB: p[4], scoreA: null, scoreB: null, completed: false },
+                    { id: 'R8F2_3', type: 'BO1', playerA: p[2], playerB: p[3], scoreA: null, scoreB: null, completed: false },
+                ];
+            }
+            else if (stage === 'R8_F2_TIE') {
+                stageLabel.innerText = "DUEL TIKET SEMIFINAL 2"; stageTitle.innerText = "Rank 2 vs Rank 3 (Fase 2)";
+                const std = appState.tournament.r8f2_standings;
+                appState.matches = [ { id: 'R8F2_T', type: 'BO1', title: 'Perebutan Semifinal', playerA: std[1].player, playerB: std[2].player, scoreA: null, scoreB: null, completed: false } ];
+            }
+            else if (stage === 'SEMIS') {
+                stageLabel.innerText = "SEMIFINAL - BO3"; stageTitle.innerText = "Babak 4 Besar";
+                const w = appState.tournament.semis_pool; // Array of 4
+                appState.matches = [
+                    { id: 'SF_1', type: 'BO3', playerA: w[0], playerB: w[3], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
+                    { id: 'SF_2', type: 'BO3', playerA: w[1], playerB: w[2], scoreA: null, scoreB: null, seriesDetails: null, completed: false }
+                ];
+            }
+            else if (stage === 'FINALS') {
+                stageLabel.innerText = "GRAND FINAL (BO5)"; stageTitle.innerText = "Puncak Penganugerahan";
+                const semisMatch1 = appState.matches[0]; const semisMatch2 = appState.matches[1];
+                const sw = [ semisMatch1.scoreA > semisMatch1.scoreB ? semisMatch1.playerA : semisMatch1.playerB, semisMatch2.scoreA > semisMatch2.scoreB ? semisMatch2.playerA : semisMatch2.playerB ];
+                const sl = [ semisMatch1.scoreA > semisMatch1.scoreB ? semisMatch1.playerB : semisMatch1.playerA, semisMatch2.scoreA > semisMatch2.scoreB ? semisMatch2.playerB : semisMatch2.playerA ];
+                appState.matches = [
+                    { id: '3RD', type: 'BO3', title: 'Perebutan Juara 3 (BO3)', playerA: sl[0], playerB: sl[1], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
+                    { id: 'FIN', type: 'BO5', title: 'GRAND FINAL (BO5)', playerA: sw[0], playerB: sw[1], scoreA: null, scoreB: null, seriesDetails: null, completed: false }
+                ];
+            }
+        }
+
+        function calculateBaseScore(rA, rB) {
+            const exp = rA / (rA + rB);
+            let sA = Math.round((exp * 100) + ((Math.random() - 0.5) * 22));
+            return Math.max(20, Math.min(80, sA));
+        }
+
+        function simSingleMatch(index) {
+            const match = appState.matches[index];
+            if (match.completed) return;
+            
+            let ratingA = 50, ratingB = 50;
+            if (match.type === 'LEAGUE_2V2') {
+                ratingA = ((match.teamA[0].rating||85) + (match.teamA[1].rating||85)) / 2;
+                ratingB = ((match.teamB[0].rating||85) + (match.teamB[1].rating||85)) / 2;
+            } else { ratingA = match.playerA.rating||85; ratingB = match.playerB.rating||85; }
+
+            if (match.type === 'LEAGUE_2V2' || match.type === 'LEAGUE_1V1') {
+                let sA = calculateBaseScore(ratingA, ratingB);
+                if (Math.abs(sA - 50) <= 2 && Math.random() < 0.35) sA = 50;
+                applyMatchResults(match, sA, 100 - sA);
+            } 
+            else if (match.type === 'BO1') {
+                let sA = calculateBaseScore(ratingA, ratingB);
+                if (sA === 50) sA = Math.random() > 0.5 ? 51 : 49;
+                applyMatchResults(match, sA, 100 - sA);
+            }
+            else if (match.type === 'BO3' || match.type === 'BO5') {
+                let winsA = 0, winsB = 0; let target = match.type === 'BO5' ? 3 : 2;
+                let details = [];
+                while(winsA < target && winsB < target) {
+                    let sA = calculateBaseScore(ratingA, ratingB);
+                    if (sA === 50) sA = Math.random() > 0.5 ? 51 : 49;
+                    if (sA > (100-sA)) winsA++; else winsB++;
+                    details.push({ sA: sA, sB: 100-sA });
+                }
+                match.seriesDetails = details;
+                applyMatchResults(match, winsA, winsB);
+            }
+            renderMatchList(); if (appState.currentStage.startsWith('MD')) renderStandings(); renderBracket();
+        }
+
+        function applyMatchResults(match, scoreA, scoreB) {
+            match.scoreA = scoreA; match.scoreB = scoreB; match.completed = true;
+            let commentaryText = "";
+
+            if (match.type.startsWith('LEAGUE')) {
+                let ptsA = 0, ptsB = 0;
+                if (scoreA === 50) { ptsA = 1; ptsB = 1; commentaryText = "🤝 Pertarungan ketat berujung imbang (50-50). Keduanya mendapat +1 Poin."; } 
+                else if (scoreA > scoreB) { ptsA = scoreA >= 65 ? 4 : 3; commentaryText = scoreA >= 65 ? "🔥 Kemenangan telak luar biasa! Mendapat bonus +4 Poin." : "⚡ Kemenangan solid diraih dalam pertempuran ketat (+3 Pts)."; } 
+                else { ptsB = scoreB >= 65 ? 4 : 3; commentaryText = scoreB >= 65 ? "🔥 Kemenangan telak luar biasa! Mendapat bonus +4 Poin." : "⚡ Kemenangan solid diraih dalam pertempuran ketat (+3 Pts)."; }
+
+                const updateStats = (arr, p, s) => { arr.forEach(x => { const act = getActress(x.id); act.points += p; act.totalPercentage += s; act.matchesPlayed++; }); };
+                if (match.type === 'LEAGUE_2V2') { updateStats(match.teamA, ptsA, scoreA); updateStats(match.teamB, ptsB, scoreB); } 
+                else { updateStats([match.playerA], ptsA, scoreA); updateStats([match.playerB], ptsB, scoreB); }
+            }
+            else if (match.type === 'BO1') { commentaryText = `⚔️ ${(scoreA > scoreB ? match.playerA : match.playerB).name} menang dan mengamankan posisinya!`; }
+            else { commentaryText = `🏆 ${(scoreA > scoreB ? match.playerA : match.playerB).name} memenangkan seri ${Math.max(scoreA,scoreB)} - ${Math.min(scoreA,scoreB)}!`; }
+            match.commentary = commentaryText; saveStateToStorage();
+        }
+
+        function simCurrentStage() {
+            appState.matches.forEach((m, i) => { if (!m.completed) simSingleMatch(i); });
+            showToast("Tahap ini berhasil disimulasikan penuh!");
+        }
+
+        function advanceToNextStage() {
+            if (appState.matches.filter(m => !m.completed).length > 0) { alertModal("Peringatan", "Selesaikan simulasi pertandingan dulu!"); return; }
+
+            const getW = (m) => m.scoreA > m.scoreB ? m.playerA : m.playerB;
+            const getL = (m) => m.scoreA > m.scoreB ? m.playerB : m.playerA;
+
+            const stg = appState.currentStage;
+            if (stg.startsWith('MD')) {
+                const md = parseInt(stg.replace('MD', ''));
+                if (md < 7) appState.currentStage = `MD${md + 1}`; else appState.currentStage = 'PLAYOFF';
+            } 
+            else if (stg === 'PLAYOFF') { appState.tournament.playoffW = appState.matches.map(getW); appState.currentStage = 'R16'; } 
+            else if (stg === 'R16') { appState.tournament.r16W = appState.matches.map(getW); appState.currentStage = 'R8_F1'; } 
+            else if (stg === 'R8_F1') {
+                let res = [];
+                appState.matches.forEach(m => { res.push({ player: m.playerA, pct: m.scoreA }); res.push({ player: m.playerB, pct: m.scoreB }); });
+                res.sort((a,b) => b.pct - a.pct);
+                appState.tournament.r8f1_standings = res;
+                appState.tournament.semis_pool = [res[0].player]; // Rank 1 lolos
+                appState.currentStage = 'R8_F1_TIE';
+            }
+            else if (stg === 'R8_F1_TIE') {
+                const m = appState.matches[0];
+                appState.tournament.semis_pool.push(getW(m));
+                const f1 = appState.tournament.r8f1_standings;
+                appState.tournament.r8f2_pool = [getL(m), f1[3].player, f1[4].player, f1[5].player, f1[6].player, f1[7].player];
+                appState.currentStage = 'R8_F2';
+            }
+            else if (stg === 'R8_F2') {
+                let res = [];
+                appState.matches.forEach(m => { res.push({ player: m.playerA, pct: m.scoreA }); res.push({ player: m.playerB, pct: m.scoreB }); });
+                res.sort((a,b) => b.pct - a.pct);
+                appState.tournament.r8f2_standings = res;
+                appState.tournament.semis_pool.push(res[0].player); // Rank 1 lolos
+                appState.currentStage = 'R8_F2_TIE';
+            }
+            else if (stg === 'R8_F2_TIE') {
+                appState.tournament.semis_pool.push(getW(appState.matches[0]));
+                appState.currentStage = 'SEMIS';
+            }
+            else if (stg === 'SEMIS') { appState.currentStage = 'FINALS'; } 
+            else if (stg === 'FINALS') { finishSeasonAndArchive(); return; }
+
+            generateMatchesForCurrentStage(); saveStateToStorage(); renderMatchList();
+            if (stg.startsWith('MD')) renderStandings(); renderBracket(); switchTab('tabMatch'); window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderMatchList() {
+            const container = document.getElementById('matchListGrid');
+            container.innerHTML = '';
+            appState.matches.forEach((m, idx) => {
+                const card = document.createElement('div');
+                card.className = "glass-card rounded-2xl p-4 sm:p-5 border border-white/10 space-y-3 relative flex flex-col";
+                
+                let teamAHTML = "", teamBHTML = "";
+                if (m.type === 'LEAGUE_2V2') {
+                    const a1 = getActress(m.teamA[0].id); const a2 = getActress(m.teamA[1].id);
+                    const b1 = getActress(m.teamB[0].id); const b2 = getActress(m.teamB[1].id);
+                    teamAHTML = `<div class="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left"><div class="flex -space-x-3"><img src="${getSafeAvatar(a1.avatar,a1.name)}" class="w-8 h-8 rounded-full border border-slate-700 object-cover"><img src="${getSafeAvatar(a2.avatar,a2.name)}" class="w-8 h-8 rounded-full border border-slate-700 object-cover"></div><span class="font-bold text-xs text-white leading-tight">${a1.name}<br>& ${a2.name}</span></div>`;
+                    teamBHTML = `<div class="flex flex-col sm:flex-row-reverse items-center gap-2 text-center sm:text-right"><div class="flex -space-x-3"><img src="${getSafeAvatar(b1.avatar,b1.name)}" class="w-8 h-8 rounded-full border border-slate-700 object-cover"><img src="${getSafeAvatar(b2.avatar,b2.name)}" class="w-8 h-8 rounded-full border border-slate-700 object-cover"></div><span class="font-bold text-xs text-white leading-tight">${b1.name}<br>& ${b2.name}</span></div>`;
+                } else {
+                    const pA = getActress(m.playerA.id); const pB = getActress(m.playerB.id);
+                    teamAHTML = `<div class="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left"><img src="${getSafeAvatar(pA.avatar,pA.name)}" class="w-10 h-10 rounded-full border border-white/20 object-cover"><div class="font-bold text-sm text-white">${pA.name}</div></div>`;
+                    teamBHTML = `<div class="flex flex-col sm:flex-row-reverse items-center gap-2 text-center sm:text-right"><img src="${getSafeAvatar(pB.avatar,pB.name)}" class="w-10 h-10 rounded-full border border-white/20 object-cover"><div class="font-bold text-sm text-white">${pB.name}</div></div>`;
+                }
+
+                let sADisp = '-', sBDisp = '-';
+                if (m.completed) { sADisp = m.scoreA + (m.type.startsWith('BO') && m.type !== 'BO1' ? '' : '%'); sBDisp = m.scoreB + (m.type.startsWith('BO') && m.type !== 'BO1' ? '' : '%'); }
+
+                let seriesHTML = '';
+                if (m.completed && m.seriesDetails) {
+                    seriesHTML = `<div class="flex flex-wrap gap-1.5 mt-2 justify-center">`;
+                    m.seriesDetails.forEach((rd, i) => {
+                        let winA = rd.sA > rd.sB;
+                        seriesHTML += `<span class="px-2 py-0.5 rounded bg-slate-900 border ${winA ? 'border-purple-500/50 text-purple-300' : 'border-pink-500/50 text-pink-300'} text-[10px] font-bold">R${i+1}: ${rd.sA}%-${rd.sB}%</span>`;
+                    });
+                    seriesHTML += `</div>`;
+                }
+
+                let barW_A = 50, barW_B = 50;
+                if(m.completed) {
+                    if (m.type.startsWith('BO') && m.type !== 'BO1') { let total = m.scoreA + m.scoreB; barW_A = total > 0 ? (m.scoreA / total) * 100 : 50; } else { barW_A = m.scoreA; }
+                    barW_B = 100 - barW_A;
+                }
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between text-xs text-slate-400 font-bold border-b border-white/10 pb-2">
+                        <span>${m.title || `Laga #${idx + 1}`}</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[10px]">${m.type.replace('_', ' ')}</span>
+                    </div>
+                    <div class="grid grid-cols-5 items-center gap-2 my-2 flex-1">
+                        <div class="col-span-2">${teamAHTML}</div>
+                        <div class="text-center">
+                            <div class="font-black text-lg sm:text-xl text-amber-400 drop-shadow-md">${sADisp} - ${sBDisp}</div>
+                            ${m.type.startsWith('BO') && m.type !== 'BO1' ? `<div class="text-[9px] text-slate-400 mt-1 uppercase tracking-widest">Wins</div>` : ''}
+                        </div>
+                        <div class="col-span-2">${teamBHTML}</div>
+                    </div>
+                    ${seriesHTML}
+                    ${m.completed && !m.seriesDetails ? `<div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden flex mb-2 shadow-inner"><div class="progress-bar bg-gradient-to-r from-purple-500 to-pink-500 h-full" style="width: ${barW_A}%"></div><div class="progress-bar bg-cyan-500 h-full" style="width: ${barW_B}%"></div></div>` : '<div class="mb-2"></div>'}
+                    <div class="p-3 rounded-xl bg-slate-900/60 border border-white/10 text-[11px] text-slate-300 flex items-start gap-2 shadow-inner">
+                        <i class="fa-solid fa-comment-dots text-purple-400 text-sm mt-0.5"></i>
+                        <span class="leading-relaxed font-medium">${m.commentary}</span>
+                    </div>
+                    <div class="flex items-center justify-end gap-2 pt-1 mt-auto">
+                        <button onclick="openScoreModal(${idx})" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300 text-xs font-semibold transition"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                        <button onclick="simSingleMatch(${idx})" ${m.completed ? 'disabled class="opacity-40 cursor-not-allowed px-3 py-1.5 rounded-xl bg-slate-800 text-slate-400 text-xs"' : 'class="px-3 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs shadow-md shadow-purple-600/30 transition"'}>${m.completed ? 'Selesai' : 'Simulasi'}</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function openScoreModal(index) {
+            const m = appState.matches[index]; document.getElementById('modalMatchIndex').value = index;
+            document.getElementById('teamANames').innerText = m.type === 'LEAGUE_2V2' ? `${m.teamA[0].name} & ${m.teamA[1].name}` : m.playerA.name;
+            document.getElementById('teamBNames').innerText = m.type === 'LEAGUE_2V2' ? `${m.teamB[0].name} & ${m.teamB[1].name}` : m.playerB.name;
+            const currentVal = m.scoreA !== null ? m.scoreA : (m.type.startsWith('BO') && m.type !== 'BO1' ? 0 : 50);
+            const rng = document.getElementById('scoreRange');
+            if (m.type === 'BO3') rng.max = 3; else if (m.type === 'BO5') rng.max = 5; else rng.max = 100;
+            rng.value = currentVal; updateScoreRangeDisplay(currentVal); document.getElementById('scoreModal').classList.remove('hidden');
+        }
+        function closeScoreModal() { document.getElementById('scoreModal').classList.add('hidden'); }
+        function updateScoreRangeDisplay(val) {
+            const idx = document.getElementById('modalMatchIndex').value; if(!idx) return; const m = appState.matches[idx];
+            document.getElementById('teamAScoreDisplay').innerText = val;
+            if (m.type.startsWith('BO') && m.type !== 'BO1') document.getElementById('teamBScoreDisplay').innerText = "(Edit Wins A)";
+            else document.getElementById('teamBScoreDisplay').innerText = (100 - val);
+        }
+        function saveManualScore(e) {
+            e.preventDefault(); const idx = parseInt(document.getElementById('modalMatchIndex').value);
+            const scoreA = parseInt(document.getElementById('scoreRange').value); const m = appState.matches[idx];
+            let scoreB = 0;
+            if (m.type.startsWith('BO') && m.type !== 'BO1') { let req = m.type === 'BO5' ? 3 : 2; scoreB = scoreA === req ? 0 : req; m.seriesDetails = null; } 
+            else { scoreB = 100 - scoreA; }
+            applyMatchResults(m, scoreA, scoreB); closeScoreModal(); renderMatchList(); if(appState.currentStage.startsWith('MD')) renderStandings(); renderBracket();
+        }
+
+        // RENDER BRACKET NODE
+        function renderBracketNode(player, score, isWinner) {
+            if(!player) return `<div class="p-2 rounded-xl bg-slate-900/30 text-slate-500 border border-slate-800 text-[10px] text-center">TBD</div>`;
+            const bgClass = isWinner ? 'bg-emerald-900/40 border-emerald-500/30' : 'bg-slate-900/60 border-slate-700/50';
+            const textClass = isWinner ? 'text-white' : 'text-slate-400';
+            return `
+                <div class="p-1.5 sm:p-2 rounded-xl ${bgClass} border flex items-center justify-between gap-1 transition-all">
+                    <div class="flex items-center gap-1.5 overflow-hidden">
+                        <img src="${getSafeAvatar(player.avatar, player.name)}" class="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover border border-white/10 flex-shrink-0">
+                        <span class="font-bold text-[9px] sm:text-[10px] ${textClass} truncate">${player.name}</span>
+                    </div>
+                    <span class="font-black text-[10px] sm:text-xs ${isWinner ? 'text-emerald-400' : 'text-slate-500'}">${score !== null ? score : '-'}</span>
+                </div>
+            `;
+        }
+
+        function drawMatches(containerId, matchIds) {
+            const container = document.getElementById(containerId);
+            if(!container) return; container.innerHTML = '';
+            let matchesFound = appState.matches.filter(m => matchIds.includes(m.id));
+            if(matchesFound.length === 0) { container.innerHTML = `<div class="p-2 rounded-xl bg-slate-900/50 text-slate-500 italic text-center text-[10px]">Menunggu...</div>`; return; }
+            matchesFound.forEach(m => {
+                const wrap = document.createElement('div'); wrap.className = "p-2 rounded-xl bg-slate-950/40 border border-white/5 space-y-1.5 shadow-inner";
+                wrap.innerHTML = `${renderBracketNode(m.playerA, m.scoreA, m.completed && m.scoreA > m.scoreB)}${renderBracketNode(m.playerB, m.scoreB, m.completed && m.scoreB > m.scoreA)}`;
+                container.appendChild(wrap);
+            });
+        }
+
+        function renderBracket() {
+            const stg = appState.currentStage;
+            if (!stg.startsWith('MD')) {
+                drawMatches('bracketPlayoffList', ['P1', 'P2', 'P3', 'P4']);
+                drawMatches('bracketR16List', ['R16_1', 'R16_2', 'R16_3', 'R16_4', 'R16_5', 'R16_6', 'R16_7', 'R16_8']);
+                drawMatches('bracketSemisList', ['SF_1', 'SF_2']);
+                drawMatches('bracketFinalsList', ['FIN', '3RD']);
+
+                // 8 Besar Mini League Dynamic Render
+                const r8 = document.getElementById('bracketR8List');
+                if (stg.startsWith('R8') || stg === 'SEMIS' || stg === 'FINALS') {
+                    let html = '';
+                    // F1
+                    html += `<div class="glass-card p-3 border border-cyan-500/30 rounded-xl bg-cyan-950/20"><div class="text-[11px] font-bold text-cyan-300 mb-2 text-center border-b border-white/10 pb-1">Klasemen Fase 1 (1 Laga)</div><div class="space-y-1">`;
+                    if (appState.tournament.r8f1_standings) {
+                        appState.tournament.r8f1_standings.forEach((s, i) => { html += `<div class="flex justify-between text-[10px] ${i===0?'text-emerald-400 font-bold':'text-slate-300'}"><span>${i+1}. ${s.player.name}</span><span>${s.pct}%</span></div>`; });
+                    } else { html += `<div class="text-[10px] text-slate-500 italic text-center">Fase 1 sedang berlangsung...</div>`; }
+                    html += `</div></div>`;
+                    
+                    // F2
+                    html += `<div class="glass-card p-3 border border-pink-500/30 rounded-xl bg-pink-950/20"><div class="text-[11px] font-bold text-pink-300 mb-2 text-center border-b border-white/10 pb-1">Klasemen Fase 2 (1 Laga)</div><div class="space-y-1">`;
+                    if (appState.tournament.r8f2_standings) {
+                        appState.tournament.r8f2_standings.forEach((s, i) => { html += `<div class="flex justify-between text-[10px] ${i===0?'text-emerald-400 font-bold':'text-slate-300'}"><span>${i+1}. ${s.player.name}</span><span>${s.pct}%</span></div>`; });
+                    } else { html += `<div class="text-[10px] text-slate-500 italic text-center">Menunggu Fase 2...</div>`; }
+                    html += `</div></div>`;
+                    r8.innerHTML = html;
+                }
+            }
+        }
+
+        // HALL OF FAME
+        function renderHallOfFame() {
+            const container = document.getElementById('hallOfFameContainer'); container.innerHTML = '';
+            if (appState.hallOfFame.length === 0) {
+                container.innerHTML = `<div class="p-10 rounded-3xl bg-slate-900/50 text-center space-y-4 border border-white/10 shadow-inner"><div class="w-20 h-20 mx-auto rounded-full bg-slate-800 flex items-center justify-center border border-white/5"><i class="fa-solid fa-trophy text-4xl text-amber-500/30"></i></div><h4 class="font-bold text-white text-lg">Musim Sedang Berlangsung</h4><p class="text-sm text-slate-400 max-w-md mx-auto leading-relaxed">Selesaikan seluruh pertandingan hingga Grand Final untuk mengabadikan juara!</p></div>`; return;
+            }
+            appState.hallOfFame.forEach(item => {
+                const entry = document.createElement('div');
+                entry.className = "glass-card rounded-3xl p-5 sm:p-6 border border-amber-500/20 space-y-5 bg-gradient-to-br from-indigo-950/40 via-slate-900/60 to-purple-950/40 relative overflow-hidden";
+                entry.innerHTML = `
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-bl-full blur-2xl"></div>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 pb-4 relative z-10 gap-3">
+                        <span class="font-black text-lg sm:text-xl text-amber-400 font-display flex items-center gap-2"><i class="fa-solid fa-crown"></i> SEASON ${item.season}</span>
+                        <span class="text-[10px] sm:text-xs font-bold text-pink-300 px-3 py-1.5 rounded-xl bg-pink-500/10 border border-pink-500/20 w-fit">${item.leagueTitle} x ${item.majorSponsor}</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 relative z-10">
+                        <div class="p-4 rounded-2xl bg-gradient-to-b from-amber-500/20 to-amber-900/10 border border-amber-500/30 flex flex-row sm:flex-col items-center sm:text-center gap-4 shadow-lg shadow-amber-500/10 order-1 sm:order-2 transform sm:-translate-y-2">
+                            <img src="${getSafeAvatar(item.champion.avatar, item.champion.name)}" class="w-14 h-14 sm:w-20 sm:h-20 rounded-full object-cover avatar-ring-gold">
+                            <div><div class="text-[10px] text-amber-400 font-black tracking-widest uppercase mb-1">JUARA 1</div><div class="font-extrabold text-sm sm:text-base text-white">${item.champion.name}</div></div>
+                        </div>
+                        <div class="p-3 rounded-2xl bg-slate-800/60 border border-slate-500/30 flex flex-row sm:flex-col items-center sm:text-center gap-3 order-2 sm:order-1">
+                            <img src="${getSafeAvatar(item.runnerUp.avatar, item.runnerUp.name)}" class="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover avatar-ring-silver">
+                            <div><div class="text-[9px] text-slate-300 font-black tracking-widest uppercase mb-1">JUARA 2</div><div class="font-bold text-xs sm:text-sm text-white">${item.runnerUp.name}</div></div>
+                        </div>
+                        <div class="p-3 rounded-2xl bg-amber-950/30 border border-amber-700/30 flex flex-row sm:flex-col items-center sm:text-center gap-3 order-3">
+                            <img src="${getSafeAvatar(item.thirdPlace.avatar, item.thirdPlace.name)}" class="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover avatar-ring-bronze">
+                            <div><div class="text-[9px] text-amber-600 font-black tracking-widest uppercase mb-1">JUARA 3</div><div class="font-bold text-xs sm:text-sm text-white">${item.thirdPlace.name}</div></div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(entry);
+            });
+        }
+
+        // CUSTOMIZER
+        function renderCustomizer() {
+            const container = document.getElementById('customizerContainer'); container.innerHTML = '';
+            appState.actresses.forEach((actress, i) => {
+                const item = document.createElement('div');
+                item.className = "glass-card rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 border border-white/10";
+                item.innerHTML = `
+                    <div class="flex items-center gap-4 w-full md:w-auto">
+                        <span class="font-bold text-slate-500 text-sm w-6 text-center">${i + 1}</span>
+                        <img id="customizer-preview-${actress.id}" src="${getSafeAvatar(actress.avatar, actress.name)}" class="w-12 h-12 rounded-full object-cover border border-white/20 flex-shrink-0">
+                        <input type="text" value="${actress.name}" onchange="updateActressName(${actress.id}, this.value)" class="glass-input px-4 py-2 rounded-xl text-sm font-bold text-white w-full md:w-48" placeholder="Nama Aktris">
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+                        <div class="flex items-center gap-2 w-full sm:w-auto">
+                            <i class="fa-solid fa-link text-slate-500 text-xs"></i>
+                            <div class="flex items-center gap-2 w-full sm:w-auto">
+                                <input type="text" id="avatar-input-${actress.id}" value="${actress.avatar}" oninput="previewAvatarInputChange(${actress.id}, this.value, '${actress.name.replace(/'/g, "\\'")}')" class="glass-input px-3 py-2 rounded-xl text-xs font-mono text-purple-300 w-full sm:w-60" placeholder="https:// (Link Foto)">
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center gap-1.5" title="Rating"><i class="fa-solid fa-star text-amber-400 text-xs"></i><input type="number" value="${actress.rating || 85}" min="50" max="99" onchange="updateActressRating(${actress.id}, this.value)" class="glass-input px-2 py-1.5 rounded-lg text-sm font-bold text-amber-300 w-14 text-center"></div>
+                            <div class="flex items-center gap-1.5" title="Modal Poin"><i class="fa-solid fa-coins text-purple-400 text-xs"></i><input type="number" value="${actress.initialPoints}" min="0" max="10" onchange="updateActressPoints(${actress.id}, this.value)" class="glass-input px-2 py-1.5 rounded-lg text-sm font-bold text-purple-300 w-12 text-center"></div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+        function previewAvatarInputChange(id, val, name) { const p = document.getElementById(`customizer-preview-${id}`); if(p) p.src = getSafeAvatar(val.trim(), name); }
+        function saveAllCustomizerChanges() {
+            appState.actresses.forEach(a => { const input = document.getElementById(`avatar-input-${a.id}`); if(input) a.avatar = input.value.trim(); });
+            appState.matches.forEach(m => {
+                if (m.type === 'LEAGUE_2V2') { m.teamA.forEach(a => { const act = getActress(a.id); a.avatar = act.avatar; }); m.teamB.forEach(b => { const act = getActress(b.id); b.avatar = act.avatar; }); } 
+                else { if (m.playerA) m.playerA.avatar = getActress(m.playerA.id).avatar; if (m.playerB) m.playerB.avatar = getActress(m.playerB.id).avatar; }
+            });
+            saveStateToStorage(); renderStandings(); renderMatchList(); renderBracket(); showToast("Semua data disimpan!");
+        }
+        function updateActressName(id, val) { const t = appState.actresses.find(a => a.id === id); if(t && val.trim()) { t.name = val.trim(); saveStateToStorage(); renderStandings(); } }
+        function updateActressRating(id, val) { const t = appState.actresses.find(a => a.id === id); if(t) { t.rating = Math.max(50, Math.min(99, parseInt(val)||85)); saveStateToStorage(); } }
+        function updateActressPoints(id, val) { const t = appState.actresses.find(a => a.id === id); if(t) { t.initialPoints = parseInt(val)||0; t.points = t.initialPoints; saveStateToStorage(); renderStandings(); } }
+        function resetSeason() {
+            if(confirm("Yakin mereset seluruh data?")) {
+                localStorage.removeItem('k_actress_league_state_v4');
+                appState.actresses = JSON.parse(JSON.stringify(DEFAULT_ACTRESSES));
+                appState.currentStage = 'MD1'; appState.seasonNumber = 1; appState.hallOfFame = [];
+                appState.tournament = { playoffW: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [] };
+                saveStateToStorage(); generateMatchesForCurrentStage(); renderStandings(); renderCustomizer(); renderSponsorsUI(); renderBracket(); renderHallOfFame(); switchTab('tabKlasemen'); showToast("Reset berhasil!");
+            }
+        }
+        function finishSeasonAndArchive() {
+            const fMatch = appState.matches.find(m => m.id === 'FIN'); const thMatch = appState.matches.find(m => m.id === '3RD');
+            const champ = fMatch.scoreA > fMatch.scoreB ? fMatch.playerA : fMatch.playerB;
+            const runUp = fMatch.scoreA > fMatch.scoreB ? fMatch.playerB : fMatch.playerA;
+            const third = thMatch.scoreA > thMatch.scoreB ? thMatch.playerA : thMatch.playerB;
+            appState.hallOfFame.unshift({ season: appState.seasonNumber, leagueTitle: appState.sponsors.leagueTitle, majorSponsor: appState.sponsors.major, champion: { name: champ.name, avatar: champ.avatar }, runnerUp: { name: runUp.name, avatar: runUp.avatar }, thirdPlace: { name: third.name, avatar: third.avatar } });
+            alertModal("🏆 Musim Selesai!", `Selamat! ${champ.name} keluar sebagai Juara!\nHasil telah diarsipkan ke Hall of Fame.`);
+            appState.seasonNumber += 1; appState.currentStage = 'MD1'; appState.tournament = { playoffW: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [] };
+            appState.actresses.forEach(a => { a.matchesPlayed = 0; a.totalPercentage = 0; if (a.id === champ.id) a.initialPoints = 3; else if (a.id === runUp.id) a.initialPoints = 2; else if (a.id === third.id) a.initialPoints = 1; else a.initialPoints = 0; a.points = a.initialPoints; });
+            saveStateToStorage(); generateMatchesForCurrentStage(); renderSponsorsUI(); renderStandings(); renderHallOfFame(); renderBracket(); switchTab('tabHallOfFame');
+        }
+
+        window.onload = function() { loadStateFromStorage(); renderSponsorsUI(); if(appState.matches.length === 0) generateMatchesForCurrentStage(); renderStandings(); renderMatchList(); renderBracket(); renderHallOfFame(); };
+    </script>
+</body>
+</html>
