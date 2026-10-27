@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>K-ACTRESS LEAGUE MANAGER</title>
+    <title>K-ACTRESS LEAGUE©</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -154,7 +154,7 @@
                     </div>
                     <div class="flex items-center gap-2.5 w-full md:w-auto justify-end">
                         <button onclick="simCurrentStage()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 text-white font-bold text-sm shadow-lg flex-1 sm:flex-none"><i class="fa-solid fa-bolt text-amber-300"></i> Simulasi Tahap</button>
-                        <button onclick="advanceToNextStage()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg flex-1 sm:flex-none">Lanjut Tahap <i class="fa-solid fa-arrow-right"></i></button>
+                        <button id="btnAdvanceStage" onclick="advanceToNextStage()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg flex-1 sm:flex-none">Lanjut Tahap <i class="fa-solid fa-arrow-right"></i></button>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="matchListGrid"></div>
@@ -491,7 +491,18 @@
             const stage = appState.currentStage;
             const stageLabel = document.getElementById('currentStageLabel');
             const stageTitle = document.getElementById('currentMatchdayTitle');
+            const btnAdvance = document.getElementById('btnAdvanceStage');
             appState.matches = [];
+
+            if (btnAdvance) {
+                if (stage === 'FINALS') {
+                    btnAdvance.innerHTML = `<i class="fa-solid fa-flag-checkered mr-1"></i> Selesai Musim`;
+                    btnAdvance.className = "px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm shadow-lg flex-1 sm:flex-none";
+                } else {
+                    btnAdvance.innerHTML = `Lanjut Tahap <i class="fa-solid fa-arrow-right"></i>`;
+                    btnAdvance.className = "px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg flex-1 sm:flex-none";
+                }
+            }
 
             if (stage.startsWith('MD')) {
                 const mdNum = parseInt(stage.replace('MD', ''));
@@ -699,6 +710,61 @@
             if (stg.startsWith('MD')) renderStandings(); renderBracket(); switchTab('tabMatch'); window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        function finishSeasonAndArchive() {
+            if (appState.matches.filter(m => !m.completed).length > 0) { alertModal("Peringatan", "Selesaikan simulasi pertandingan Final terlebih dahulu!"); return; }
+
+            const match3rd = appState.matches.find(m => m.id === '3RD');
+            const matchFin = appState.matches.find(m => m.id === 'FIN');
+
+            const champion = matchFin.scoreA > matchFin.scoreB ? matchFin.playerA : matchFin.playerB;
+            const runnerUp = matchFin.scoreA > matchFin.scoreB ? matchFin.playerB : matchFin.playerA;
+            const thirdPlace = match3rd.scoreA > match3rd.scoreB ? match3rd.playerA : match3rd.playerB;
+
+            const sortedByPct = [...appState.actresses].sort((a,b) => b.totalPercentage - a.totalPercentage);
+            const fanTersolid = sortedByPct[0];
+            const topTierPoin = getSortedStandings()[0]; 
+
+            appState.hallOfFame.unshift({
+                season: appState.seasonNumber,
+                leagueTitle: appState.sponsors.leagueTitle,
+                majorSponsor: appState.sponsors.major,
+                champion: { name: champion.name, avatar: champion.avatar },
+                runnerUp: { name: runnerUp.name, avatar: runnerUp.avatar },
+                thirdPlace: { name: thirdPlace.name, avatar: thirdPlace.avatar },
+                awards: {
+                    fanTersolid: fanTersolid.name,
+                    topPoin: topTierPoin.name
+                }
+            });
+
+            const prevSeason = appState.seasonNumber;
+            appState.seasonNumber++;
+            appState.currentStage = 'MD1';
+            appState.tournament = { playoffW: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [], finals_players: null };
+            
+            appState.actresses.forEach(a => {
+                a.matchesPlayed = 0;
+                a.totalPercentage = 0;
+                if (a.id === champion.id) a.initialPoints = 3;
+                else if (a.id === runnerUp.id) a.initialPoints = 2;
+                else if (a.id === thirdPlace.id) a.initialPoints = 1;
+                else a.initialPoints = 0;
+                a.points = a.initialPoints;
+            });
+
+            saveStateToStorage();
+            generateMatchesForCurrentStage();
+            renderSponsorsUI();
+            renderStandings();
+            renderMatchList();
+            renderBracket();
+            renderHallOfFame();
+            
+            alertModal("🏆 MUSIM SELESAI!", `Selamat! ${champion.name} keluar sebagai Juara Utama Season ${prevSeason}!\n\nData telah diarsipkan di Hall of Fame. Privilese juara (Poin Modal) telah dibagikan dan Season ${appState.seasonNumber} resmi dimulai!`);
+            switchTab('tabHallOfFame');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         function renderMatchList() {
             const container = document.getElementById('matchListGrid');
             container.innerHTML = '';
@@ -829,7 +895,7 @@
         function renderHallOfFame() {
             const container = document.getElementById('hallOfFameContainer'); container.innerHTML = '';
             if (appState.hallOfFame.length === 0) {
-                container.innerHTML = `<div class="p-10 rounded-3xl bg-slate-900/50 text-center space-y-4 border border-white/10 shadow-inner"><div class="w-20 h-20 mx-auto rounded-full bg-slate-800 flex items-center justify-center border border-white/5"><i class="fa-solid fa-trophy text-4xl text-amber-500/30"></i></div><h4 class="font-bold text-white text-lg">Musim Sedang Berlangsung</h4><p class="text-sm text-slate-400 max-w-md mx-auto leading-relaxed">Selesaikan seluruh pertandingan hingga Grand Final untuk mengabadikan juara!</p></div>`; return;
+                container.innerHTML = `<div class="p-10 rounded-3xl bg-slate-900/50 text-center space-y-4 border border-white/10 shadow-inner"><div class="w-20 h-20 mx-auto rounded-full bg-slate-800 flex items-center justify-center border border-white/5"><i class="fa-solid fa-trophy text-4xl text-amber-500/30"></i></div><h4 class="font-bold text-white text-lg">Belum Ada Sejarah Juara</h4><p class="text-sm text-slate-400 max-w-md mx-auto leading-relaxed">Selesaikan seluruh pertandingan hingga Grand Final untuk mengabadikan pemenang di Hall of Fame!</p></div>`; return;
             }
             appState.hallOfFame.forEach(item => {
                 const entry = document.createElement('div');
@@ -854,6 +920,24 @@
                             <div><div class="text-[9px] text-amber-600 font-black tracking-widest uppercase mb-1">JUARA 3</div><div class="font-bold text-xs sm:text-sm text-white">${item.thirdPlace.name}</div></div>
                         </div>
                     </div>
+                    ${item.awards ? `
+                    <div class="mt-4 pt-4 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-3 relative z-10">
+                        <div class="p-3 bg-slate-900/50 rounded-xl border border-white/5 flex items-center gap-3 shadow-inner">
+                            <div class="w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center border border-pink-500/30"><i class="fa-solid fa-fire text-pink-400"></i></div>
+                            <div>
+                                <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Persentase Fan Tersolid</div>
+                                <div class="text-sm font-bold text-white">${item.awards.fanTersolid}</div>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-slate-900/50 rounded-xl border border-white/5 flex items-center gap-3 shadow-inner">
+                            <div class="w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center border border-cyan-500/30"><i class="fa-solid fa-coins text-cyan-400"></i></div>
+                            <div>
+                                <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Top Tier Poin Liga</div>
+                                <div class="text-sm font-bold text-white">${item.awards.topPoin}</div>
+                            </div>
+                        </div>
+                    </div>
+                    ` : ''}
                 `;
                 container.appendChild(entry);
             });
