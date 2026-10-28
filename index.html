@@ -156,7 +156,7 @@
             <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
                 <div class="flex items-center gap-2 overflow-hidden text-[11px] sm:text-xs">
                     <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30 flex-shrink-0">NATURAL RULES</span>
-                    <span class="truncate" id="eventText">Menang +3 Pts | Telak (≥65%) +4 Pts | Seri Tepat (50%-50%) +1 Pt Masing-masing. (MD1-MD3: 2v2, MD4-MD8: Solo)</span>
+                    <span class="truncate" id="eventText">Menang +3 Pts | Telak (≥65%) +4 Pts | Seri Tepat (50%-50%) +1 Pt Masing-masing. (MD1-MD4: 2v2, MD5-MD9: Solo)</span>
                 </div>
                 <button onclick="toggleEventRulesModal()" class="text-indigo-300 hover:text-white underline text-[10px] font-bold"><i class="fa-solid fa-book-open mr-1"></i>Format Liga</button>
             </div>
@@ -293,11 +293,11 @@
                 </div>
                 <div class="p-4 rounded-xl bg-slate-900/60 shadow-inner text-xs space-y-1.5">
                     <div class="font-bold text-purple-300 mb-2">Fase & Babak Gugur (Klasik)</div>
-                    <p><b>Liga (MD1-MD3):</b> 2v2. <b>(MD4-MD8):</b> Solo 1v1.</p>
-                    <p><b>16 Besar:</b> Best of 3 (BO3).</p>
-                    <p><b>8 Besar (Fase 1):</b> 4 Laga. Rank 1 lolos Semifinal. Rank 2 vs 3 berebut tiket Semifinal 2. Rank sisa turun ke Fase 2.</p>
-                    <p><b>8 Besar (Fase 2):</b> Sisa 6 Aktris (3 Laga). Rank 1 lolos. Rank 2 vs 3 berebut tiket Semifinal 4. Sisanya gugur.</p>
-                    <p><b>Semifinal / Juara 3:</b> Best of 3. <b>Grand Final:</b> Best of 5.</p>
+                    <p><b>Liga (MD1-MD4):</b> 2v2. <b>(MD5-MD9):</b> Solo 1v1.</p>
+                    <p><b>16 Besar:</b> Top 1-12 Lolos Otomatis.</p>
+                    <p><b>Playoff 1:</b> Rank 13-16 (1v1). 2 Menang lolos 16 Besar. 2 Kalah turun ke Playoff 2.</p>
+                    <p><b>Playoff 2:</b> 2 Kalah Playoff 1 + Rank 17-22 (Mini Liga). Top 2 % lolos 16 Besar.</p>
+                    <p><b>8 Besar & Semifinal:</b> Mini Liga F1 & F2 berlanjut ke Semifinal (BO3) dan Final (BO5).</p>
                 </div>
             </div>
             <div class="text-right"><button onclick="toggleEventRulesModal()" class="px-6 py-2 rounded-xl bg-purple-600 text-white font-bold text-sm">Paham</button></div>
@@ -321,7 +321,7 @@
 
     <!-- JAVASCRIPT -->
     <script>
-        // DATA 32 ACTRESSES (Updated URLs & Expanded Size)
+        // DATA 36 ACTRESSES (Updated URLs & Expanded Size)
         const DEFAULT_ACTRESSES = [
             { id: 1, name: "Kim Ji-won", avatar: "https://i.mydramalist.com/KpY0kR_5c.jpg", rating: 96, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
             { id: 2, name: "IU", avatar: "https://i.mydramalist.com/73R8zn_5c.jpg", rating: 95, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
@@ -354,7 +354,11 @@
             { id: 29, name: "Park Shin-Hye", avatar: "https://i.mydramalist.com/Q3Nz7_5c.jpg", rating: 88, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
             { id: 30, name: "Kim Hye-Jun", avatar: "https://i.mydramalist.com/YYJDeP_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
             { id: 31, name: "Park Gyu Young", avatar: "https://i.mydramalist.com/oQBr6N_5c.jpg", rating: 86, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 32, name: "Kim Min-Ju", avatar: "https://i.mydramalist.com/l0nvob_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 }
+            { id: 32, name: "Kim Min-Ju", avatar: "https://i.mydramalist.com/l0nvob_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 33, name: "Kang Min na", avatar: "https://i.mydramalist.com/3onw7e_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 34, name: "Lee Hyeri", avatar: "https://i.mydramalist.com/EbVK0_5c.jpg", rating: 86, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 35, name: "Son Na Eun", avatar: "https://i.mydramalist.com/eZenK_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+            { id: 36, name: "Kim Ji Yeon", avatar: "https://i.mydramalist.com/pmorQ_5c.jpg", rating: 86, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 }
         ];
 
         let appState = {
@@ -364,7 +368,7 @@
             currentStage: 'MD1',
             matches: [],
             hallOfFame: [],
-            tournament: { playoffW: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [], finals_players: null, bestDuoMargin: 0, bestDuo: '' }
+            tournament: { playoff1W: [], playoff1L: [], playoff2W: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [], finals_players: null, bestDuoMargin: 0, bestDuo: '' }
         };
 
         // COMMENTARY BANKS (Diperbanyak dan lebih bervariasi)
@@ -425,16 +429,16 @@
 
         function loadStateFromStorage() {
             try {
-                const saved = localStorage.getItem('k_actress_league_state_v8');
+                const saved = localStorage.getItem('k_actress_league_state_v9');
                 if (saved) {
                     const parsed = JSON.parse(saved);
                     if (parsed && parsed.actresses) appState = parsed;
-                    if (!appState.tournament) appState.tournament = { playoffW: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [], finals_players: null };
+                    if (!appState.tournament) appState.tournament = { playoff1W: [], playoff1L: [], playoff2W: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [], finals_players: null };
                     if (!appState.sponsors.majorLogo) appState.sponsors.majorLogo = 'https://ui-avatars.com/api/?name=Dior&background=EC4899&color=fff';
                 }
             } catch(e) { console.error("Load data error:", e); }
         }
-        function saveStateToStorage() { localStorage.setItem('k_actress_league_state_v8', JSON.stringify(appState)); }
+        function saveStateToStorage() { localStorage.setItem('k_actress_league_state_v9', JSON.stringify(appState)); }
 
         function showToast(message) {
             const toast = document.createElement('div');
@@ -540,7 +544,8 @@
                 else if (rank === 2) { bgClass = 'bg-shine-silver'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-slate-400/20 text-slate-300 border border-slate-400/30 font-bold text-[10px]">Rank 2</span>`; }
                 else if (rank === 3) { bgClass = 'bg-shine-bronze'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-amber-700/20 text-amber-500 border border-amber-700/30 font-bold text-[10px]">Rank 3</span>`; }
                 else if (rank <= 12) { bgClass = 'bg-safe'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold text-[10px]">Aman 16</span>`; }
-                else if (rank <= 20) { bgClass = 'bg-playoff'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold text-[10px]">Playoff</span>`; }
+                else if (rank <= 16) { bgClass = 'bg-playoff'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold text-[10px]">Playoff F1</span>`; }
+                else if (rank <= 22) { bgClass = 'bg-playoff'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold text-[10px]">Playoff F2</span>`; }
                 else { bgClass = 'bg-danger'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/30 font-bold text-[10px]">Gugur</span>`; }
 
                 const row = document.createElement('div');
@@ -595,37 +600,49 @@
             if (stage.startsWith('MD')) {
                 const mdNum = parseInt(stage.replace('MD', ''));
                 stageLabel.innerText = "FASE LIGA";
-                stageTitle.innerText = `Matchday ${mdNum} (${mdNum <= 3 ? 'Mode 2 vs 2' : 'Mode Solo 1 vs 1'})`;
+                stageTitle.innerText = `Matchday ${mdNum} (${mdNum <= 4 ? 'Mode 2 vs 2' : 'Mode Solo 1 vs 1'})`;
                 
-                const pool = [...appState.actresses].sort((a, b) => (a.id * mdNum * 7) % 33 - (b.id * mdNum * 7) % 33);
-                if (mdNum <= 3) {
-                    for (let i = 0; i < 32; i += 4) {
+                const pool = [...appState.actresses].sort((a, b) => (a.id * mdNum * 7) % 37 - (b.id * mdNum * 7) % 37);
+                if (mdNum <= 4) {
+                    for (let i = 0; i < 36; i += 4) {
                         appState.matches.push({ id: `MD${mdNum}_M${(i/4)+1}`, type: 'LEAGUE_2V2', teamA: [pool[i], pool[i+1]], teamB: [pool[i+2], pool[i+3]], scoreA: null, scoreB: null, completed: false });
                     }
                 } else {
-                    for (let i = 0; i < 32; i += 2) {
+                    for (let i = 0; i < 36; i += 2) {
                         appState.matches.push({ id: `MD${mdNum}_M${(i/2)+1}`, type: 'LEAGUE_1V1', playerA: pool[i], playerB: pool[i+1], scoreA: null, scoreB: null, completed: false });
                     }
                 }
             } 
-            else if (stage === 'PLAYOFF') {
-                stageLabel.innerText = "FASE GUGUR - BO1"; stageTitle.innerText = "Babak Playoff (Rank 13-20)";
+            else if (stage === 'PLAYOFF_1') {
+                stageLabel.innerText = "FASE GUGUR - BO1"; stageTitle.innerText = "Playoff Fase 1 (Rank 13-16)";
                 const s = getSortedStandings();
                 appState.matches = [
-                    { id: 'P1', type: 'BO1', playerA: s[12], playerB: s[19], scoreA: null, scoreB: null, completed: false },
-                    { id: 'P2', type: 'BO1', playerA: s[13], playerB: s[18], scoreA: null, scoreB: null, completed: false },
-                    { id: 'P3', type: 'BO1', playerA: s[14], playerB: s[17], scoreA: null, scoreB: null, completed: false },
-                    { id: 'P4', type: 'BO1', playerA: s[15], playerB: s[16], scoreA: null, scoreB: null, completed: false }
+                    { id: 'P1_1', type: 'BO1', playerA: s[12], playerB: s[15], scoreA: null, scoreB: null, completed: false },
+                    { id: 'P1_2', type: 'BO1', playerA: s[13], playerB: s[14], scoreA: null, scoreB: null, completed: false }
+                ];
+            }
+            else if (stage === 'PLAYOFF_2') {
+                stageLabel.innerText = "PLAYOFF MINI LIGA"; stageTitle.innerText = "Playoff Fase 2 (Sisa 8 Aktris)";
+                const s = getSortedStandings();
+                const losers = appState.tournament.playoff1L;
+                const p2Pool = [losers[0], losers[1], s[16], s[17], s[18], s[19], s[20], s[21]];
+                appState.matches = [
+                    { id: 'P2_1', type: 'BO1', playerA: p2Pool[0], playerB: p2Pool[7], scoreA: null, scoreB: null, completed: false },
+                    { id: 'P2_2', type: 'BO1', playerA: p2Pool[1], playerB: p2Pool[6], scoreA: null, scoreB: null, completed: false },
+                    { id: 'P2_3', type: 'BO1', playerA: p2Pool[2], playerB: p2Pool[5], scoreA: null, scoreB: null, completed: false },
+                    { id: 'P2_4', type: 'BO1', playerA: p2Pool[3], playerB: p2Pool[4], scoreA: null, scoreB: null, completed: false }
                 ];
             }
             else if (stage === 'R16') {
                 stageLabel.innerText = "FASE GUGUR - BO3"; stageTitle.innerText = "Babak 16 Besar";
-                const s = getSortedStandings(); const pW = appState.tournament.playoffW;
+                const s = getSortedStandings(); 
+                const p1W = appState.tournament.playoff1W; 
+                const p2W = appState.tournament.playoff2W;
                 appState.matches = [
-                    { id: 'R16_1', type: 'BO3', title: '16 Besar', playerA: s[0], playerB: pW[3] || s[19], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
-                    { id: 'R16_2', type: 'BO3', title: '16 Besar', playerA: s[1], playerB: pW[2] || s[18], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
-                    { id: 'R16_3', type: 'BO3', title: '16 Besar', playerA: s[2], playerB: pW[1] || s[17], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
-                    { id: 'R16_4', type: 'BO3', title: '16 Besar', playerA: s[3], playerB: pW[0] || s[16], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
+                    { id: 'R16_1', type: 'BO3', title: '16 Besar', playerA: s[0], playerB: p2W[1] || s[15], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
+                    { id: 'R16_2', type: 'BO3', title: '16 Besar', playerA: s[1], playerB: p2W[0] || s[14], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
+                    { id: 'R16_3', type: 'BO3', title: '16 Besar', playerA: s[2], playerB: p1W[1] || s[13], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
+                    { id: 'R16_4', type: 'BO3', title: '16 Besar', playerA: s[3], playerB: p1W[0] || s[12], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
                     { id: 'R16_5', type: 'BO3', title: '16 Besar', playerA: s[4], playerB: s[11], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
                     { id: 'R16_6', type: 'BO3', title: '16 Besar', playerA: s[5], playerB: s[10], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
                     { id: 'R16_7', type: 'BO3', title: '16 Besar', playerA: s[6], playerB: s[9], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
@@ -784,9 +801,20 @@
             const stg = appState.currentStage;
             if (stg.startsWith('MD')) {
                 const md = parseInt(stg.replace('MD', ''));
-                if (md < 8) appState.currentStage = `MD${md + 1}`; else appState.currentStage = 'PLAYOFF';
+                if (md < 9) appState.currentStage = `MD${md + 1}`; else appState.currentStage = 'PLAYOFF_1';
             } 
-            else if (stg === 'PLAYOFF') { appState.tournament.playoffW = appState.matches.map(getW); appState.currentStage = 'R16'; } 
+            else if (stg === 'PLAYOFF_1') { 
+                appState.tournament.playoff1W = appState.matches.map(getW); 
+                appState.tournament.playoff1L = appState.matches.map(getL);
+                appState.currentStage = 'PLAYOFF_2'; 
+            } 
+            else if (stg === 'PLAYOFF_2') {
+                let res = [];
+                appState.matches.forEach(m => { res.push({ player: m.playerA, pct: m.scoreA }); res.push({ player: m.playerB, pct: m.scoreB }); });
+                res.sort((a,b) => b.pct - a.pct);
+                appState.tournament.playoff2W = [res[0].player, res[1].player];
+                appState.currentStage = 'R16';
+            }
             else if (stg === 'R16') { appState.tournament.r16W = appState.matches.map(getW); appState.currentStage = 'R8_F1'; } 
             else if (stg === 'R8_F1') {
                 let res = [];
@@ -865,7 +893,7 @@
             const prevSeason = appState.seasonNumber;
             appState.seasonNumber++;
             appState.currentStage = 'MD1';
-            appState.tournament = { playoffW: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [], finals_players: null, bestDuoMargin: 0, bestDuo: '' };
+            appState.tournament = { playoff1W: [], playoff1L: [], playoff2W: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [], finals_players: null, bestDuoMargin: 0, bestDuo: '' };
             
             appState.actresses.forEach(a => {
                 a.matchesPlayed = 0;
@@ -987,7 +1015,7 @@
         function renderBracket() {
             const stg = appState.currentStage;
             if (!stg.startsWith('MD')) {
-                drawMatches('bracketPlayoffList', ['P1', 'P2', 'P3', 'P4']);
+                drawMatches('bracketPlayoffList', ['P1_1', 'P1_2', 'P2_1', 'P2_2', 'P2_3', 'P2_4']);
                 drawMatches('bracketR16List', ['R16_1', 'R16_2', 'R16_3', 'R16_4', 'R16_5', 'R16_6', 'R16_7', 'R16_8']);
                 drawMatches('bracketSemisList', ['SF_1', 'SF_2']);
                 drawMatches('bracketFinalsList', ['FIN', '3RD']);
@@ -1118,10 +1146,10 @@
         function updateActressPoints(id, val) { const t = appState.actresses.find(a => a.id === id); if(t) { t.initialPoints = parseInt(val)||0; t.points = t.initialPoints; saveStateToStorage(); renderStandings(); } }
         function resetSeason() {
             if(confirm("Yakin mereset seluruh data?")) {
-                localStorage.removeItem('k_actress_league_state_v8');
+                localStorage.removeItem('k_actress_league_state_v9');
                 appState.actresses = JSON.parse(JSON.stringify(DEFAULT_ACTRESSES));
                 appState.currentStage = 'MD1'; appState.seasonNumber = 1; appState.hallOfFame = [];
-                appState.tournament = { playoffW: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [], finals_players: null, bestDuoMargin: 0, bestDuo: '' };
+                appState.tournament = { playoff1W: [], playoff1L: [], playoff2W: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [], finals_players: null, bestDuoMargin: 0, bestDuo: '' };
                 appState.sponsors = { leagueTitle: 'SAMSUNG', major: 'DIOR', majorLogo: 'https://ui-avatars.com/api/?name=Dior&background=EC4899&color=fff', rights: ['NETFLIX', 'SBS'] };
                 saveStateToStorage(); generateMatchesForCurrentStage(); renderStandings(); renderCustomizer(); renderSponsorsUI(); renderBracket(); renderHallOfFame(); switchTab('tabKlasemen'); showToast("Reset berhasil!");
             }
