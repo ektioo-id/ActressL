@@ -2,1160 +2,1184 @@
 <!DOCTYPE html>
 <html lang="id" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>K-ACTRESS LEAGUE MANAGER</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], display: ['Outfit', 'sans-serif'] },
-                    animation: { 'glow-pulse': 'glow 3s ease-in-out infinite' },
-                    keyframes: { glow: { '0%, 100%': { backgroundPosition: '200% center' }, '50%': { backgroundPosition: '-200% center' } } }
-                }
-            }
-        }
-    </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>BAEKSANG ACTRESS LEAGUE</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+darkMode: 'class',
+theme: {
+extend: {
+fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], display: ['Outfit', 'sans-serif'] },
+animation: { 'glow-pulse': 'glow 3s ease-in-out infinite' },
+keyframes: { glow: { '0%, 100%': { backgroundPosition: '200% center' }, '50%': { backgroundPosition: '-200% center' } } }
+}
+}
+}
+</script>
 
-    <style>
-        /* Soft Dark Slate-Blue Background */
-        body { 
-            background: linear-gradient(135deg, #202024 0%, #27272a 50%, #1c1c20 100%); /* Soft Dark Zinc */
-            background-attachment: fixed;
-            color: #f3f4f6; 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            overflow-x: hidden; 
-            -webkit-tap-highlight-color: transparent; 
-        }
-        
-        .liquid-blob { position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.25; z-index: 0; pointer-events: none; animation: float 20s infinite ease-in-out alternate; }
-        .blob-1 { top: -10%; left: -10%; width: 350px; height: 350px; background: linear-gradient(135deg, #7c3aed, #db2777); }
-        .blob-2 { bottom: -10%; right: -10%; width: 400px; height: 400px; background: linear-gradient(135deg, #2563eb, #06b6d4); animation-delay: -5s; }
-        .blob-3 { top: 40%; left: 30%; width: 300px; height: 300px; background: linear-gradient(135deg, #f59e0b, #ec4899); animation-delay: -10s; }
+<style>
+/* Soft Dark Slate-Blue Background */
+body { 
+background: linear-gradient(135deg, #202024 0%, #27272a 50%, #1c1c20 100%); 
+background-attachment: fixed;
+color: #f3f4f6; 
+font-family: 'Plus Jakarta Sans', sans-serif; 
+overflow-x: hidden; 
+-webkit-tap-highlight-color: transparent; 
+}
+.liquid-blob { position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.25; z-index: 0; pointer-events: none; animation: float 20s infinite ease-in-out alternate; }
+.blob-1 { top: -10%; left: -10%; width: 350px; height: 350px; background: linear-gradient(135deg, #7c3aed, #db2777); }
+.blob-2 { bottom: -10%; right: -10%; width: 400px; height: 400px; background: linear-gradient(135deg, #2563eb, #06b6d4); animation-delay: -5s; }
+.blob-3 { top: 40%; left: 30%; width: 300px; height: 300px; background: linear-gradient(135deg, #f59e0b, #ec4899); animation-delay: -10s; }
 
-        @keyframes float { 0% { transform: translate(0px, 0px) scale(1); } 50% { transform: translate(40px, 30px) scale(1.05); } 100% { transform: translate(-30px, 50px) scale(0.95); } }
+@keyframes float { 0% { transform: translate(0px, 0px) scale(1); } 50% { transform: translate(40px, 30px) scale(1.05); } 100% { transform: translate(-30px, 50px) scale(0.95); } }
 
-        .glass-card { background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
-        .glass-card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .glass-card-hover:hover { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.15); background: rgba(30, 41, 59, 0.8); }
-        .glass-input { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; transition: all 0.2s; }
-        .glass-input:focus { outline: none; border-color: #8b5cf6; box-shadow: 0 0 15px rgba(139, 92, 246, 0.4); }
+.glass-card { background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
+.glass-card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.glass-card-hover:hover { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.15); background: rgba(30, 41, 59, 0.8); }
+.glass-input { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; transition: all 0.2s; }
+.glass-input:focus { outline: none; border-color: #8b5cf6; box-shadow: 0 0 15px rgba(139, 92, 246, 0.4); }
 
-        .avatar-ring-gold { box-shadow: 0 0 15px rgba(245, 158, 11, 0.9); border: 2.5px solid #F59E0B; }
-        .avatar-ring-silver { box-shadow: 0 0 15px rgba(226, 232, 240, 0.8); border: 2.5px solid #E2E8F0; }
-        .avatar-ring-bronze { box-shadow: 0 0 15px rgba(217, 119, 6, 0.8); border: 2.5px solid #D97706; }
+.avatar-ring-gold { box-shadow: 0 0 15px rgba(245, 158, 11, 0.9); border: 2.5px solid #F59E0B; }
+.avatar-ring-silver { box-shadow: 0 0 15px rgba(226, 232, 240, 0.8); border: 2.5px solid #E2E8F0; }
+.avatar-ring-bronze { box-shadow: 0 0 15px rgba(217, 119, 6, 0.8); border: 2.5px solid #D97706; }
 
-        /* Animated Leaderboard Backgrounds */
-        .bg-shine-gold { background: linear-gradient(90deg, rgba(245,158,11,0.1) 0%, rgba(253,230,138,0.3) 50%, rgba(245,158,11,0.1) 100%); background-size: 200% auto; animation: shineGlow 2s linear infinite, glowGold 2s ease-in-out infinite alternate; border-left: 4px solid #F59E0B; position: relative; }
-        .bg-shine-silver { background: linear-gradient(90deg, rgba(148,163,184,0.1) 0%, rgba(226,232,240,0.3) 50%, rgba(148,163,184,0.1) 100%); background-size: 200% auto; animation: shineGlow 2.5s linear infinite, glowSilver 2s ease-in-out infinite alternate; border-left: 4px solid #94A3B8; position: relative; }
-        .bg-shine-bronze { background: linear-gradient(90deg, rgba(180,83,9,0.1) 0%, rgba(253,186,116,0.3) 50%, rgba(180,83,9,0.1) 100%); background-size: 200% auto; animation: shineGlow 3s linear infinite, glowBronze 2s ease-in-out infinite alternate; border-left: 4px solid #B45309; position: relative; }
-        
-        @keyframes glowGold { from { box-shadow: 0 0 10px rgba(245,158,11,0.2), inset 0 0 10px rgba(245,158,11,0.1); } to { box-shadow: 0 0 25px rgba(245,158,11,0.7), inset 0 0 20px rgba(245,158,11,0.4); } }
-        @keyframes glowSilver { from { box-shadow: 0 0 10px rgba(148,163,184,0.2), inset 0 0 10px rgba(148,163,184,0.1); } to { box-shadow: 0 0 25px rgba(148,163,184,0.7), inset 0 0 20px rgba(148,163,184,0.4); } }
-        @keyframes glowBronze { from { box-shadow: 0 0 10px rgba(180,83,9,0.2), inset 0 0 10px rgba(180,83,9,0.1); } to { box-shadow: 0 0 25px rgba(180,83,9,0.7), inset 0 0 20px rgba(180,83,9,0.4); } }
-        
-        @keyframes shineGlow { to { background-position: 200% center; } }
-        
-        .bg-safe { background-color: rgba(16,185,129,0.05); border-left: 4px solid #10B981; }
-        .bg-playoff { background-color: rgba(245,158,11,0.05); border-left: 4px solid #F59E0B; }
-        .bg-danger { background-color: rgba(239,68,68,0.05); border-left: 4px solid #EF4444; }
+/* Animated Leaderboard Backgrounds */
+.bg-shine-gold { background: linear-gradient(90deg, rgba(245,158,11,0.1) 0%, rgba(253,230,138,0.3) 50%, rgba(245,158,11,0.1) 100%); background-size: 200% auto; animation: shineGlow 2s linear infinite, glowGold 2s ease-in-out infinite alternate; border-left: 4px solid #F59E0B; position: relative; }
+.bg-shine-silver { background: linear-gradient(90deg, rgba(148,163,184,0.1) 0%, rgba(226,232,240,0.3) 50%, rgba(148,163,184,0.1) 100%); background-size: 200% auto; animation: shineGlow 2.5s linear infinite, glowSilver 2s ease-in-out infinite alternate; border-left: 4px solid #94A3B8; position: relative; }
+.bg-shine-bronze { background: linear-gradient(90deg, rgba(180,83,9,0.1) 0%, rgba(253,186,116,0.3) 50%, rgba(180,83,9,0.1) 100%); background-size: 200% auto; animation: shineGlow 3s linear infinite, glowBronze 2s ease-in-out infinite alternate; border-left: 4px solid #B45309; position: relative; }
+@keyframes glowGold { from { box-shadow: 0 0 10px rgba(245,158,11,0.2), inset 0 0 10px rgba(245,158,11,0.1); } to { box-shadow: 0 0 25px rgba(245,158,11,0.7), inset 0 0 20px rgba(245,158,11,0.4); } }
+@keyframes glowSilver { from { box-shadow: 0 0 10px rgba(148,163,184,0.2), inset 0 0 10px rgba(148,163,184,0.1); } to { box-shadow: 0 0 25px rgba(148,163,184,0.7), inset 0 0 20px rgba(148,163,184,0.4); } }
+@keyframes glowBronze { from { box-shadow: 0 0 10px rgba(180,83,9,0.2), inset 0 0 10px rgba(180,83,9,0.1); } to { box-shadow: 0 0 25px rgba(180,83,9,0.7), inset 0 0 20px rgba(180,83,9,0.4); } }
+@keyframes shineGlow { to { background-position: 200% center; } }
+.bg-safe { background-color: rgba(16,185,129,0.05); border-left: 4px solid #10B981; }
+.bg-playoff { background-color: rgba(245,158,11,0.05); border-left: 4px solid #F59E0B; }
+.bg-playoff2 { background-color: rgba(249,115,22,0.05); border-left: 4px solid #F97316; }
+.bg-danger { background-color: rgba(239,68,68,0.05); border-left: 4px solid #EF4444; }
 
-        /* Epic Final Match Styling */
-        .epic-final-card { 
-            background: linear-gradient(145deg, rgba(40, 20, 10, 0.95), rgba(20, 10, 30, 0.95)); 
-            border: 2px solid #F59E0B; 
-            box-shadow: 0 0 40px rgba(245,158,11,0.5), inset 0 0 30px rgba(245,158,11,0.2); 
-            position: relative; 
-            overflow: hidden; 
-            animation: finalPulse 1.5s infinite alternate;
-        }
-        .epic-final-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(transparent, rgba(245,158,11,0.4), transparent 30%); animation: rotate 4s linear infinite; pointer-events: none; }
-        .epic-final-card::after { content: ''; position: absolute; inset: 2px; background: linear-gradient(145deg, rgba(30, 15, 5, 0.95), rgba(15, 10, 20, 0.95)); border-radius: 1.3rem; z-index: 0; }
-        .epic-final-card > * { position: relative; z-index: 10; }
-        
-        @keyframes rotate { 100% { transform: rotate(360deg); } }
-        @keyframes finalPulse {
-            0% { box-shadow: 0 0 20px rgba(245,158,11,0.4), inset 0 0 15px rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.5); }
-            100% { box-shadow: 0 0 60px rgba(245,158,11,0.9), inset 0 0 40px rgba(245,158,11,0.5); border-color: rgba(245,158,11,1); }
-        }
+/* Epic Final Match Styling */
+.epic-final-card { 
+background: linear-gradient(145deg, rgba(40, 20, 10, 0.95), rgba(20, 10, 30, 0.95)); 
+border: 2px solid #F59E0B; 
+box-shadow: 0 0 40px rgba(245,158,11,0.5), inset 0 0 30px rgba(245,158,11,0.2); 
+position: relative; 
+overflow: hidden; 
+animation: finalPulse 1.5s infinite alternate;
+}
+.epic-final-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(transparent, rgba(245,158,11,0.4), transparent 30%); animation: rotate 4s linear infinite; pointer-events: none; }
+.epic-final-card::after { content: ''; position: absolute; inset: 2px; background: linear-gradient(145deg, rgba(30, 15, 5, 0.95), rgba(15, 10, 20, 0.95)); border-radius: 1.3rem; z-index: 0; }
+.epic-final-card > * { position: relative; z-index: 10; }
+@keyframes rotate { 100% { transform: rotate(360deg); } }
+@keyframes finalPulse {
+0% { box-shadow: 0 0 20px rgba(245,158,11,0.4), inset 0 0 15px rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.5); }
+100% { box-shadow: 0 0 60px rgba(245,158,11,0.9), inset 0 0 40px rgba(245,158,11,0.5); border-color: rgba(245,158,11,1); }
+}
 
-        /* Improved Progress Bar Animation */
-        .progress-bar { transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: inset 0 0 10px rgba(255,255,255,0.25); position: relative; overflow: hidden; }
-        .progress-bar::after {
-            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
-            animation: shimmerBar 2s infinite;
-        }
-        @keyframes shimmerBar { 100% { left: 200%; } }
-        
-        .progress-bar.animated-stripes {
-            background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-            background-size: 1rem 1rem;
-            animation: move-stripes 1s linear infinite;
-        }
-        @keyframes move-stripes { from { background-position: 1rem 0; } to { background-position: 0 0; } }
+/* Improved Progress Bar Animation */
+.progress-bar { transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: inset 0 0 10px rgba(255,255,255,0.25); position: relative; overflow: hidden; }
+.progress-bar::after {
+content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+animation: shimmerBar 2s infinite;
+}
+@keyframes shimmerBar { 100% { left: 200%; } }
+.progress-bar.animated-stripes {
+background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+background-size: 1rem 1rem;
+animation: move-stripes 1s linear infinite;
+}
+@keyframes move-stripes { from { background-position: 1rem 0; } to { background-position: 0 0; } }
 
-        ::-webkit-scrollbar { width: 5px; height: 5px; }
-        ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.4); }
-        ::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.5); border-radius: 10px; }
-        .pb-mobile-nav { padding-bottom: 6rem; } @media (min-width: 768px) { .pb-mobile-nav { padding-bottom: 2rem; } }
-    </style>
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.4); }
+::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.5); border-radius: 10px; }
+.pb-mobile-nav { padding-bottom: 6rem; } @media (min-width: 768px) { .pb-mobile-nav { padding-bottom: 2rem; } }
+</style>
 </head>
 <body class="min-h-screen relative flex flex-col justify-between pb-mobile-nav">
 
-    <!-- Ambient Blobs -->
-    <div class="liquid-blob blob-1"></div>
-    <div class="liquid-blob blob-2"></div>
-    <div class="liquid-blob blob-3"></div>
-
-    <!-- MAIN WRAPPER -->
-    <div class="relative z-10 flex-1 flex flex-col">
-
-        <!-- HEADER -->
-        <header class="glass-card sticky top-0 z-40 border-b border-white/10 px-4 sm:px-6 py-3 backdrop-blur-2xl">
-            <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-amber-400 via-pink-500 to-purple-600 p-0.5 shadow-lg shadow-purple-500/40 flex-shrink-0">
-                        <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center"><i class="fa-solid fa-crown text-amber-400 text-lg sm:text-xl"></i></div>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-1.5 flex-wrap">
-                            <span id="leagueTitleBadge" class="text-[10px] font-black px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 tracking-wider">SAMSUNG</span>
-                            <span id="seasonBadge" class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">SEASON 1</span>
-                        </div>
-                        <h1 class="text-base sm:text-2xl font-black font-display tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-400 mt-0.5 drop-shadow-[0_0_12px_rgba(236,72,153,0.6)] uppercase">🌟 K-ACTRESS LEAGUE</h1>
-                    </div>
-                </div>
-
-                <div class="hidden md:flex items-center gap-2 text-sm">
-                    <div id="badgeMajorSponsor" class="px-3 py-1.5 rounded-xl bg-pink-500/10 text-pink-300 border border-pink-500/30 font-bold flex items-center gap-2">
-                        <!-- Sponsor Image Injected Here -->
-                    </div>
-                    <div id="badgeBroadcastRights" class="flex items-center gap-1.5"></div>
-                </div>
-
-                <nav class="hidden md:flex items-center gap-1 bg-slate-950/70 p-1.5 rounded-2xl border border-white/10 text-sm font-semibold">
-                    <button onclick="switchTab('tabKlasemen')" id="nav-tabKlasemen" class="nav-btn px-4 py-2 rounded-xl bg-purple-600 text-white shadow-md shadow-purple-600/30 flex items-center gap-2 font-bold"><i class="fa-solid fa-trophy text-amber-300"></i> <span>Klasemen</span></button>
-                    <button onclick="switchTab('tabMatch')" id="nav-tabMatch" class="nav-btn px-4 py-2 rounded-xl text-slate-400 hover:text-white flex items-center gap-2"><i class="fa-solid fa-gamepad"></i> <span>Pertandingan</span></button>
-                    <button onclick="switchTab('tabBracket')" id="nav-tabBracket" class="nav-btn px-4 py-2 rounded-xl text-slate-400 hover:text-white flex items-center gap-2"><i class="fa-solid fa-sitemap"></i> <span>Knockout</span></button>
-                    <button onclick="switchTab('tabHallOfFame')" id="nav-tabHallOfFame" class="nav-btn px-4 py-2 rounded-xl text-slate-400 hover:text-white flex items-center gap-2"><i class="fa-solid fa-landmark"></i> <span>Hall of Fame</span></button>
-                    <button onclick="switchTab('tabPengaturan')" id="nav-tabPengaturan" class="nav-btn px-4 py-2 rounded-xl text-slate-400 hover:text-white flex items-center gap-2"><i class="fa-solid fa-sliders"></i> <span>Kelola</span></button>
-                </nav>
-            </div>
-        </header>
-
-        <!-- INFO BAR -->
-        <div class="bg-gradient-to-r from-indigo-950/60 via-slate-900/80 to-purple-950/60 backdrop-blur-md border-b border-indigo-500/20 px-4 py-2 text-xs text-indigo-200">
-            <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
-                <div class="flex items-center gap-2 overflow-hidden text-[11px] sm:text-xs">
-                    <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30 flex-shrink-0">NATURAL RULES</span>
-                    <span class="truncate" id="eventText">Menang +3 Pts | Telak (≥65%) +4 Pts | Seri Tepat (50%-50%) +1 Pt Masing-masing. (MD1-MD4: 2v2, MD5-MD9: Solo)</span>
-                </div>
-                <button onclick="toggleEventRulesModal()" class="text-indigo-300 hover:text-white underline text-[10px] font-bold"><i class="fa-solid fa-book-open mr-1"></i>Format Liga</button>
-            </div>
-        </div>
-
-        <!-- MAIN -->
-        <main class="max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-5 flex-1">
-            <!-- TAB 1: KLASEMEN -->
-            <section id="tabKlasemen" class="tab-content block space-y-5">
-                <div class="grid grid-cols-3 gap-3 sm:gap-6 max-w-3xl mx-auto pt-2" id="topPodiumCards"></div>
-                <div class="glass-card rounded-3xl p-4 sm:p-7">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
-                        <div>
-                            <h2 class="text-lg sm:text-2xl font-bold font-display text-white"><i class="fa-solid fa-list-ol text-amber-400"></i> Klasemen Resmi Liga</h2>
-                            <p class="text-xs text-slate-400 mt-1">Disortir Ketat: 1. Poin Utama → 2. Total Persentase (%) Tie-Breaker.</p>
-                        </div>
-                        <div class="relative w-full sm:w-64">
-                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                            <input type="text" id="searchActress" oninput="renderStandings()" placeholder="Cari aktris..." class="glass-input pl-9 pr-4 py-2 rounded-xl text-sm w-full font-medium">
-                        </div>
-                    </div>
-                    <div class="space-y-2.5" id="standingsContainer"></div>
-                </div>
-            </section>
-
-            <!-- TAB 2: PERTANDINGAN -->
-            <section id="tabMatch" class="tab-content hidden space-y-5">
-                <div class="glass-card rounded-3xl p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between gap-4 border border-purple-500/20">
-                    <div class="flex items-center gap-4 w-full md:w-auto">
-                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white text-xl shadow-lg"><i class="fa-solid fa-gamepad"></i></div>
-                        <div>
-                            <span class="text-xs text-purple-300 font-bold uppercase tracking-widest" id="currentStageLabel">Tahap Kompetisi</span>
-                            <h2 class="text-base sm:text-2xl font-black font-display text-white mt-0.5" id="currentMatchdayTitle">Matchday 1 (Mode 2 vs 2)</h2>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-2.5 w-full md:w-auto justify-end">
-                        <button onclick="simCurrentStage()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 text-white font-bold text-sm shadow-lg flex-1 sm:flex-none"><i class="fa-solid fa-bolt text-amber-300"></i> Simulasi Tahap</button>
-                        <button id="btnAdvanceStage" onclick="advanceToNextStage()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg flex-1 sm:flex-none">Lanjut Tahap <i class="fa-solid fa-arrow-right"></i></button>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="matchListGrid"></div>
-            </section>
-
-            <!-- TAB 3: BRACKET -->
-            <section id="tabBracket" class="tab-content hidden space-y-5">
-                <div class="glass-card rounded-3xl p-5 sm:p-7">
-                    <div class="mb-6 border-b border-white/10 pb-5">
-                        <h2 class="text-xl sm:text-2xl font-bold font-display text-white"><i class="fa-solid fa-sitemap text-pink-400"></i> Peta Fase Gugur & Knockout</h2>
-                        <p class="text-sm text-slate-400 mt-1">Playoff → 16 Besar (BO3) → 8 Besar (Mini Liga F1 & F2) → Semifinal (BO3) → Final (BO5)!</p>
-                    </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
-                        <div class="space-y-4">
-                            <div class="glass-card rounded-2xl p-4 border border-amber-500/20"><div class="font-bold text-sm text-amber-400 mb-3 border-b border-white/10 pb-2">Playoff</div><div id="bracketPlayoffList" class="space-y-2 text-xs"></div></div>
-                            <div class="glass-card rounded-2xl p-4 border border-purple-500/20"><div class="font-bold text-sm text-purple-400 mb-3 border-b border-white/10 pb-2">16 Besar (BO3)</div><div id="bracketR16List" class="space-y-2 text-xs"></div></div>
-                        </div>
-                        <div class="lg:col-span-2 glass-card rounded-2xl p-4 border border-cyan-500/20">
-                            <div class="font-bold text-sm text-cyan-400 mb-3 border-b border-white/10 pb-2 flex items-center"><i class="fa-solid fa-star mr-2"></i> Babak 8 Besar (Mini Liga F1 & F2)</div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="bracketR8List"><div class="p-3 rounded-xl bg-slate-900/50 text-slate-500 italic text-center text-xs">Menunggu 16 Besar selesai...</div></div>
-                        </div>
-                        <div class="space-y-4">
-                            <div class="glass-card rounded-2xl p-4 border border-rose-500/20"><div class="font-bold text-sm text-rose-400 mb-3 border-b border-white/10 pb-2 flex items-center"><i class="fa-solid fa-fire mr-2"></i> Semifinal (BO3)</div><div id="bracketSemisList" class="space-y-2.5 text-xs"></div></div>
-                            <div class="glass-card rounded-2xl p-4 border border-amber-300/30"><div class="font-bold text-sm text-amber-300 mb-3 border-b border-white/10 pb-2 flex items-center"><i class="fa-solid fa-trophy mr-2"></i> Finals</div><div id="bracketFinalsList" class="space-y-2.5 text-xs"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- TAB 4: HALL OF FAME -->
-            <section id="tabHallOfFame" class="tab-content hidden space-y-5">
-                <div class="glass-card rounded-3xl p-5 sm:p-7">
-                    <div class="mb-6 flex items-center justify-between border-b border-white/10 pb-5">
-                        <div>
-                            <h2 class="text-xl sm:text-3xl font-black font-display text-white"><i class="fa-solid fa-landmark text-amber-400"></i> Hall of Fame Abadi</h2>
-                            <p class="text-sm text-slate-400 mt-1">Arsip resmi juara dan The Best Awards sejarah liga.</p>
-                        </div>
-                        <div class="px-4 py-2 rounded-xl bg-purple-500/20 text-purple-300 font-bold text-sm hidden sm:block"><i class="fa-solid fa-shield-cat"></i> Official Archive</div>
-                    </div>
-                    <div id="hallOfFameContainer" class="space-y-6"></div>
-                </div>
-            </section>
-
-            <!-- TAB 5: PENGATURAN -->
-            <section id="tabPengaturan" class="tab-content hidden space-y-5">
-                <div class="glass-card rounded-3xl p-5 sm:p-7">
-                    <div class="mb-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-white/10 pb-5">
-                        <div>
-                            <h2 class="text-lg sm:text-2xl font-bold font-display text-white"><i class="fa-solid fa-sliders text-purple-400"></i> Kelola Aktris & Sistem</h2>
-                            <p class="text-sm text-slate-400 mt-1">Ubah nama, link foto (URL), rating, atau reset data.</p>
-                        </div>
-                        <div class="flex flex-wrap gap-2.5">
-                            <button onclick="saveAllCustomizerChanges()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg"><i class="fa-solid fa-floppy-disk"></i> Simpan Semua</button>
-                            <button onclick="openSponsorModal()" class="px-4 py-2 rounded-xl bg-pink-600/80 text-white font-bold text-sm shadow-lg"><i class="fa-solid fa-gem"></i> Edit Sponsor</button>
-                            <button onclick="resetSeason()" class="px-4 py-2 rounded-xl bg-rose-600/80 text-white font-bold text-sm shadow-lg"><i class="fa-solid fa-rotate-right"></i> Reset Musim</button>
-                        </div>
-                    </div>
-                    <div class="space-y-3" id="customizerContainer"></div>
-                </div>
-            </section>
-        </main>
-
-        <!-- FOOTER -->
-        <footer class="glass-card border-t border-white/10 px-5 py-4 text-center text-xs sm:text-sm text-slate-400 mt-auto">
-            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-                <div><span id="footerLeagueTitle" class="font-bold text-slate-200">SAMSUNG K-ACT LEAGUE</span> &copy; 2026. All Rights Reserved.</div>
-                <div class="flex items-center gap-2.5 text-[10px] sm:text-xs font-medium text-slate-400" id="footerSponsorsText"></div>
-            </div>
-        </footer>
-    </div>
-
-    <!-- MOBILE NAV -->
-    <div class="fixed bottom-0 left-0 right-0 z-50 glass-card border-t border-white/10 p-2 md:hidden">
-        <div class="grid grid-cols-5 gap-1 text-center">
-            <button onclick="switchTab('tabKlasemen')" id="mob-tabKlasemen" class="mob-btn flex flex-col items-center py-1.5 text-purple-400 font-bold"><i class="fa-solid fa-trophy text-lg mb-1"></i><span class="text-[10px]">Klasemen</span></button>
-            <button onclick="switchTab('tabMatch')" id="mob-tabMatch" class="mob-btn flex flex-col items-center py-1.5 text-slate-400"><i class="fa-solid fa-gamepad text-lg mb-1"></i><span class="text-[10px]">Laga</span></button>
-            <button onclick="switchTab('tabBracket')" id="mob-tabBracket" class="mob-btn flex flex-col items-center py-1.5 text-slate-400"><i class="fa-solid fa-sitemap text-lg mb-1"></i><span class="text-[10px]">Knockout</span></button>
-            <button onclick="switchTab('tabHallOfFame')" id="mob-tabHallOfFame" class="mob-btn flex flex-col items-center py-1.5 text-slate-400"><i class="fa-solid fa-landmark text-lg mb-1"></i><span class="text-[10px]">Hall Fame</span></button>
-            <button onclick="switchTab('tabPengaturan')" id="mob-tabPengaturan" class="mob-btn flex flex-col items-center py-1.5 text-slate-400"><i class="fa-solid fa-sliders text-lg mb-1"></i><span class="text-[10px]">Kelola</span></button>
-        </div>
-    </div>
-
-    <!-- Event Rules Modal -->
-    <div id="eventRulesModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden">
-        <div class="glass-card rounded-3xl max-w-lg w-full p-6 border border-white/20 shadow-2xl relative space-y-5">
-            <button onclick="toggleEventRulesModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <h3 class="text-lg font-bold text-white"><i class="fa-solid fa-scale-balanced text-amber-400"></i> Format Resmi Kompetisi</h3>
-            <div class="space-y-4 text-sm text-slate-300">
-                <div class="p-4 rounded-xl bg-slate-900/60 shadow-inner">
-                    <div class="font-bold text-amber-400 mb-2">Sistem Poin (Natural Rules)</div>
-                    <ul class="list-disc list-inside space-y-1">
-                        <li>Menang Normal: <b class="text-white">+3 Poin</b></li>
-                        <li>Menang Telak (≥ 65%): <b class="text-emerald-400">+4 Poin</b></li>
-                        <li>Seri Tepat (50%-50%): <b class="text-cyan-300">+1 Poin Keduanya</b></li>
-                    </ul>
-                </div>
-                <div class="p-4 rounded-xl bg-slate-900/60 shadow-inner text-xs space-y-1.5">
-                    <div class="font-bold text-purple-300 mb-2">Fase & Babak Gugur (Klasik)</div>
-                    <p><b>Liga (MD1-MD4):</b> 2v2. <b>(MD5-MD9):</b> Solo 1v1.</p>
-                    <p><b>16 Besar:</b> Top 1-12 Lolos Otomatis.</p>
-                    <p><b>Playoff 1:</b> Rank 13-16 (1v1). 2 Menang lolos 16 Besar. 2 Kalah turun ke Playoff 2.</p>
-                    <p><b>Playoff 2:</b> 2 Kalah Playoff 1 + Rank 17-22 (Mini Liga). Top 2 % lolos 16 Besar.</p>
-                    <p><b>8 Besar & Semifinal:</b> Mini Liga F1 & F2 berlanjut ke Semifinal (BO3) dan Final (BO5).</p>
-                </div>
-            </div>
-            <div class="text-right"><button onclick="toggleEventRulesModal()" class="px-6 py-2 rounded-xl bg-purple-600 text-white font-bold text-sm">Paham</button></div>
-        </div>
-    </div>
-
-    <!-- Sponsor Modal -->
-    <div id="sponsorModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden">
-        <div class="glass-card rounded-3xl max-w-md w-full p-6 shadow-2xl relative space-y-5">
-            <button onclick="closeSponsorModal()" class="absolute top-4 right-4 text-slate-400"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <h3 class="text-lg font-bold text-white"><i class="fa-solid fa-gem text-pink-400"></i> Edit Sponsor & Logo</h3>
-            <div class="space-y-4 text-sm">
-                <div><label class="block text-slate-300 font-semibold mb-1.5">Judul Utama</label><input type="text" id="inputLeagueTitle" class="glass-input px-4 py-2 rounded-xl w-full font-bold text-white"></div>
-                <div><label class="block text-slate-300 font-semibold mb-1.5">Major Sponsor</label><input type="text" id="inputMajorSponsor" class="glass-input px-4 py-2 rounded-xl w-full font-bold text-pink-300"></div>
-                <div><label class="block text-slate-300 font-semibold mb-1.5">Logo Sponsor (URL Gambar)</label><input type="text" id="inputMajorLogo" class="glass-input px-4 py-2 rounded-xl w-full font-mono text-purple-300 text-xs"></div>
-                <div><label class="block text-slate-300 font-semibold mb-1.5">Hak Siar (Koma)</label><input type="text" id="inputBroadcastRights" class="glass-input px-4 py-2 rounded-xl w-full font-bold text-cyan-300"></div>
-            </div>
-            <div class="flex justify-end gap-3 pt-3"><button onclick="closeSponsorModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-sm font-semibold">Batal</button><button onclick="saveSponsors()" class="px-5 py-2 rounded-xl bg-pink-600 text-white text-sm font-bold">Simpan</button></div>
-        </div>
-    </div>
-
-    <!-- JAVASCRIPT -->
-    <script>
-        // DATA 36 ACTRESSES (Updated URLs & Expanded Size)
-        const DEFAULT_ACTRESSES = [
-            { id: 1, name: "Kim Ji-won", avatar: "https://i.mydramalist.com/KpY0kR_5c.jpg", rating: 96, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 2, name: "IU", avatar: "https://i.mydramalist.com/73R8zn_5c.jpg", rating: 95, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 3, name: "Park Bo-young", avatar: "https://i.mydramalist.com/l0AEjv_5c.jpg", rating: 93, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 4, name: "Go Youn-jung", avatar: "https://i.mydramalist.com/VXx6Ex_5c.jpg", rating: 92, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 5, name: "Kim Tae-ri", avatar: "https://i.mydramalist.com/QZjnA_5c.jpg", rating: 94, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 6, name: "Kim Da-mi", avatar: "https://i.mydramalist.com/rEmV7c.jpg", rating: 91, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 7, name: "Shin Hye-sun", avatar: "https://i.mydramalist.com/O8J8kk_5c.jpg", rating: 90, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 8, name: "Lim Yoona", avatar: "https://i.mydramalist.com/l0drLv_5c.jpg", rating: 92, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 9, name: "Park Eun-bin", avatar: "https://i.mydramalist.com/v7Evg_5c.jpg", rating: 94, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 10, name: "Bae Suzy", avatar: "https://i.mydramalist.com/3oVYod_5c.jpg", rating: 91, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 11, name: "Song Hye-kyo", avatar: "https://i.mydramalist.com/KpY8K8_5c.jpg", rating: 95, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 12, name: "Han So-hee", avatar: "https://i.mydramalist.com/oQzL3N_5c.jpg", rating: 93, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 13, name: "Kim Go-eun", avatar: "https://i.mydramalist.com/O8JWKL_5c.jpg", rating: 92, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 14, name: "Park Min-young", avatar: "https://i.mydramalist.com/yWxKQR_5c.jpg", rating: 90, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 15, name: "Kim Yoo-jung", avatar: "https://i.mydramalist.com/nOZLQ8_5c.jpg", rating: 91, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 16, name: "Kim So-hyun", avatar: "https://i.mydramalist.com/VX8D3Q_5c.jpg", rating: 90, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 17, name: "Jung So-min", avatar: "https://i.mydramalist.com/mON8QP_5c.jpg", rating: 89, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 18, name: "Shin Si-ah", avatar: "https://i.mydramalist.com/l0A7KL_5c.jpg", rating: 86, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 19, name: "Seorina", avatar: "https://i.mydramalist.com/NdnRoE_5c.jpg", rating: 88, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 20, name: "Chae Soo-bin", avatar: "https://i.mydramalist.com/JBXVnw_5c.jpg", rating: 87, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 21, name: "Kim Se-jeong", avatar: "https://i.mydramalist.com/vrmWX_5c.jpg", rating: 89, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 22, name: "Roh Yoon-seo", avatar: "https://i.mydramalist.com/NdnkOY_5c.jpg", rating: 88, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 23, name: "Shin Eun-soo", avatar: "https://i.mydramalist.com/b3o64e_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 24, name: "Park Ji-hyun", avatar: "https://i.mydramalist.com/AB8PvP_5c.jpg", rating: 87, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 25, name: "Go Min-si", avatar: "https://i.mydramalist.com/B8bR5_5c.jpg", rating: 88, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 26, name: "Kang Hye-won", avatar: "https://i.mydramalist.com/LwV167_5c.jpg", rating: 84, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 27, name: "Jin Ki-joo", avatar: "https://i.mydramalist.com/nOYKnL_5c.jpg", rating: 86, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 28, name: "Jo Yuri", avatar: "https://i.mydramalist.com/VXzNrQ_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 29, name: "Park Shin-Hye", avatar: "https://i.mydramalist.com/Q3Nz7_5c.jpg", rating: 88, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 30, name: "Kim Hye-Jun", avatar: "https://i.mydramalist.com/YYJDeP_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 31, name: "Park Gyu Young", avatar: "https://i.mydramalist.com/oQBr6N_5c.jpg", rating: 86, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 32, name: "Kim Min-Ju", avatar: "https://i.mydramalist.com/l0nvob_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 33, name: "Kang Min na", avatar: "https://i.mydramalist.com/3onw7e_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 34, name: "Lee Hyeri", avatar: "https://i.mydramalist.com/EbVK0_5c.jpg", rating: 86, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 35, name: "Son Na Eun", avatar: "https://i.mydramalist.com/eZenK_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
-            { id: 36, name: "Kim Ji Yeon", avatar: "https://i.mydramalist.com/pmorQ_5c.jpg", rating: 86, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 }
-        ];
-
-        let appState = {
-            seasonNumber: 1,
-            sponsors: { leagueTitle: 'SAMSUNG', major: 'DIOR', majorLogo: 'https://ui-avatars.com/api/?name=Dior&background=EC4899&color=fff', rights: ['NETFLIX', 'SBS'] },
-            actresses: JSON.parse(JSON.stringify(DEFAULT_ACTRESSES)),
-            currentStage: 'MD1',
-            matches: [],
-            hallOfFame: [],
-            tournament: { playoff1W: [], playoff1L: [], playoff2W: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [], finals_players: null, bestDuoMargin: 0, bestDuo: '' }
-        };
-
-        // COMMENTARY BANKS (Diperbanyak dan lebih bervariasi)
-        const c_win1v1 = [
-            "⚡ Dominasi absolut! Kemenangan solid diraih dengan penuh gaya!", 
-            "🔥 Pertarungan sengit! Taktik dan pesona memukau mengunci kemenangan krusial.", 
-            "✨ Tampil gemilang bak dewi, sukses membungkam perlawanan lawannya hari ini!", 
-            "🏆 Mentalitas juara berbicara! Detik-detik terakhir yang sangat menegangkan!",
-            "🎯 Dukungan masif menyatu, poin penuh berhasil diamankan dengan elegan!"
-        ];
-        const c_blowout1v1 = [
-            "💥 Kemenangan telak mutlak! Lawan dibuat tak berkutik di atas panggung!", 
-            "🚀 Mendominasi tanpa ampun! Margin poin yang sangat brutal dan mengerikan.", 
-            "👑 Performa setara Ratu Semesta! Selisih suara yang menghancurkan mental lawan!",
-            "🌪️ Badai popularitas tak terbendung! Menyapu bersih suara mayoritas tanpa sisa."
-        ];
-        const c_win2v2 = [
-            "🤝 Sinergi luar biasa! Kerja sama duo ini terbukti sangat mematikan!", 
-            "⚡ Chemistry tak tertandingi! Mereka memenangkan laga dengan kekompakan absolut.", 
-            "🔥 Kombinasi visual dan bakat sempurna yang berujung pada 3 poin berharga!",
-            "💫 Kolaborasi impian terwujud! Fans kedua aktris bersatu padu merebut kemenangan."
-        ];
-        const c_blowout2v2 = [
-            "💥 Duet maut penghancur! Kemenangan telak yang meluluhlantakkan pertahanan lawan!", 
-            "🚀 Harmoni mutlak! Keduanya panen poin dengan dominasi total nan sadis!",
-            "🤯 Pembantaian di atas panggung! Duo ini benar-benar monster di matchday ini."
-        ];
-        const c_draw = [
-            "⚖️ Laga super seimbang! Pertarungan berakhir imbang 50-50 yang amat langka!", 
-            "🤝 Sama kuat dan sama populer! Keduanya harus puas berbagi angka 1 poin."
-        ];
-        const c_knockout = [
-            "⚔️ Kemenangan krusial berdarah-darah untuk melaju ke babak selanjutnya!", 
-            "🔥 Berhasil bertahan hidup dari lubang jarum turnamen sistem gugur ini!", 
-            "🏆 Perjalanan terus berlanjut berkat mental baja di momen paling genting."
-        ];
-
-        function getChampionBadge(name) {
-            let count = appState.hallOfFame.filter(h => h.champion.name === name).length;
-            if (count === 0) return '';
-            let icon = '';
-            if (count === 1) icon = `<i class="fa-solid fa-star text-slate-300 text-[9px] sm:text-[11px]" title="1x Champion"></i>`;
-            else if (count === 2) icon = `<i class="fa-solid fa-star text-white text-[9px] sm:text-[11px] drop-shadow-[0_0_5px_#fff]" title="2x Champion"></i>`;
-            else icon = `<i class="fa-solid fa-star text-amber-400 text-[10px] sm:text-[12px] drop-shadow-[0_0_8px_#F59E0B]" title="3x+ Champion"></i>`;
-            
-            return `<div class="absolute -top-1 -right-1 sm:-top-1.5 sm:-right-1.5 bg-slate-900 rounded-full p-0.5 sm:p-1 border border-white/20 z-20 shadow-lg flex items-center justify-center">${icon}</div>`;
-        }
-
-        function getSafeAvatar(avatarUrl, name) {
-            if (avatarUrl && avatarUrl.trim() !== '') return avatarUrl;
-            return `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'Aktris')}&background=7c3aed&color=ffffff&bold=true&size=128`;
-        }
-        function handleImageError(imgEl, name) {
-            if (!imgEl) return; imgEl.onerror = null; 
-            imgEl.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'Aktris')}&background=7c3aed&color=ffffff&bold=true&size=128`;
-        }
-        function getActress(id) { return appState.actresses.find(a => a.id === id) || { name: 'Aktris', avatar: '' }; }
-
-        function loadStateFromStorage() {
-            try {
-                const saved = localStorage.getItem('k_actress_league_state_v9');
-                if (saved) {
-                    const parsed = JSON.parse(saved);
-                    if (parsed && parsed.actresses) appState = parsed;
-                    if (!appState.tournament) appState.tournament = { playoff1W: [], playoff1L: [], playoff2W: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [], finals_players: null };
-                    if (!appState.sponsors.majorLogo) appState.sponsors.majorLogo = 'https://ui-avatars.com/api/?name=Dior&background=EC4899&color=fff';
-                }
-            } catch(e) { console.error("Load data error:", e); }
-        }
-        function saveStateToStorage() { localStorage.setItem('k_actress_league_state_v9', JSON.stringify(appState)); }
-
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.className = "fixed bottom-20 md:bottom-10 right-4 z-50 bg-emerald-600/95 text-white px-5 py-3 rounded-2xl shadow-2xl backdrop-blur-md border border-emerald-400/30 text-sm font-bold flex items-center gap-2.5 transition-all duration-300";
-            toast.innerHTML = `<i class="fa-solid fa-circle-check text-amber-300 text-lg"></i> <span>${message}</span>`;
-            document.body.appendChild(toast);
-            setTimeout(() => { toast.classList.add('opacity-0', 'translate-y-4'); setTimeout(() => toast.remove(), 400); }, 2500);
-        }
-        function alertModal(title, msg) {
-            const div = document.createElement('div'); div.className = "fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md";
-            div.innerHTML = `<div class="glass-card rounded-3xl max-w-sm w-full p-6 text-center space-y-4"><h3 class="text-lg font-black text-amber-400 font-display">${title}</h3><p class="text-sm text-slate-200 whitespace-pre-line leading-relaxed">${msg}</p><button onclick="this.parentElement.parentElement.remove()" class="px-5 py-2 rounded-xl bg-purple-600 text-white font-bold text-sm w-full">Tutup</button></div>`;
-            document.body.appendChild(div);
-        }
-
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(tabId)?.classList.remove('hidden');
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.className = "nav-btn px-4 py-2 rounded-xl transition-all duration-200 text-slate-400 hover:text-white flex items-center gap-2");
-            document.getElementById(`nav-${tabId}`)?.classList.add('bg-purple-600', 'text-white', 'shadow-md', 'font-bold');
-            document.querySelectorAll('.mob-btn').forEach(btn => btn.className = "mob-btn flex flex-col items-center py-1.5 text-slate-400 transition hover:text-slate-200");
-            document.getElementById(`mob-${tabId}`)?.classList.add('text-purple-400', 'font-bold');
-
-            if (tabId === 'tabKlasemen') renderStandings();
-            if (tabId === 'tabMatch') renderMatchList();
-            if (tabId === 'tabBracket') renderBracket();
-            if (tabId === 'tabHallOfFame') renderHallOfFame();
-            if (tabId === 'tabPengaturan') renderCustomizer();
-        }
-
-        function renderSponsorsUI() {
-            document.getElementById('seasonBadge').innerText = `SEASON ${appState.seasonNumber}`;
-            document.getElementById('leagueTitleBadge').innerText = appState.sponsors.leagueTitle;
-            document.getElementById('badgeMajorSponsor').innerHTML = `<img src="${appState.sponsors.majorLogo}" onerror="handleImageError(this, '${appState.sponsors.major}')" class="w-6 h-6 rounded-full object-cover border border-pink-400/50 shadow-[0_0_8px_rgba(236,72,153,0.5)]"> ${appState.sponsors.major}`;
-            document.getElementById('footerLeagueTitle').innerText = `${appState.sponsors.leagueTitle} K-ACT LEAGUE`;
-
-            const rightsContainer = document.getElementById('badgeBroadcastRights');
-            rightsContainer.innerHTML = '';
-            appState.sponsors.rights.forEach(r => { rightsContainer.innerHTML += `<span class="px-3 py-1.5 rounded-xl bg-red-600/20 text-red-400 border border-red-500/30 font-extrabold flex items-center gap-1.5 text-[10px]"><i class="fa-solid fa-play text-[10px]"></i> ${r.trim()}</span>`; });
-            document.getElementById('footerSponsorsText').innerHTML = `<span>${appState.sponsors.major}</span> • <span>${appState.sponsors.rights.join(', ')}</span>`;
-        }
-
-        function openSponsorModal() {
-            document.getElementById('inputLeagueTitle').value = appState.sponsors.leagueTitle;
-            document.getElementById('inputMajorSponsor').value = appState.sponsors.major;
-            document.getElementById('inputMajorLogo').value = appState.sponsors.majorLogo || '';
-            document.getElementById('inputBroadcastRights').value = appState.sponsors.rights.join(', ');
-            document.getElementById('sponsorModal').classList.remove('hidden');
-        }
-        function closeSponsorModal() { document.getElementById('sponsorModal').classList.add('hidden'); }
-        function saveSponsors() {
-            appState.sponsors.leagueTitle = document.getElementById('inputLeagueTitle').value.trim() || "SAMSUNG";
-            appState.sponsors.major = document.getElementById('inputMajorSponsor').value.trim() || "DIOR";
-            appState.sponsors.majorLogo = document.getElementById('inputMajorLogo').value.trim() || `https://ui-avatars.com/api/?name=${encodeURIComponent(appState.sponsors.major)}&background=EC4899&color=fff`;
-            appState.sponsors.rights = document.getElementById('inputBroadcastRights').value.split(',').map(s => s.trim()).filter(Boolean);
-            saveStateToStorage(); renderSponsorsUI(); closeSponsorModal(); showToast("Sponsor disimpan!");
-        }
-        function toggleEventRulesModal() { document.getElementById('eventRulesModal').classList.toggle('hidden'); }
-
-        function getSortedStandings() {
-            return [...appState.actresses].sort((a, b) => {
-                if (b.points !== a.points) return b.points - a.points; 
-                return b.totalPercentage - a.totalPercentage;
-            });
-        }
-
-        function renderStandings() {
-            const sorted = getSortedStandings();
-            const filterText = document.getElementById('searchActress')?.value.toLowerCase() || '';
-            const container = document.getElementById('standingsContainer');
-            const podiumContainer = document.getElementById('topPodiumCards');
-            
-            podiumContainer.innerHTML = '';
-            const podiumRanks = [
-                { pos: 2, data: sorted[1], ring: 'avatar-ring-silver', color: 'text-slate-200', bg: 'bg-slate-800/80', order: 'order-1' },
-                { pos: 1, data: sorted[0], ring: 'avatar-ring-gold', color: 'text-amber-400', bg: 'bg-amber-950/40', order: 'order-2 scale-105 shadow-xl shadow-amber-500/10' },
-                { pos: 3, data: sorted[2], ring: 'avatar-ring-bronze', color: 'text-amber-600', bg: 'bg-amber-900/30', order: 'order-3' }
-            ];
-
-            podiumRanks.forEach(item => {
-                if (!item.data) return;
-                const card = document.createElement('div');
-                card.className = `glass-card rounded-2xl p-3 sm:p-4 flex flex-col items-center text-center justify-between border border-white/10 ${item.bg} ${item.order}`;
-                card.innerHTML = `
-                    <div class="relative mb-2 inline-block">
-                        <img src="${getSafeAvatar(item.data.avatar, item.data.name)}" referrerpolicy="no-referrer" onerror="handleImageError(this, '${item.data.name.replace(/'/g, "\\'")}')" class="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover ${item.ring}">
-                        <span class="absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-950 font-black text-[10px] sm:text-xs ${item.color} border border-white/20 flex items-center justify-center">#${item.pos}</span>
-                        ${getChampionBadge(item.data.name)}
-                    </div>
-                    <div class="font-extrabold text-xs sm:text-sm text-white truncate w-full mt-1">${item.data.name}</div>
-                    <div class="text-[11px] sm:text-xs font-black ${item.color} mt-0.5">${item.data.points} Pts</div>
-                    <div class="text-[10px] sm:text-[11px] text-purple-300 font-semibold">${item.data.totalPercentage}%</div>
-                `;
-                podiumContainer.appendChild(card);
-            });
-
-            container.innerHTML = '';
-            sorted.forEach((actress, index) => {
-                if (filterText && !actress.name.toLowerCase().includes(filterText)) return;
-                const rank = index + 1;
-                let statusBadge = ''; let bgClass = '';
-
-                if (rank === 1) { bgClass = 'bg-shine-gold'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold text-[10px]"><i class="fa-solid fa-crown mr-1"></i> TOP 1</span>`; }
-                else if (rank === 2) { bgClass = 'bg-shine-silver'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-slate-400/20 text-slate-300 border border-slate-400/30 font-bold text-[10px]">Rank 2</span>`; }
-                else if (rank === 3) { bgClass = 'bg-shine-bronze'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-amber-700/20 text-amber-500 border border-amber-700/30 font-bold text-[10px]">Rank 3</span>`; }
-                else if (rank <= 12) { bgClass = 'bg-safe'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold text-[10px]">Aman 16</span>`; }
-                else if (rank <= 16) { bgClass = 'bg-playoff'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold text-[10px]">Playoff F1</span>`; }
-                else if (rank <= 22) { bgClass = 'bg-playoff'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold text-[10px]">Playoff F2</span>`; }
-                else { bgClass = 'bg-danger'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/30 font-bold text-[10px]">Gugur</span>`; }
-
-                const row = document.createElement('div');
-                row.className = `glass-card-hover rounded-2xl p-3 sm:p-4 flex items-center justify-between gap-3 border border-white/10 ${bgClass}`;
-                row.innerHTML = `
-                    <div class="flex items-center gap-3 overflow-hidden">
-                        <span class="w-6 text-center font-black text-slate-300 text-sm sm:text-base">${rank}</span>
-                        <div class="relative inline-block flex-shrink-0">
-                            <img src="${getSafeAvatar(actress.avatar, actress.name)}" referrerpolicy="no-referrer" onerror="handleImageError(this, '${actress.name.replace(/'/g, "\\'")}')" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border border-white/20">
-                            ${getChampionBadge(actress.name)}
-                        </div>
-                        <div class="truncate">
-                            <div class="font-bold text-sm sm:text-base text-white truncate flex items-center gap-2">
-                                ${actress.name}
-                                <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">⭐ ${actress.rating || 85}</span>
-                                ${actress.initialPoints > 0 ? `<span class="text-[10px] px-1.5 py-0.5 rounded bg-purple-500/30 text-purple-200 font-bold">+${actress.initialPoints}</span>` : ''}
-                            </div>
-                            <div class="text-[10px] sm:text-xs text-slate-400 flex items-center gap-2.5 mt-0.5">
-                                <span>Main: <b>${actress.matchesPlayed}</b></span>
-                                <span>Total: <b class="text-purple-300">${actress.totalPercentage}%</b></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3 flex-shrink-0">
-                        <div class="text-right">
-                            <div class="font-black text-amber-400 text-sm sm:text-lg">${actress.points} Pts</div>
-                        </div>
-                        <div class="hidden sm:block">${statusBadge}</div>
-                    </div>
-                `;
-                container.appendChild(row);
-            });
-        }
-
-        function generateMatchesForCurrentStage() {
-            const stage = appState.currentStage;
-            const stageLabel = document.getElementById('currentStageLabel');
-            const stageTitle = document.getElementById('currentMatchdayTitle');
-            const btnAdvance = document.getElementById('btnAdvanceStage');
-            appState.matches = [];
-
-            if (btnAdvance) {
-                if (stage === 'FINALS') {
-                    btnAdvance.innerHTML = `<i class="fa-solid fa-flag-checkered mr-1"></i> Selesai Musim`;
-                    btnAdvance.className = "px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm shadow-lg flex-1 sm:flex-none";
-                } else {
-                    btnAdvance.innerHTML = `Lanjut Tahap <i class="fa-solid fa-arrow-right"></i>`;
-                    btnAdvance.className = "px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg flex-1 sm:flex-none";
-                }
-            }
-
-            if (stage.startsWith('MD')) {
-                const mdNum = parseInt(stage.replace('MD', ''));
-                stageLabel.innerText = "FASE LIGA";
-                stageTitle.innerText = `Matchday ${mdNum} (${mdNum <= 4 ? 'Mode 2 vs 2' : 'Mode Solo 1 vs 1'})`;
-                
-                const pool = [...appState.actresses].sort((a, b) => (a.id * mdNum * 7) % 37 - (b.id * mdNum * 7) % 37);
-                if (mdNum <= 4) {
-                    for (let i = 0; i < 36; i += 4) {
-                        appState.matches.push({ id: `MD${mdNum}_M${(i/4)+1}`, type: 'LEAGUE_2V2', teamA: [pool[i], pool[i+1]], teamB: [pool[i+2], pool[i+3]], scoreA: null, scoreB: null, completed: false });
-                    }
-                } else {
-                    for (let i = 0; i < 36; i += 2) {
-                        appState.matches.push({ id: `MD${mdNum}_M${(i/2)+1}`, type: 'LEAGUE_1V1', playerA: pool[i], playerB: pool[i+1], scoreA: null, scoreB: null, completed: false });
-                    }
-                }
-            } 
-            else if (stage === 'PLAYOFF_1') {
-                stageLabel.innerText = "FASE GUGUR - BO1"; stageTitle.innerText = "Playoff Fase 1 (Rank 13-16)";
-                const s = getSortedStandings();
-                appState.matches = [
-                    { id: 'P1_1', type: 'BO1', playerA: s[12], playerB: s[15], scoreA: null, scoreB: null, completed: false },
-                    { id: 'P1_2', type: 'BO1', playerA: s[13], playerB: s[14], scoreA: null, scoreB: null, completed: false }
-                ];
-            }
-            else if (stage === 'PLAYOFF_2') {
-                stageLabel.innerText = "PLAYOFF MINI LIGA"; stageTitle.innerText = "Playoff Fase 2 (Sisa 8 Aktris)";
-                const s = getSortedStandings();
-                const losers = appState.tournament.playoff1L;
-                const p2Pool = [losers[0], losers[1], s[16], s[17], s[18], s[19], s[20], s[21]];
-                appState.matches = [
-                    { id: 'P2_1', type: 'BO1', playerA: p2Pool[0], playerB: p2Pool[7], scoreA: null, scoreB: null, completed: false },
-                    { id: 'P2_2', type: 'BO1', playerA: p2Pool[1], playerB: p2Pool[6], scoreA: null, scoreB: null, completed: false },
-                    { id: 'P2_3', type: 'BO1', playerA: p2Pool[2], playerB: p2Pool[5], scoreA: null, scoreB: null, completed: false },
-                    { id: 'P2_4', type: 'BO1', playerA: p2Pool[3], playerB: p2Pool[4], scoreA: null, scoreB: null, completed: false }
-                ];
-            }
-            else if (stage === 'R16') {
-                stageLabel.innerText = "FASE GUGUR - BO3"; stageTitle.innerText = "Babak 16 Besar";
-                const s = getSortedStandings(); 
-                const p1W = appState.tournament.playoff1W; 
-                const p2W = appState.tournament.playoff2W;
-                appState.matches = [
-                    { id: 'R16_1', type: 'BO3', title: '16 Besar', playerA: s[0], playerB: p2W[1] || s[15], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
-                    { id: 'R16_2', type: 'BO3', title: '16 Besar', playerA: s[1], playerB: p2W[0] || s[14], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
-                    { id: 'R16_3', type: 'BO3', title: '16 Besar', playerA: s[2], playerB: p1W[1] || s[13], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
-                    { id: 'R16_4', type: 'BO3', title: '16 Besar', playerA: s[3], playerB: p1W[0] || s[12], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
-                    { id: 'R16_5', type: 'BO3', title: '16 Besar', playerA: s[4], playerB: s[11], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
-                    { id: 'R16_6', type: 'BO3', title: '16 Besar', playerA: s[5], playerB: s[10], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
-                    { id: 'R16_7', type: 'BO3', title: '16 Besar', playerA: s[6], playerB: s[9], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
-                    { id: 'R16_8', type: 'BO3', title: '16 Besar', playerA: s[7], playerB: s[8], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
-                ];
-            }
-            else if (stage === 'R8_F1') {
-                stageLabel.innerText = "MINI LIGA - FASE 1"; stageTitle.innerText = "Babak 8 Besar (1 Laga)";
-                const w = appState.tournament.r16W;
-                appState.matches = [
-                    { id: 'R8F1_1', type: 'BO1', playerA: w[0], playerB: w[7], scoreA: null, scoreB: null, completed: false },
-                    { id: 'R8F1_2', type: 'BO1', playerA: w[1], playerB: w[6], scoreA: null, scoreB: null, completed: false },
-                    { id: 'R8F1_3', type: 'BO1', playerA: w[2], playerB: w[5], scoreA: null, scoreB: null, completed: false },
-                    { id: 'R8F1_4', type: 'BO1', playerA: w[3], playerB: w[4], scoreA: null, scoreB: null, completed: false },
-                ];
-            }
-            else if (stage === 'R8_F1_TIE') {
-                stageLabel.innerText = "DUEL TIKET SEMIFINAL 1"; stageTitle.innerText = "Rank 2 vs Rank 3 (Fase 1)";
-                const std = appState.tournament.r8f1_standings;
-                appState.matches = [ { id: 'R8F1_T', type: 'BO1', title: 'Perebutan Semifinal', playerA: std[1].player, playerB: std[2].player, scoreA: null, scoreB: null, completed: false } ];
-            }
-            else if (stage === 'R8_F2') {
-                stageLabel.innerText = "MINI LIGA - FASE 2"; stageTitle.innerText = "Sisa 6 Aktris (1 Laga)";
-                const p = appState.tournament.r8f2_pool;
-                appState.matches = [
-                    { id: 'R8F2_1', type: 'BO1', playerA: p[0], playerB: p[5], scoreA: null, scoreB: null, completed: false },
-                    { id: 'R8F2_2', type: 'BO1', playerA: p[1], playerB: p[4], scoreA: null, scoreB: null, completed: false },
-                    { id: 'R8F2_3', type: 'BO1', playerA: p[2], playerB: p[3], scoreA: null, scoreB: null, completed: false },
-                ];
-            }
-            else if (stage === 'R8_F2_TIE') {
-                stageLabel.innerText = "DUEL TIKET SEMIFINAL 2"; stageTitle.innerText = "Rank 2 vs Rank 3 (Fase 2)";
-                const std = appState.tournament.r8f2_standings;
-                appState.matches = [ { id: 'R8F2_T', type: 'BO1', title: 'Perebutan Semifinal', playerA: std[1].player, playerB: std[2].player, scoreA: null, scoreB: null, completed: false } ];
-            }
-            else if (stage === 'SEMIS') {
-                stageLabel.innerText = "SEMIFINAL - BO3"; stageTitle.innerText = "Babak 4 Besar (BO3)";
-                const w = appState.tournament.semis_pool;
-                appState.matches = [
-                    { id: 'SF_1', type: 'BO3', title: 'Semifinal #1 (BO3)', playerA: w[0], playerB: w[3], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
-                    { id: 'SF_2', type: 'BO3', title: 'Semifinal #2 (BO3)', playerA: w[1], playerB: w[2], scoreA: null, scoreB: null, seriesDetails: null, completed: false }
-                ];
-            }
-            else if (stage === 'FINALS') {
-                stageLabel.innerText = "PUNCAK KLASEMEN"; stageTitle.innerText = "GRAND FINAL & JUARA 3";
-                const fPlayers = appState.tournament.finals_players;
-                appState.matches = [
-                    { id: '3RD', type: 'BO3', title: 'Perebutan Juara 3 (BO3)', playerA: fPlayers.bronze[0], playerB: fPlayers.bronze[1], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
-                    { id: 'FIN', type: 'BO5', title: 'GRAND FINAL (BO5)', playerA: fPlayers.gold[0], playerB: fPlayers.gold[1], scoreA: null, scoreB: null, seriesDetails: null, completed: false }
-                ];
-            }
-        }
-
-        function calculateBaseScore(rA, rB) {
-            const exp = rA / (rA + rB);
-            let sA = Math.round((exp * 100) + ((Math.random() - 0.5) * 22));
-            return Math.max(20, Math.min(80, sA));
-        }
-
-        function getRandomCommentary(type, scoreA) {
-            if (type === 'LEAGUE_2V2') {
-                if (scoreA === 50) return c_draw[Math.floor(Math.random() * c_draw.length)];
-                if (scoreA >= 65 || scoreA <= 35) return c_blowout2v2[Math.floor(Math.random() * c_blowout2v2.length)];
-                return c_win2v2[Math.floor(Math.random() * c_win2v2.length)];
-            } else if (type === 'LEAGUE_1V1') {
-                if (scoreA === 50) return c_draw[Math.floor(Math.random() * c_draw.length)];
-                if (scoreA >= 65 || scoreA <= 35) return c_blowout1v1[Math.floor(Math.random() * c_blowout1v1.length)];
-                return c_win1v1[Math.floor(Math.random() * c_win1v1.length)];
-            } else {
-                return c_knockout[Math.floor(Math.random() * c_knockout.length)];
-            }
-        }
-
-        function simSingleMatch(index) {
-            const match = appState.matches[index];
-            if (match.completed) return;
-            
-            let ratingA = 50, ratingB = 50;
-            if (match.type === 'LEAGUE_2V2') {
-                ratingA = ((match.teamA[0].rating||85) + (match.teamA[1].rating||85)) / 2;
-                ratingB = ((match.teamB[0].rating||85) + (match.teamB[1].rating||85)) / 2;
-            } else { ratingA = match.playerA.rating||85; ratingB = match.playerB.rating||85; }
-
-            if (match.type === 'LEAGUE_2V2' || match.type === 'LEAGUE_1V1') {
-                let sA = calculateBaseScore(ratingA, ratingB);
-                if (Math.abs(sA - 50) <= 2 && Math.random() < 0.35) sA = 50; // Chance of Draw
-                applyMatchResults(match, sA, 100 - sA);
-            } 
-            else if (match.type === 'BO1') {
-                let sA = calculateBaseScore(ratingA, ratingB);
-                if (sA === 50) sA = Math.random() > 0.5 ? 51 : 49;
-                applyMatchResults(match, sA, 100 - sA);
-            }
-            else if (match.type === 'BO3' || match.type === 'BO5') {
-                let winsA = 0, winsB = 0; let target = match.type === 'BO5' ? 3 : 2;
-                let details = [];
-                while(winsA < target && winsB < target) {
-                    let sA = calculateBaseScore(ratingA, ratingB);
-                    if (sA === 50) sA = Math.random() > 0.5 ? 51 : 49;
-                    if (sA > (100-sA)) winsA++; else winsB++;
-                    details.push({ sA: sA, sB: 100-sA });
-                }
-                match.seriesDetails = details;
-                applyMatchResults(match, winsA, winsB);
-            }
-            renderMatchList(); if (appState.currentStage.startsWith('MD')) renderStandings(); renderBracket();
-        }
-
-        function applyMatchResults(match, scoreA, scoreB) {
-            match.scoreA = scoreA; match.scoreB = scoreB; match.completed = true;
-            
-            if (match.type.startsWith('LEAGUE')) {
-                let ptsA = 0, ptsB = 0;
-                if (scoreA === 50) { ptsA = 1; ptsB = 1; } 
-                else if (scoreA > scoreB) { ptsA = scoreA >= 65 ? 4 : 3; } 
-                else { ptsB = scoreB >= 65 ? 4 : 3; }
-
-                const updateStats = (arr, p, s) => { arr.forEach(x => { const act = getActress(x.id); act.points += p; act.totalPercentage += s; act.matchesPlayed++; }); };
-                
-                if (match.type === 'LEAGUE_2V2') { 
-                    updateStats(match.teamA, ptsA, scoreA); 
-                    updateStats(match.teamB, ptsB, scoreB); 
-                    
-                    // Lacak Duo Terbaik Sesuai Margin Menang
-                    let margin = Math.abs(scoreA - scoreB);
-                    if (!appState.tournament.bestDuoMargin || margin > appState.tournament.bestDuoMargin) {
-                        appState.tournament.bestDuoMargin = margin;
-                        if (scoreA > scoreB) appState.tournament.bestDuo = `${match.teamA[0].name} & ${match.teamA[1].name}`;
-                        else appState.tournament.bestDuo = `${match.teamB[0].name} & ${match.teamB[1].name}`;
-                    }
-                } 
-                else { 
-                    updateStats([match.playerA], ptsA, scoreA); 
-                    updateStats([match.playerB], ptsB, scoreB); 
-                }
-                
-                match.commentary = getRandomCommentary(match.type, scoreA);
-            }
-            else if (match.type === 'BO1') { match.commentary = `⚔️ ${(scoreA > scoreB ? match.playerA : match.playerB).name} menang dramatis dan melaju!`; }
-            else { match.commentary = `🏆 ${(scoreA > scoreB ? match.playerA : match.playerB).name} memenangkan seri ${Math.max(scoreA,scoreB)} - ${Math.min(scoreA,scoreB)}!`; }
-            
-            saveStateToStorage();
-        }
-
-        function simCurrentStage() {
-            appState.matches.forEach((m, i) => { if (!m.completed) simSingleMatch(i); });
-            showToast("Tahap ini berhasil disimulasikan penuh!");
-        }
-
-        function advanceToNextStage() {
-            if (appState.matches.filter(m => !m.completed).length > 0) { alertModal("Peringatan", "Selesaikan simulasi pertandingan dulu!"); return; }
-
-            const getW = (m) => m.scoreA > m.scoreB ? m.playerA : m.playerB;
-            const getL = (m) => m.scoreA > m.scoreB ? m.playerB : m.playerA;
-
-            const stg = appState.currentStage;
-            if (stg.startsWith('MD')) {
-                const md = parseInt(stg.replace('MD', ''));
-                if (md < 9) appState.currentStage = `MD${md + 1}`; else appState.currentStage = 'PLAYOFF_1';
-            } 
-            else if (stg === 'PLAYOFF_1') { 
-                appState.tournament.playoff1W = appState.matches.map(getW); 
-                appState.tournament.playoff1L = appState.matches.map(getL);
-                appState.currentStage = 'PLAYOFF_2'; 
-            } 
-            else if (stg === 'PLAYOFF_2') {
-                let res = [];
-                appState.matches.forEach(m => { res.push({ player: m.playerA, pct: m.scoreA }); res.push({ player: m.playerB, pct: m.scoreB }); });
-                res.sort((a,b) => b.pct - a.pct);
-                appState.tournament.playoff2W = [res[0].player, res[1].player];
-                appState.currentStage = 'R16';
-            }
-            else if (stg === 'R16') { appState.tournament.r16W = appState.matches.map(getW); appState.currentStage = 'R8_F1'; } 
-            else if (stg === 'R8_F1') {
-                let res = [];
-                appState.matches.forEach(m => { res.push({ player: m.playerA, pct: m.scoreA }); res.push({ player: m.playerB, pct: m.scoreB }); });
-                res.sort((a,b) => b.pct - a.pct);
-                appState.tournament.r8f1_standings = res;
-                appState.tournament.semis_pool = [res[0].player]; 
-                appState.currentStage = 'R8_F1_TIE';
-            }
-            else if (stg === 'R8_F1_TIE') {
-                const m = appState.matches[0];
-                appState.tournament.semis_pool.push(getW(m));
-                const f1 = appState.tournament.r8f1_standings;
-                appState.tournament.r8f2_pool = [getL(m), f1[3].player, f1[4].player, f1[5].player, f1[6].player, f1[7].player];
-                appState.currentStage = 'R8_F2';
-            }
-            else if (stg === 'R8_F2') {
-                let res = [];
-                appState.matches.forEach(m => { res.push({ player: m.playerA, pct: m.scoreA }); res.push({ player: m.playerB, pct: m.scoreB }); });
-                res.sort((a,b) => b.pct - a.pct);
-                appState.tournament.r8f2_standings = res;
-                appState.tournament.semis_pool.push(res[0].player); 
-                appState.currentStage = 'R8_F2_TIE';
-            }
-            else if (stg === 'R8_F2_TIE') {
-                appState.tournament.semis_pool.push(getW(appState.matches[0]));
-                appState.currentStage = 'SEMIS';
-            }
-            else if (stg === 'SEMIS') { 
-                const m1 = appState.matches[0]; const m2 = appState.matches[1];
-                appState.tournament.finals_players = { gold: [getW(m1), getW(m2)], bronze: [getL(m1), getL(m2)] };
-                appState.currentStage = 'FINALS'; 
-            } 
-            else if (stg === 'FINALS') { finishSeasonAndArchive(); return; }
-
-            generateMatchesForCurrentStage(); saveStateToStorage(); renderMatchList();
-            if (stg.startsWith('MD')) renderStandings(); renderBracket(); switchTab('tabMatch'); window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function finishSeasonAndArchive() {
-            if (appState.matches.filter(m => !m.completed).length > 0) { alertModal("Peringatan", "Selesaikan pertandingan Final terlebih dahulu!"); return; }
-
-            const match3rd = appState.matches.find(m => m.id === '3RD');
-            const matchFin = appState.matches.find(m => m.id === 'FIN');
-
-            const champion = matchFin.scoreA > matchFin.scoreB ? matchFin.playerA : matchFin.playerB;
-            const runnerUp = matchFin.scoreA > matchFin.scoreB ? matchFin.playerB : matchFin.playerA;
-            const thirdPlace = match3rd.scoreA > match3rd.scoreB ? match3rd.playerA : match3rd.playerB;
-
-            const sortedByPct = [...appState.actresses].sort((a,b) => b.totalPercentage - a.totalPercentage);
-            const sortedByPts = getSortedStandings();
-
-            // The Best Awards
-            const mostPopular = champion.name;
-            const fanTersolid = sortedByPct[0].name;
-            const bestOfTier = sortedByPts[0].name;
-            const consistencyAct = sortedByPct.find(a => a.name !== fanTersolid).name;
-            const bestDuoActress = appState.tournament.bestDuo || "Belum Ada Data";
-
-            appState.hallOfFame.unshift({
-                season: appState.seasonNumber,
-                leagueTitle: appState.sponsors.leagueTitle,
-                majorSponsor: appState.sponsors.major,
-                champion: { name: champion.name, avatar: champion.avatar },
-                runnerUp: { name: runnerUp.name, avatar: runnerUp.avatar },
-                thirdPlace: { name: thirdPlace.name, avatar: thirdPlace.avatar },
-                awards: { 
-                    mostPopular: mostPopular, 
-                    fanTersolid: fanTersolid, 
-                    bestOfTier: bestOfTier, 
-                    consistency: consistencyAct,
-                    bestDuo: bestDuoActress
-                }
-            });
-
-            const prevSeason = appState.seasonNumber;
-            appState.seasonNumber++;
-            appState.currentStage = 'MD1';
-            appState.tournament = { playoff1W: [], playoff1L: [], playoff2W: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [], finals_players: null, bestDuoMargin: 0, bestDuo: '' };
-            
-            appState.actresses.forEach(a => {
-                a.matchesPlayed = 0;
-                a.totalPercentage = 0;
-                if (a.id === champion.id) a.initialPoints = 3;
-                else if (a.id === runnerUp.id) a.initialPoints = 2;
-                else if (a.id === thirdPlace.id) a.initialPoints = 1;
-                else a.initialPoints = 0;
-                a.points = a.initialPoints;
-            });
-
-            saveStateToStorage();
-            generateMatchesForCurrentStage(); renderSponsorsUI(); renderStandings(); renderMatchList(); renderBracket(); renderHallOfFame();
-            
-            alertModal("🏆 MUSIM SELESAI!", `Selamat! ${champion.name} keluar sebagai Juara Utama Season ${prevSeason}!\n\nData telah diarsipkan di Hall of Fame beserta The Best Awards. Privilese juara (Poin Modal) telah dibagikan dan Season ${appState.seasonNumber} resmi dimulai!`);
-            switchTab('tabHallOfFame'); window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function renderMatchList() {
-            const container = document.getElementById('matchListGrid');
-            container.innerHTML = '';
-            appState.matches.forEach((m, idx) => {
-                const isFinal = m.type === 'BO5';
-                const card = document.createElement('div');
-                card.className = isFinal 
-                    ? "epic-final-card rounded-3xl p-5 sm:p-7 space-y-4 relative flex flex-col md:col-span-2" 
-                    : "glass-card rounded-2xl p-4 sm:p-5 border border-white/10 space-y-3 relative flex flex-col";
-                
-                let teamAHTML = "", teamBHTML = "";
-                let avaClass = isFinal ? "w-16 h-16 sm:w-24 sm:h-24 border-4 border-amber-400 shadow-[0_0_15px_#F59E0B]" : "w-10 h-10 border border-white/20";
-                
-                if (m.type === 'LEAGUE_2V2') {
-                    const a1 = getActress(m.teamA[0].id); const a2 = getActress(m.teamA[1].id);
-                    const b1 = getActress(m.teamB[0].id); const b2 = getActress(m.teamB[1].id);
-                    teamAHTML = `<div class="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left z-10 relative"><div class="flex -space-x-3"><div class="relative inline-block"><img src="${getSafeAvatar(a1.avatar,a1.name)}" class="w-8 h-8 rounded-full border border-slate-700 object-cover" referrerpolicy="no-referrer">${getChampionBadge(a1.name)}</div><div class="relative inline-block"><img src="${getSafeAvatar(a2.avatar,a2.name)}" class="w-8 h-8 rounded-full border border-slate-700 object-cover" referrerpolicy="no-referrer">${getChampionBadge(a2.name)}</div></div><span class="font-bold text-xs text-white leading-tight">${a1.name}<br>& ${a2.name}</span></div>`;
-                    teamBHTML = `<div class="flex flex-col sm:flex-row-reverse items-center gap-2 text-center sm:text-right z-10 relative"><div class="flex -space-x-3"><div class="relative inline-block"><img src="${getSafeAvatar(b1.avatar,b1.name)}" class="w-8 h-8 rounded-full border border-slate-700 object-cover" referrerpolicy="no-referrer">${getChampionBadge(b1.name)}</div><div class="relative inline-block"><img src="${getSafeAvatar(b2.avatar,b2.name)}" class="w-8 h-8 rounded-full border border-slate-700 object-cover" referrerpolicy="no-referrer">${getChampionBadge(b2.name)}</div></div><span class="font-bold text-xs text-white leading-tight">${b1.name}<br>& ${b2.name}</span></div>`;
-                } else {
-                    const pA = getActress(m.playerA.id); const pB = getActress(m.playerB.id);
-                    teamAHTML = `<div class="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left z-10 relative"><div class="relative inline-block"><img src="${getSafeAvatar(pA.avatar,pA.name)}" class="${avaClass} rounded-full object-cover" referrerpolicy="no-referrer">${getChampionBadge(pA.name)}</div><div class="font-bold text-sm text-white ${isFinal?'sm:text-3xl drop-shadow-lg text-amber-100':''}">${pA.name}</div></div>`;
-                    teamBHTML = `<div class="flex flex-col sm:flex-row-reverse items-center gap-3 text-center sm:text-right z-10 relative"><div class="relative inline-block"><img src="${getSafeAvatar(pB.avatar,pB.name)}" class="${avaClass} rounded-full object-cover" referrerpolicy="no-referrer">${getChampionBadge(pB.name)}</div><div class="font-bold text-sm text-white ${isFinal?'sm:text-3xl drop-shadow-lg text-amber-100':''}">${pB.name}</div></div>`;
-                }
-
-                let sADisp = '-', sBDisp = '-';
-                if (m.completed) { sADisp = m.scoreA + (m.type.startsWith('BO') && m.type !== 'BO1' ? '' : '%'); sBDisp = m.scoreB + (m.type.startsWith('BO') && m.type !== 'BO1' ? '' : '%'); }
-
-                let seriesHTML = '';
-                if (m.completed && m.seriesDetails) {
-                    seriesHTML = `<div class="flex flex-wrap gap-2 mt-2 justify-center relative z-10">`;
-                    m.seriesDetails.forEach((rd, i) => {
-                        let winA = rd.sA > rd.sB;
-                        seriesHTML += `<span class="px-2.5 py-1 rounded bg-slate-900 border ${winA ? 'border-purple-500/50 text-purple-300' : 'border-pink-500/50 text-pink-300'} text-[10px] font-bold shadow-md">R${i+1}: ${rd.sA}% - ${rd.sB}%</span>`;
-                    });
-                    seriesHTML += `</div>`;
-                }
-
-                let barW_A = 50, barW_B = 50;
-                if(m.completed) {
-                    if (m.type.startsWith('BO') && m.type !== 'BO1') { let total = m.scoreA + m.scoreB; barW_A = total > 0 ? (m.scoreA / total) * 100 : 50; } else { barW_A = m.scoreA; }
-                    barW_B = 100 - barW_A;
-                }
-
-                card.innerHTML = `
-                    <div class="flex items-center justify-between text-xs text-slate-400 font-bold border-b border-white/10 pb-2 z-10 relative">
-                        <span class="${isFinal?'text-amber-400 font-black text-lg sm:text-2xl tracking-wider drop-shadow-md':''}">${isFinal?'<i class="fa-solid fa-crown mr-1"></i>':''}${m.title || `Laga #${idx + 1}`}</span>
-                        <span class="px-2.5 py-1 rounded-lg ${isFinal?'bg-amber-500/20 text-amber-300 border-amber-500/30 font-black':'bg-purple-500/20 text-purple-300 border-purple-500/30'} border text-[10px]">${m.type.replace('_', ' ')}</span>
-                    </div>
-                    <div class="grid grid-cols-5 items-center gap-2 my-2 flex-1 z-10 relative">
-                        <div class="col-span-2">${teamAHTML}</div>
-                        <div class="text-center">
-                            <div class="font-black text-xl ${isFinal?'sm:text-5xl text-amber-300':'sm:text-2xl text-amber-400'} drop-shadow-md">${sADisp} - ${sBDisp}</div>
-                            ${m.type.startsWith('BO') && m.type !== 'BO1' ? `<div class="text-[9px] sm:text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-black">Seri Dimainkan</div>` : ''}
-                        </div>
-                        <div class="col-span-2">${teamBHTML}</div>
-                    </div>
-                    ${seriesHTML}
-                    ${m.completed && !m.seriesDetails ? `<div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden flex mb-2 shadow-inner z-10 relative"><div class="progress-bar animated-stripes bg-gradient-to-r from-purple-500 to-pink-500 h-full" style="width: ${barW_A}%"></div><div class="progress-bar animated-stripes bg-cyan-500 h-full" style="width: ${barW_B}%"></div></div>` : '<div class="mb-2"></div>'}
-                    <div class="p-3 rounded-xl bg-slate-900/60 border border-white/10 text-[11px] text-slate-300 flex items-start gap-2 shadow-inner z-10 relative">
-                        <i class="fa-solid fa-comment-dots text-purple-400 text-sm mt-0.5"></i>
-                        <span class="leading-relaxed font-medium">${m.commentary}</span>
-                    </div>
-                    <div class="flex items-center justify-end gap-2 pt-2 mt-auto z-10 relative">
-                        <button onclick="simSingleMatch(${idx})" ${m.completed ? 'disabled class="opacity-40 cursor-not-allowed px-3 py-1.5 rounded-xl bg-slate-800 text-slate-400 text-xs"' : `class="px-4 py-1.5 rounded-xl ${isFinal?'bg-amber-600 hover:bg-amber-500 shadow-amber-600/30':'bg-purple-600 hover:bg-purple-500 shadow-purple-600/30'} text-white font-bold text-xs shadow-md transition"`}>${m.completed ? 'Selesai' : 'Simulasi Laga'}</button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function renderBracketNode(player, score, isWinner) {
-            if(!player) return `<div class="p-2 rounded-xl bg-slate-900/30 text-slate-500 border border-slate-800 text-[10px] text-center">TBD</div>`;
-            const bgClass = isWinner ? 'bg-emerald-900/40 border-emerald-500/30' : 'bg-slate-900/60 border-slate-700/50';
-            const textClass = isWinner ? 'text-white' : 'text-slate-400';
-            return `
-                <div class="p-1.5 sm:p-2 rounded-xl ${bgClass} border flex items-center justify-between gap-1 transition-all">
-                    <div class="flex items-center gap-1.5 overflow-hidden">
-                        <div class="relative inline-block flex-shrink-0">
-                            <img src="${getSafeAvatar(player.avatar, player.name)}" referrerpolicy="no-referrer" onerror="handleImageError(this, '${player.name.replace(/'/g, "\\'")}')" class="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover border border-white/10">
-                            ${getChampionBadge(player.name)}
-                        </div>
-                        <span class="font-bold text-[9px] sm:text-[10px] ${textClass} truncate">${player.name}</span>
-                    </div>
-                    <span class="font-black text-[10px] sm:text-xs ${isWinner ? 'text-emerald-400' : 'text-slate-500'}">${score !== null ? score : '-'}</span>
-                </div>
-            `;
-        }
-
-        function drawMatches(containerId, matchIds) {
-            const container = document.getElementById(containerId);
-            if(!container) return; container.innerHTML = '';
-            let matchesFound = appState.matches.filter(m => matchIds.includes(m.id));
-            if(matchesFound.length === 0) { container.innerHTML = `<div class="p-2 rounded-xl bg-slate-900/50 text-slate-500 italic text-center text-[10px]">Menunggu...</div>`; return; }
-            matchesFound.forEach(m => {
-                const wrap = document.createElement('div'); wrap.className = "p-2 rounded-xl bg-slate-950/40 border border-white/5 space-y-1.5 shadow-inner";
-                wrap.innerHTML = `${renderBracketNode(m.playerA, m.scoreA, m.completed && m.scoreA > m.scoreB)}${renderBracketNode(m.playerB, m.scoreB, m.completed && m.scoreB > m.scoreA)}`;
-                container.appendChild(wrap);
-            });
-        }
-
-        function renderBracket() {
-            const stg = appState.currentStage;
-            if (!stg.startsWith('MD')) {
-                drawMatches('bracketPlayoffList', ['P1_1', 'P1_2', 'P2_1', 'P2_2', 'P2_3', 'P2_4']);
-                drawMatches('bracketR16List', ['R16_1', 'R16_2', 'R16_3', 'R16_4', 'R16_5', 'R16_6', 'R16_7', 'R16_8']);
-                drawMatches('bracketSemisList', ['SF_1', 'SF_2']);
-                drawMatches('bracketFinalsList', ['FIN', '3RD']);
-
-                const r8 = document.getElementById('bracketR8List');
-                if (stg.startsWith('R8') || stg === 'SEMIS' || stg === 'FINALS') {
-                    let html = '';
-                    html += `<div class="glass-card p-3 border border-cyan-500/30 rounded-xl bg-cyan-950/20"><div class="text-[11px] font-bold text-cyan-300 mb-2 text-center border-b border-white/10 pb-1">Fase 1 (Penyisihan 8)</div><div class="space-y-1">`;
-                    if (appState.tournament.r8f1_standings) {
-                        appState.tournament.r8f1_standings.forEach((s, i) => { html += `<div class="flex justify-between items-center text-[10px] ${i===0?'text-emerald-400 font-bold':(i<3?'text-amber-300':'text-slate-400')}"><span class="truncate pr-2">${i+1}. ${s.player.name}</span><span>${s.pct}%</span></div>`; });
-                    } else { html += `<div class="text-[10px] text-slate-500 italic text-center">Berlangsung...</div>`; }
-                    html += `</div></div>`;
-                    
-                    html += `<div class="glass-card p-3 border border-pink-500/30 rounded-xl bg-pink-950/20"><div class="text-[11px] font-bold text-pink-300 mb-2 text-center border-b border-white/10 pb-1">Fase 2 (Sisa 6 Aktris)</div><div class="space-y-1">`;
-                    if (appState.tournament.r8f2_standings) {
-                        appState.tournament.r8f2_standings.forEach((s, i) => { html += `<div class="flex justify-between items-center text-[10px] ${i===0?'text-emerald-400 font-bold':(i<3?'text-amber-300':'text-rose-400')}"><span class="truncate pr-2">${i+1}. ${s.player.name}</span><span>${s.pct}%</span></div>`; });
-                    } else { html += `<div class="text-[10px] text-slate-500 italic text-center">Menunggu Fase 1...</div>`; }
-                    html += `</div></div>`;
-                    r8.innerHTML = html;
-                }
-            }
-        }
-
-        function renderHallOfFame() {
-            const container = document.getElementById('hallOfFameContainer'); container.innerHTML = '';
-            if (appState.hallOfFame.length === 0) {
-                container.innerHTML = `<div class="p-10 rounded-3xl bg-slate-900/50 text-center space-y-4 border border-white/10 shadow-inner"><div class="w-20 h-20 mx-auto rounded-full bg-slate-800 flex items-center justify-center border border-white/5"><i class="fa-solid fa-trophy text-4xl text-amber-500/30"></i></div><h4 class="font-bold text-white text-lg">Belum Ada Sejarah Juara</h4><p class="text-sm text-slate-400 max-w-md mx-auto leading-relaxed">Selesaikan seluruh pertandingan hingga Grand Final untuk mengabadikan pemenang di Hall of Fame!</p></div>`; return;
-            }
-            appState.hallOfFame.forEach(item => {
-                const entry = document.createElement('div');
-                entry.className = "glass-card rounded-3xl p-5 sm:p-6 border border-amber-500/20 space-y-5 bg-gradient-to-br from-indigo-950/40 via-slate-900/60 to-purple-950/40 relative overflow-hidden";
-                entry.innerHTML = `
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-bl-full blur-2xl"></div>
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 pb-4 relative z-10 gap-3">
-                        <span class="font-black text-lg sm:text-xl text-amber-400 font-display flex items-center gap-2"><i class="fa-solid fa-crown"></i> SEASON ${item.season}</span>
-                        <span class="text-[10px] sm:text-xs font-bold text-pink-300 px-3 py-1.5 rounded-xl bg-pink-500/10 border border-pink-500/20 w-fit">${item.leagueTitle} x ${item.majorSponsor}</span>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 relative z-10">
-                        <div class="p-4 rounded-2xl bg-gradient-to-b from-amber-500/20 to-amber-900/10 border border-amber-500/30 flex flex-row sm:flex-col items-center sm:text-center gap-4 shadow-lg shadow-amber-500/10 order-1 sm:order-2 transform sm:-translate-y-2">
-                            <div class="relative inline-block">
-                                <img src="${getSafeAvatar(item.champion.avatar, item.champion.name)}" referrerpolicy="no-referrer" onerror="handleImageError(this, '${item.champion.name.replace(/'/g, "\\'")}')" class="w-14 h-14 sm:w-20 sm:h-20 rounded-full object-cover avatar-ring-gold">
-                                ${getChampionBadge(item.champion.name)}
-                            </div>
-                            <div><div class="text-[10px] text-amber-400 font-black tracking-widest uppercase mb-1">JUARA 1</div><div class="font-extrabold text-sm sm:text-base text-white">${item.champion.name}</div></div>
-                        </div>
-                        <div class="p-3 rounded-2xl bg-slate-800/60 border border-slate-500/30 flex flex-row sm:flex-col items-center sm:text-center gap-3 order-2 sm:order-1">
-                            <div class="relative inline-block">
-                                <img src="${getSafeAvatar(item.runnerUp.avatar, item.runnerUp.name)}" referrerpolicy="no-referrer" onerror="handleImageError(this, '${item.runnerUp.name.replace(/'/g, "\\'")}')" class="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover avatar-ring-silver">
-                                ${getChampionBadge(item.runnerUp.name)}
-                            </div>
-                            <div><div class="text-[9px] text-slate-300 font-black tracking-widest uppercase mb-1">JUARA 2</div><div class="font-bold text-xs sm:text-sm text-white">${item.runnerUp.name}</div></div>
-                        </div>
-                        <div class="p-3 rounded-2xl bg-amber-950/30 border border-amber-700/30 flex flex-row sm:flex-col items-center sm:text-center gap-3 order-3">
-                            <div class="relative inline-block">
-                                <img src="${getSafeAvatar(item.thirdPlace.avatar, item.thirdPlace.name)}" referrerpolicy="no-referrer" onerror="handleImageError(this, '${item.thirdPlace.name.replace(/'/g, "\\'")}')" class="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover avatar-ring-bronze">
-                                ${getChampionBadge(item.thirdPlace.name)}
-                            </div>
-                            <div><div class="text-[9px] text-amber-600 font-black tracking-widest uppercase mb-1">JUARA 3</div><div class="font-bold text-xs sm:text-sm text-white">${item.thirdPlace.name}</div></div>
-                        </div>
-                    </div>
-                    ${item.awards ? `
-                    <div class="mt-4 pt-4 border-t border-white/10 grid grid-cols-2 lg:grid-cols-5 gap-3 relative z-10">
-                        <div class="p-3 bg-slate-900/50 rounded-xl border border-white/5 flex flex-col items-center text-center gap-2 shadow-inner">
-                            <i class="fa-solid fa-star text-amber-300 text-lg"></i>
-                            <div><div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Most Popular Actress</div><div class="text-xs font-bold text-white">${item.awards.mostPopular}</div></div>
-                        </div>
-                        <div class="p-3 bg-slate-900/50 rounded-xl border border-white/5 flex flex-col items-center text-center gap-2 shadow-inner">
-                            <i class="fa-solid fa-fire text-pink-400 text-lg"></i>
-                            <div><div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Best Fan Actress Tersolid</div><div class="text-xs font-bold text-white">${item.awards.fanTersolid}</div></div>
-                        </div>
-                        <div class="p-3 bg-slate-900/50 rounded-xl border border-white/5 flex flex-col items-center text-center gap-2 shadow-inner">
-                            <i class="fa-solid fa-coins text-cyan-400 text-lg"></i>
-                            <div><div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Best Of Tier Actress</div><div class="text-xs font-bold text-white">${item.awards.bestOfTier}</div></div>
-                        </div>
-                        <div class="p-3 bg-slate-900/50 rounded-xl border border-white/5 flex flex-col items-center text-center gap-2 shadow-inner">
-                            <i class="fa-solid fa-shield-heart text-emerald-400 text-lg"></i>
-                            <div><div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Best Of Consistency Act.</div><div class="text-xs font-bold text-white">${item.awards.consistency}</div></div>
-                        </div>
-                        <div class="p-3 bg-slate-900/50 rounded-xl border border-white/5 flex flex-col items-center text-center gap-2 shadow-inner lg:col-span-1 col-span-2">
-                            <i class="fa-solid fa-user-group text-purple-400 text-lg"></i>
-                            <div><div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Best Of Duo Actress</div><div class="text-xs font-bold text-white">${item.awards.bestDuo || 'Belum Ada'}</div></div>
-                        </div>
-                    </div>
-                    ` : ''}
-                `;
-                container.appendChild(entry);
-            });
-        }
-
-        function renderCustomizer() {
-            const container = document.getElementById('customizerContainer'); container.innerHTML = '';
-            appState.actresses.forEach((actress, i) => {
-                const item = document.createElement('div');
-                item.className = "glass-card rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 border border-white/10";
-                item.innerHTML = `
-                    <div class="flex items-center gap-4 w-full md:w-auto">
-                        <span class="font-bold text-slate-500 text-sm w-6 text-center">${i + 1}</span>
-                        <img id="customizer-preview-${actress.id}" src="${getSafeAvatar(actress.avatar, actress.name)}" referrerpolicy="no-referrer" onerror="handleImageError(this, '${actress.name.replace(/'/g, "\\'")}')" class="w-12 h-12 rounded-full object-cover border border-white/20 flex-shrink-0">
-                        <input type="text" value="${actress.name}" onchange="updateActressName(${actress.id}, this.value)" class="glass-input px-4 py-2 rounded-xl text-sm font-bold text-white w-full md:w-48" placeholder="Nama Aktris">
-                    </div>
-                    <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-between md:justify-end">
-                        <div class="flex items-center gap-2 w-full sm:w-auto">
-                            <i class="fa-solid fa-link text-slate-500 text-xs"></i>
-                            <div class="flex items-center gap-2 w-full sm:w-auto">
-                                <input type="text" id="avatar-input-${actress.id}" value="${actress.avatar}" oninput="previewAvatarInputChange(${actress.id}, this.value, '${actress.name.replace(/'/g, "\\'")}')" class="glass-input px-3 py-2 rounded-xl text-xs font-mono text-purple-300 w-full sm:w-60" placeholder="https:// (Link Foto)">
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <div class="flex items-center gap-1.5" title="Rating"><i class="fa-solid fa-star text-amber-400 text-xs"></i><input type="number" value="${actress.rating || 85}" min="50" max="99" onchange="updateActressRating(${actress.id}, this.value)" class="glass-input px-2 py-1.5 rounded-lg text-sm font-bold text-amber-300 w-14 text-center"></div>
-                            <div class="flex items-center gap-1.5" title="Modal Poin"><i class="fa-solid fa-coins text-purple-400 text-xs"></i><input type="number" value="${actress.initialPoints}" min="0" max="10" onchange="updateActressPoints(${actress.id}, this.value)" class="glass-input px-2 py-1.5 rounded-lg text-sm font-bold text-purple-300 w-12 text-center"></div>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(item);
-            });
-        }
-        function previewAvatarInputChange(id, val, name) { const p = document.getElementById(`customizer-preview-${id}`); if(p) p.src = getSafeAvatar(val.trim(), name); }
-        function saveAllCustomizerChanges() {
-            appState.actresses.forEach(a => { const input = document.getElementById(`avatar-input-${a.id}`); if(input) a.avatar = input.value.trim(); });
-            appState.matches.forEach(m => {
-                if (m.type === 'LEAGUE_2V2') { m.teamA.forEach(a => { const act = getActress(a.id); a.avatar = act.avatar; }); m.teamB.forEach(b => { const act = getActress(b.id); b.avatar = act.avatar; }); } 
-                else { if (m.playerA) m.playerA.avatar = getActress(m.playerA.id).avatar; if (m.playerB) m.playerB.avatar = getActress(m.playerB.id).avatar; }
-            });
-            saveStateToStorage(); renderStandings(); renderMatchList(); renderBracket(); showToast("Semua data disimpan!");
-        }
-        function updateActressName(id, val) { const t = appState.actresses.find(a => a.id === id); if(t && val.trim()) { t.name = val.trim(); saveStateToStorage(); renderStandings(); } }
-        function updateActressRating(id, val) { const t = appState.actresses.find(a => a.id === id); if(t) { t.rating = Math.max(50, Math.min(99, parseInt(val)||85)); saveStateToStorage(); } }
-        function updateActressPoints(id, val) { const t = appState.actresses.find(a => a.id === id); if(t) { t.initialPoints = parseInt(val)||0; t.points = t.initialPoints; saveStateToStorage(); renderStandings(); } }
-        function resetSeason() {
-            if(confirm("Yakin mereset seluruh data?")) {
-                localStorage.removeItem('k_actress_league_state_v9');
-                appState.actresses = JSON.parse(JSON.stringify(DEFAULT_ACTRESSES));
-                appState.currentStage = 'MD1'; appState.seasonNumber = 1; appState.hallOfFame = [];
-                appState.tournament = { playoff1W: [], playoff1L: [], playoff2W: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [], finals_players: null, bestDuoMargin: 0, bestDuo: '' };
-                appState.sponsors = { leagueTitle: 'SAMSUNG', major: 'DIOR', majorLogo: 'https://ui-avatars.com/api/?name=Dior&background=EC4899&color=fff', rights: ['NETFLIX', 'SBS'] };
-                saveStateToStorage(); generateMatchesForCurrentStage(); renderStandings(); renderCustomizer(); renderSponsorsUI(); renderBracket(); renderHallOfFame(); switchTab('tabKlasemen'); showToast("Reset berhasil!");
-            }
-        }
-
-        window.onload = function() { loadStateFromStorage(); renderSponsorsUI(); if(appState.matches.length === 0) generateMatchesForCurrentStage(); renderStandings(); renderMatchList(); renderBracket(); renderHallOfFame(); };
-    </script>
+<!-- Ambient Blobs -->
+<div class="liquid-blob blob-1"></div>
+<div class="liquid-blob blob-2"></div>
+<div class="liquid-blob blob-3"></div>
+
+<!-- MAIN WRAPPER -->
+<div class="relative z-10 flex-1 flex flex-col">
+
+<!-- HEADER -->
+<header class="glass-card sticky top-0 z-40 border-b border-white/10 px-4 sm:px-6 py-3 backdrop-blur-2xl">
+<div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-amber-400 via-pink-500 to-purple-600 p-0.5 shadow-lg shadow-purple-500/40 flex-shrink-0">
+<div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center"><i class="fa-solid fa-crown text-amber-400 text-lg sm:text-xl"></i></div>
+</div>
+<div>
+<div class="flex items-center gap-1.5 flex-wrap">
+<span id="leagueTitleBadge" class="text-[10px] font-black px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 tracking-wider">BAEKSANG</span>
+<span id="seasonBadge" class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">SEASON 1</span>
+</div>
+<h1 class="text-base sm:text-2xl font-black font-display tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-amber-400 mt-0.5 drop-shadow-[0_0_12px_rgba(236,72,153,0.6)] uppercase">🌟 BAEKSANG LEAGUE</h1>
+</div>
+</div>
+
+<div class="hidden md:flex items-center gap-2 text-sm">
+<div id="badgeMajorSponsor" class="px-3 py-1.5 rounded-xl bg-pink-500/10 text-pink-300 border border-pink-500/30 font-bold flex items-center gap-2">
+<!-- Sponsor Image Injected Here -->
+</div>
+<div id="badgeBroadcastRights" class="flex items-center gap-1.5"></div>
+</div>
+
+<nav class="hidden md:flex items-center gap-1 bg-slate-950/70 p-1.5 rounded-2xl border border-white/10 text-sm font-semibold">
+<button onclick="switchTab('tabKlasemen')" id="nav-tabKlasemen" class="nav-btn px-4 py-2 rounded-xl bg-purple-600 text-white shadow-md shadow-purple-600/30 flex items-center gap-2 font-bold"><i class="fa-solid fa-trophy text-amber-300"></i> <span>Klasemen</span></button>
+<button onclick="switchTab('tabMatch')" id="nav-tabMatch" class="nav-btn px-4 py-2 rounded-xl text-slate-400 hover:text-white flex items-center gap-2"><i class="fa-solid fa-gamepad"></i> <span>Pertandingan</span></button>
+<button onclick="switchTab('tabBracket')" id="nav-tabBracket" class="nav-btn px-4 py-2 rounded-xl text-slate-400 hover:text-white flex items-center gap-2"><i class="fa-solid fa-sitemap"></i> <span>Knockout</span></button>
+<button onclick="switchTab('tabHallOfFame')" id="nav-tabHallOfFame" class="nav-btn px-4 py-2 rounded-xl text-slate-400 hover:text-white flex items-center gap-2"><i class="fa-solid fa-landmark"></i> <span>Hall of Fame</span></button>
+<button onclick="switchTab('tabPengaturan')" id="nav-tabPengaturan" class="nav-btn px-4 py-2 rounded-xl text-slate-400 hover:text-white flex items-center gap-2"><i class="fa-solid fa-sliders"></i> <span>Kelola</span></button>
+</nav>
+</div>
+</header>
+
+<!-- INFO BAR -->
+<div class="bg-gradient-to-r from-indigo-950/60 via-slate-900/80 to-purple-950/60 backdrop-blur-md border-b border-indigo-500/20 px-4 py-2 text-xs text-indigo-200">
+<div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
+<div class="flex items-center gap-2 overflow-hidden text-[11px] sm:text-xs">
+<span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30 flex-shrink-0">NATURAL RULES</span>
+<span class="truncate" id="eventText">Playoff 1: BO3 (Rank 13-16). Playoff 2: Mini Liga (R17-R24 + P1 Losers). 16 Besar Acak!</span>
+</div>
+<button onclick="toggleEventRulesModal()" class="text-indigo-300 hover:text-white underline text-[10px] font-bold"><i class="fa-solid fa-book-open mr-1"></i>Format Liga</button>
+</div>
+</div>
+
+<!-- MAIN -->
+<main class="max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-5 flex-1">
+
+<!-- TAB 1: KLASEMEN -->
+<section id="tabKlasemen" class="tab-content block space-y-5">
+<div class="grid grid-cols-3 gap-3 sm:gap-6 max-w-3xl mx-auto pt-2" id="topPodiumCards"></div>
+<div class="glass-card rounded-3xl p-4 sm:p-7">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
+<div>
+<h2 class="text-lg sm:text-2xl font-bold font-display text-white"><i class="fa-solid fa-list-ol text-amber-400"></i> Klasemen Resmi Liga</h2>
+<p class="text-xs text-slate-400 mt-1">Disortir Ketat: 1. Poin Utama → 2. Total Persentase (%) Tie-Breaker.</p>
+</div>
+<div class="relative w-full sm:w-64">
+<i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+<input type="text" id="searchActress" oninput="renderStandings()" placeholder="Cari aktris..." class="glass-input pl-9 pr-4 py-2 rounded-xl text-sm w-full font-medium">
+</div>
+</div>
+<div class="space-y-2.5" id="standingsContainer"></div>
+</div>
+</section>
+
+<!-- TAB 2: PERTANDINGAN -->
+<section id="tabMatch" class="tab-content hidden space-y-5">
+<div class="glass-card rounded-3xl p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between gap-4 border border-purple-500/20">
+<div class="flex items-center gap-4 w-full md:w-auto">
+<div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white text-xl shadow-lg"><i class="fa-solid fa-gamepad"></i></div>
+<div>
+<span class="text-xs text-purple-300 font-bold uppercase tracking-widest" id="currentStageLabel">Tahap Kompetisi</span>
+<h2 class="text-base sm:text-2xl font-black font-display text-white mt-0.5" id="currentMatchdayTitle">Matchday 1 (Mode 2 vs 2)</h2>
+</div>
+</div>
+<div class="flex items-center gap-2.5 w-full md:w-auto justify-end">
+<button onclick="simCurrentStage()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 text-white font-bold text-sm shadow-lg flex-1 sm:flex-none"><i class="fa-solid fa-bolt text-amber-300"></i> Simulasi Tahap</button>
+<button id="btnAdvanceStage" onclick="advanceToNextStage()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg flex-1 sm:flex-none">Lanjut Tahap <i class="fa-solid fa-arrow-right"></i></button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="matchListGrid"></div>
+</section>
+
+<!-- TAB 3: BRACKET -->
+<section id="tabBracket" class="tab-content hidden space-y-5">
+<div class="glass-card rounded-3xl p-5 sm:p-7">
+<div class="mb-6 border-b border-white/10 pb-5">
+<h2 class="text-xl sm:text-2xl font-bold font-display text-white"><i class="fa-solid fa-sitemap text-pink-400"></i> Peta Fase Gugur & Knockout</h2>
+<p class="text-sm text-slate-400 mt-1">Data terekam penuh dari Playoff hingga Grand Final!</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+<div class="space-y-4">
+<div class="glass-card rounded-2xl p-4 border border-amber-500/20"><div class="font-bold text-sm text-amber-400 mb-3 border-b border-white/10 pb-2">Playoff 1 (BO3)</div><div id="bracketPlayoffList" class="space-y-2 text-xs"></div></div>
+<div class="glass-card rounded-2xl p-4 border border-orange-500/20"><div class="font-bold text-sm text-orange-400 mb-3 border-b border-white/10 pb-2">Playoff 2 (Mini Liga)</div><div id="bracketPlayoff2List" class="space-y-1 text-xs"></div></div>
+</div>
+<div class="glass-card rounded-2xl p-4 border border-purple-500/20">
+<div class="font-bold text-sm text-purple-400 mb-3 border-b border-white/10 pb-2">16 Besar (BO3 - Acak)</div>
+<div id="bracketR16List" class="space-y-2 text-xs"></div>
+</div>
+<div class="glass-card rounded-2xl p-4 border border-cyan-500/20">
+<div class="font-bold text-sm text-cyan-400 mb-3 border-b border-white/10 pb-2 flex items-center"><i class="fa-solid fa-star mr-2"></i> 8 Besar (Mini Liga F1 & F2)</div>
+<div class="space-y-4" id="bracketR8List"><div class="p-3 rounded-xl bg-slate-900/50 text-slate-500 italic text-center text-xs">Menunggu 16 Besar selesai...</div></div>
+</div>
+<div class="space-y-4">
+<div class="glass-card rounded-2xl p-4 border border-rose-500/20"><div class="font-bold text-sm text-rose-400 mb-3 border-b border-white/10 pb-2 flex items-center"><i class="fa-solid fa-fire mr-2"></i> Semifinal (BO3)</div><div id="bracketSemisList" class="space-y-2.5 text-xs"></div></div>
+<div class="glass-card rounded-2xl p-4 border border-amber-300/30"><div class="font-bold text-sm text-amber-300 mb-3 border-b border-white/10 pb-2 flex items-center"><i class="fa-solid fa-trophy mr-2"></i> Finals</div><div id="bracketFinalsList" class="space-y-2.5 text-xs"></div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- TAB 4: HALL OF FAME -->
+<section id="tabHallOfFame" class="tab-content hidden space-y-5">
+<div class="glass-card rounded-3xl p-5 sm:p-7">
+<div class="mb-6 flex items-center justify-between border-b border-white/10 pb-5">
+<div>
+<h2 class="text-xl sm:text-3xl font-black font-display text-white"><i class="fa-solid fa-landmark text-amber-400"></i> Hall of Fame Abadi</h2>
+<p class="text-sm text-slate-400 mt-1">Arsip resmi juara dan The Best Awards sejarah liga.</p>
+</div>
+<div class="px-4 py-2 rounded-xl bg-purple-500/20 text-purple-300 font-bold text-sm hidden sm:block"><i class="fa-solid fa-shield-cat"></i> Official Archive</div>
+</div>
+<div id="hallOfFameContainer" class="space-y-6"></div>
+</div>
+</section>
+
+<!-- TAB 5: PENGATURAN -->
+<section id="tabPengaturan" class="tab-content hidden space-y-5">
+<div class="glass-card rounded-3xl p-5 sm:p-7">
+<div class="mb-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-white/10 pb-5">
+<div>
+<h2 class="text-lg sm:text-2xl font-bold font-display text-white"><i class="fa-solid fa-sliders text-purple-400"></i> Kelola Aktris & Sistem</h2>
+<p class="text-sm text-slate-400 mt-1">Ubah nama, link foto (URL), rating, atau reset data.</p>
+</div>
+<div class="flex flex-wrap gap-2.5">
+<button onclick="saveAllCustomizerChanges()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg"><i class="fa-solid fa-floppy-disk"></i> Simpan Semua</button>
+<button onclick="openSponsorModal()" class="px-4 py-2 rounded-xl bg-pink-600/80 text-white font-bold text-sm shadow-lg"><i class="fa-solid fa-gem"></i> Edit Sponsor</button>
+<button onclick="resetSeason()" class="px-4 py-2 rounded-xl bg-rose-600/80 text-white font-bold text-sm shadow-lg"><i class="fa-solid fa-rotate-right"></i> Reset Musim</button>
+</div>
+</div>
+<div class="space-y-3" id="customizerContainer"></div>
+</div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="glass-card border-t border-white/10 px-5 py-4 text-center text-xs sm:text-sm text-slate-400 mt-auto">
+<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+<div><span id="footerLeagueTitle" class="font-bold text-slate-200">BAEKSANG K-ACT LEAGUE</span> &copy; 2026. All Rights Reserved.</div>
+<div class="flex items-center gap-2.5 text-[10px] sm:text-xs font-medium text-slate-400" id="footerSponsorsText"></div>
+</div>
+</footer>
+</div>
+
+<!-- MOBILE NAV -->
+<div class="fixed bottom-0 left-0 right-0 z-50 glass-card border-t border-white/10 p-2 md:hidden">
+<div class="grid grid-cols-5 gap-1 text-center">
+<button onclick="switchTab('tabKlasemen')" id="mob-tabKlasemen" class="mob-btn flex flex-col items-center py-1.5 text-purple-400 font-bold"><i class="fa-solid fa-trophy text-lg mb-1"></i><span class="text-[10px]">Klasemen</span></button>
+<button onclick="switchTab('tabMatch')" id="mob-tabMatch" class="mob-btn flex flex-col items-center py-1.5 text-slate-400"><i class="fa-solid fa-gamepad text-lg mb-1"></i><span class="text-[10px]">Laga</span></button>
+<button onclick="switchTab('tabBracket')" id="mob-tabBracket" class="mob-btn flex flex-col items-center py-1.5 text-slate-400"><i class="fa-solid fa-sitemap text-lg mb-1"></i><span class="text-[10px]">Knockout</span></button>
+<button onclick="switchTab('tabHallOfFame')" id="mob-tabHallOfFame" class="mob-btn flex flex-col items-center py-1.5 text-slate-400"><i class="fa-solid fa-landmark text-lg mb-1"></i><span class="text-[10px]">Hall Fame</span></button>
+<button onclick="switchTab('tabPengaturan')" id="mob-tabPengaturan" class="mob-btn flex flex-col items-center py-1.5 text-slate-400"><i class="fa-solid fa-sliders text-lg mb-1"></i><span class="text-[10px]">Kelola</span></button>
+</div>
+</div>
+
+<!-- Event Rules Modal -->
+<div id="eventRulesModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden">
+<div class="glass-card rounded-3xl max-w-lg w-full p-6 border border-white/20 shadow-2xl relative space-y-5">
+<button onclick="toggleEventRulesModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+<h3 class="text-lg font-bold text-white"><i class="fa-solid fa-scale-balanced text-amber-400"></i> Format Resmi Kompetisi</h3>
+<div class="space-y-4 text-sm text-slate-300">
+<div class="p-4 rounded-xl bg-slate-900/60 shadow-inner">
+<div class="font-bold text-amber-400 mb-2">Sistem Poin (Natural Rules)</div>
+<ul class="list-disc list-inside space-y-1">
+<li>Menang Normal: <b class="text-white">+3 Poin</b></li>
+<li>Menang Telak (≥ 65%): <b class="text-emerald-400">+4 Poin</b> (Peluang Dinaikkan)</li>
+<li>Seri Tepat (50%-50%): <b class="text-cyan-300">+1 Poin Keduanya</b></li>
+</ul>
+</div>
+<div class="p-4 rounded-xl bg-slate-900/60 shadow-inner text-xs space-y-1.5">
+<div class="font-bold text-purple-300 mb-2">Fase & Babak Gugur (Klasik)</div>
+<p><b>Liga (MD1-MD9):</b> 2v2 dan Solo 1v1. Daftar match diacak sempurna setiap babak!</p>
+<p><b>16 Besar:</b> Top 1-12 Lolos Otomatis.</p>
+<p><b>Playoff 1:</b> Rank 13-16 (1v1 BO3). 2 Menang lolos 16 Besar. 2 Kalah ke Playoff 2.</p>
+<p><b>Playoff 2:</b> Rank 17-24 + 2 Kalah dari Playoff 1 (Total 10). Masing-masing main 2x acak 1v1. Top 2 Total Persentase lolos ke 16 Besar.</p>
+<p><b>Babak Lanjut:</b> 16 Besar (Lawan Diacak) -> Mini Liga F1 & F2 -> Semifinal (BO3) -> Final (BO5).</p>
+</div>
+</div>
+<div class="text-right"><button onclick="toggleEventRulesModal()" class="px-6 py-2 rounded-xl bg-purple-600 text-white font-bold text-sm">Paham</button></div>
+</div>
+</div>
+
+<!-- Sponsor Modal -->
+<div id="sponsorModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden">
+<div class="glass-card rounded-3xl max-w-md w-full p-6 shadow-2xl relative space-y-5">
+<button onclick="closeSponsorModal()" class="absolute top-4 right-4 text-slate-400"><i class="fa-solid fa-xmark text-xl"></i></button>
+<h3 class="text-lg font-bold text-white"><i class="fa-solid fa-gem text-pink-400"></i> Edit Sponsor & Logo</h3>
+<div class="space-y-4 text-sm">
+<div><label class="block text-slate-300 font-semibold mb-1.5">Judul Utama</label><input type="text" id="inputLeagueTitle" class="glass-input px-4 py-2 rounded-xl w-full font-bold text-white"></div>
+<div><label class="block text-slate-300 font-semibold mb-1.5">Major Sponsor</label><input type="text" id="inputMajorSponsor" class="glass-input px-4 py-2 rounded-xl w-full font-bold text-pink-300"></div>
+<div><label class="block text-slate-300 font-semibold mb-1.5">Logo Sponsor (URL Gambar)</label><input type="text" id="inputMajorLogo" class="glass-input px-4 py-2 rounded-xl w-full font-mono text-purple-300 text-xs"></div>
+<div><label class="block text-slate-300 font-semibold mb-1.5">Hak Siar (Koma)</label><input type="text" id="inputBroadcastRights" class="glass-input px-4 py-2 rounded-xl w-full font-bold text-cyan-300"></div>
+</div>
+<div class="flex justify-end gap-3 pt-3"><button onclick="closeSponsorModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-sm font-semibold">Batal</button><button onclick="saveSponsors()" class="px-5 py-2 rounded-xl bg-pink-600 text-white text-sm font-bold">Simpan</button></div>
+</div>
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+const DEFAULT_ACTRESSES = [
+{ id: 1, name: "Kim Ji-won", avatar: "https://i.mydramalist.com/KpY0kR_5c.jpg", rating: 96, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 2, name: "IU", avatar: "https://i.mydramalist.com/73R8zn_5c.jpg", rating: 95, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 3, name: "Park Bo-young", avatar: "https://i.mydramalist.com/l0AEjv_5c.jpg", rating: 93, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 4, name: "Go Youn-jung", avatar: "https://i.mydramalist.com/VXx6Ex_5c.jpg", rating: 92, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 5, name: "Kim Tae-ri", avatar: "https://i.mydramalist.com/QZjnA_5c.jpg", rating: 94, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 6, name: "Kim Da-mi", avatar: "https://i.mydramalist.com/rEmV7c.jpg", rating: 91, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 7, name: "Shin Hye-sun", avatar: "https://i.mydramalist.com/O8J8kk_5c.jpg", rating: 90, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 8, name: "Lim Yoona", avatar: "https://i.mydramalist.com/l0drLv_5c.jpg", rating: 92, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 9, name: "Park Eun-bin", avatar: "https://i.mydramalist.com/v7Evg_5c.jpg", rating: 94, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 10, name: "Bae Suzy", avatar: "https://i.mydramalist.com/3oVYod_5c.jpg", rating: 91, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 11, name: "Song Hye-kyo", avatar: "https://i.mydramalist.com/KpY8K8_5c.jpg", rating: 95, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 12, name: "Han So-hee", avatar: "https://i.mydramalist.com/oQzL3N_5c.jpg", rating: 93, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 13, name: "Kim Go-eun", avatar: "https://i.mydramalist.com/O8JWKL_5c.jpg", rating: 92, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 14, name: "Park Min-young", avatar: "https://i.mydramalist.com/yWxKQR_5c.jpg", rating: 90, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 15, name: "Kim Yoo-jung", avatar: "https://i.mydramalist.com/nOZLQ8_5c.jpg", rating: 91, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 16, name: "Kim So-hyun", avatar: "https://i.mydramalist.com/VX8D3Q_5c.jpg", rating: 90, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 17, name: "Jung So-min", avatar: "https://i.mydramalist.com/mON8QP_5c.jpg", rating: 89, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 18, name: "Shin Si-ah", avatar: "https://i.mydramalist.com/l0A7KL_5c.jpg", rating: 86, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 19, name: "Seorina", avatar: "https://i.mydramalist.com/NdnRoE_5c.jpg", rating: 88, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 20, name: "Chae Soo-bin", avatar: "https://i.mydramalist.com/JBXVnw_5c.jpg", rating: 87, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 21, name: "Kim Se-jeong", avatar: "https://i.mydramalist.com/vrmWX_5c.jpg", rating: 89, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 22, name: "Roh Yoon-seo", avatar: "https://i.mydramalist.com/NdnkOY_5c.jpg", rating: 88, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 23, name: "Shin Eun-soo", avatar: "https://i.mydramalist.com/b3o64e_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 24, name: "Park Ji-hyun", avatar: "https://i.mydramalist.com/AB8PvP_5c.jpg", rating: 87, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 25, name: "Go Min-si", avatar: "https://i.mydramalist.com/B8bR5_5c.jpg", rating: 88, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 26, name: "Kang Hye-won", avatar: "https://i.mydramalist.com/LwV167_5c.jpg", rating: 84, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 27, name: "Jin Ki-joo", avatar: "https://i.mydramalist.com/nOYKnL_5c.jpg", rating: 86, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 28, name: "Jo Yuri", avatar: "https://i.mydramalist.com/VXzNrQ_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 29, name: "Park Shin-Hye", avatar: "https://i.mydramalist.com/Q3Nz7_5c.jpg", rating: 88, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 30, name: "Kim Hye-Jun", avatar: "https://i.mydramalist.com/YYJDeP_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 31, name: "Park Gyu Young", avatar: "https://i.mydramalist.com/oQBr6N_5c.jpg", rating: 86, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 32, name: "Kim Min-Ju", avatar: "https://i.mydramalist.com/l0nvob_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 33, name: "Kang Min na", avatar: "https://i.mydramalist.com/3onw7e_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 34, name: "Lee Hyeri", avatar: "https://i.mydramalist.com/EbVK0_5c.jpg", rating: 86, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 35, name: "Son Na Eun", avatar: "https://i.mydramalist.com/eZenK_5c.jpg", rating: 85, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 },
+{ id: 36, name: "Kim Ji Yeon", avatar: "https://i.mydramalist.com/pmorQ_5c.jpg", rating: 86, initialPoints: 0, points: 0, totalPercentage: 0, matchesPlayed: 0 }
+];
+
+let appState = {
+seasonNumber: 1,
+sponsors: { leagueTitle: 'BAEKSANG', major: 'DIOR', majorLogo: 'https://ui-avatars.com/api/?name=Dior&background=EC4899&color=fff', rights: ['NETFLIX', 'SBS'] },
+actresses: JSON.parse(JSON.stringify(DEFAULT_ACTRESSES)),
+currentStage: 'MD1',
+matches: [],
+hallOfFame: [],
+tournament: { playoff1W: [], playoff1L: [], playoff2W: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [], finals_players: null, bestDuoMargin: 0, bestDuo: '', historyMatches: [], p2Pool: [], playoff2_standings: null }
+};
+
+// COMMENTARY BANKS
+const c_win1v1 = [
+"⚡ Dominasi absolut! Kemenangan solid diraih dengan penuh gaya!", 
+"🔥 Pertarungan sengit! Taktik dan pesona memukau mengunci kemenangan krusial.", 
+"✨ Tampil gemilang bak dewi, sukses membungkam perlawanan lawannya hari ini!", 
+"🏆 Mentalitas juara berbicara! Detik-detik terakhir yang sangat menegangkan!",
+"🎯 Dukungan masif menyatu, poin penuh berhasil diamankan dengan elegan!"
+];
+const c_blowout1v1 = [
+"💥 Kemenangan telak mutlak! Lawan dibuat tak berkutik di atas panggung!", 
+"🚀 Mendominasi tanpa ampun! Margin poin yang sangat brutal dan mengerikan.", 
+"👑 Performa setara Ratu Semesta! Selisih suara yang menghancurkan mental lawan!",
+"🌪️ Badai popularitas tak terbendung! Menyapu bersih suara mayoritas tanpa sisa."
+];
+const c_win2v2 = [
+"🤝 Sinergi luar biasa! Kerja sama duo ini terbukti sangat mematikan!", 
+"⚡ Chemistry tak tertandingi! Mereka memenangkan laga dengan kekompakan absolut.", 
+"🔥 Kombinasi visual dan bakat sempurna yang berujung pada 3 poin berharga!",
+"💫 Kolaborasi impian terwujud! Fans kedua aktris bersatu padu merebut kemenangan."
+];
+const c_blowout2v2 = [
+"💥 Duet maut penghancur! Kemenangan telak yang meluluhlantakkan pertahanan lawan!", 
+"🚀 Harmoni mutlak! Keduanya panen poin dengan dominasi total nan sadis!",
+"🤯 Pembantaian di atas panggung! Duo ini benar-benar monster di matchday ini."
+];
+const c_draw = [
+"⚖️ Laga super seimbang! Pertarungan berakhir imbang 50-50 yang amat langka!", 
+"🤝 Sama kuat dan sama populer! Keduanya harus puas berbagi angka 1 poin."
+];
+const c_knockout = [
+"⚔️ Kemenangan krusial berdarah-darah untuk melaju ke babak selanjutnya!", 
+"🔥 Berhasil bertahan hidup dari lubang jarum turnamen sistem gugur ini!", 
+"🏆 Perjalanan terus berlanjut berkat mental baja di momen paling genting."
+];
+
+function getChampionBadge(name) {
+let count = appState.hallOfFame.filter(h => h.champion.name === name).length;
+if (count === 0) return '';
+let icon = '';
+if (count === 1) icon = `<i class="fa-solid fa-star text-white text-[9px] sm:text-[11px] drop-shadow-[0_0_5px_#fff]" title="1x Champion"></i>`;
+else if (count === 2) icon = `<i class="fa-solid fa-star text-cyan-300 text-[9px] sm:text-[11px] drop-shadow-[0_0_5px_#67e8f9]" title="2x Champion"></i>`;
+else icon = `<i class="fa-solid fa-star text-amber-400 text-[10px] sm:text-[12px] drop-shadow-[0_0_8px_#F59E0B]" title="3x+ Champion"></i>`;
+return `<div class="absolute -top-1 -right-1 sm:-top-1.5 sm:-right-1.5 bg-slate-900 rounded-full p-0.5 sm:p-1 border border-white/20 z-20 shadow-lg flex items-center justify-center">${icon}</div>`;
+}
+
+function getSafeAvatar(avatarUrl, name) {
+if (avatarUrl && avatarUrl.trim() !== '') return avatarUrl;
+return `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'Aktris')}&background=7c3aed&color=ffffff&bold=true&size=128`;
+}
+function handleImageError(imgEl, name) {
+if (!imgEl) return; imgEl.onerror = null; 
+imgEl.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'Aktris')}&background=7c3aed&color=ffffff&bold=true&size=128`;
+}
+function getActress(id) { return appState.actresses.find(a => a.id === id) || { name: 'Aktris', avatar: '' }; }
+
+function loadStateFromStorage() {
+try {
+const saved = localStorage.getItem('k_actress_league_state_v10');
+if (saved) {
+const parsed = JSON.parse(saved);
+if (parsed && parsed.actresses) appState = parsed;
+if (!appState.tournament) appState.tournament = { playoff1W: [], playoff1L: [], playoff2W: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [], finals_players: null, historyMatches: [], p2Pool: [], playoff2_standings: null };
+if (!appState.tournament.historyMatches) appState.tournament.historyMatches = [];
+if (!appState.sponsors.majorLogo) appState.sponsors.majorLogo = 'https://ui-avatars.com/api/?name=Dior&background=EC4899&color=fff';
+}
+} catch(e) { console.error("Load data error:", e); }
+}
+function saveStateToStorage() { localStorage.setItem('k_actress_league_state_v10', JSON.stringify(appState)); }
+
+function showToast(message) {
+const toast = document.createElement('div');
+toast.className = "fixed bottom-20 md:bottom-10 right-4 z-50 bg-emerald-600/95 text-white px-5 py-3 rounded-2xl shadow-2xl backdrop-blur-md border border-emerald-400/30 text-sm font-bold flex items-center gap-2.5 transition-all duration-300";
+toast.innerHTML = `<i class="fa-solid fa-circle-check text-amber-300 text-lg"></i> <span>${message}</span>`;
+document.body.appendChild(toast);
+setTimeout(() => { toast.classList.add('opacity-0', 'translate-y-4'); setTimeout(() => toast.remove(), 400); }, 2500);
+}
+function alertModal(title, msg) {
+const div = document.createElement('div'); div.className = "fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md";
+div.innerHTML = `<div class="glass-card rounded-3xl max-w-sm w-full p-6 text-center space-y-4"><h3 class="text-lg font-black text-amber-400 font-display">${title}</h3><p class="text-sm text-slate-200 whitespace-pre-line leading-relaxed">${msg}</p><button onclick="this.parentElement.parentElement.remove()" class="px-5 py-2 rounded-xl bg-purple-600 text-white font-bold text-sm w-full">Tutup</button></div>`;
+document.body.appendChild(div);
+}
+
+function switchTab(tabId) {
+document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+document.getElementById(tabId)?.classList.remove('hidden');
+document.querySelectorAll('.nav-btn').forEach(btn => btn.className = "nav-btn px-4 py-2 rounded-xl transition-all duration-200 text-slate-400 hover:text-white flex items-center gap-2");
+document.getElementById(`nav-${tabId}`)?.classList.add('bg-purple-600', 'text-white', 'shadow-md', 'font-bold');
+document.querySelectorAll('.mob-btn').forEach(btn => btn.className = "mob-btn flex flex-col items-center py-1.5 text-slate-400 transition hover:text-slate-200");
+document.getElementById(`mob-${tabId}`)?.classList.add('text-purple-400', 'font-bold');
+
+if (tabId === 'tabKlasemen') renderStandings();
+if (tabId === 'tabMatch') renderMatchList();
+if (tabId === 'tabBracket') renderBracket();
+if (tabId === 'tabHallOfFame') renderHallOfFame();
+if (tabId === 'tabPengaturan') renderCustomizer();
+}
+
+function renderSponsorsUI() {
+document.getElementById('seasonBadge').innerText = `SEASON ${appState.seasonNumber}`;
+document.getElementById('leagueTitleBadge').innerText = appState.sponsors.leagueTitle;
+document.getElementById('badgeMajorSponsor').innerHTML = `<img src="${appState.sponsors.majorLogo}" onerror="handleImageError(this, '${appState.sponsors.major}')" class="w-6 h-6 rounded-full object-cover border border-pink-400/50 shadow-[0_0_8px_rgba(236,72,153,0.5)]"> ${appState.sponsors.major}`;
+document.getElementById('footerLeagueTitle').innerText = `${appState.sponsors.leagueTitle} K-ACT LEAGUE`;
+
+const rightsContainer = document.getElementById('badgeBroadcastRights');
+rightsContainer.innerHTML = '';
+appState.sponsors.rights.forEach(r => { rightsContainer.innerHTML += `<span class="px-3 py-1.5 rounded-xl bg-red-600/20 text-red-400 border border-red-500/30 font-extrabold flex items-center gap-1.5 text-[10px]"><i class="fa-solid fa-play text-[10px]"></i> ${r.trim()}</span>`; });
+document.getElementById('footerSponsorsText').innerHTML = `<span>${appState.sponsors.major}</span> • <span>${appState.sponsors.rights.join(', ')}</span>`;
+}
+
+function openSponsorModal() {
+document.getElementById('inputLeagueTitle').value = appState.sponsors.leagueTitle;
+document.getElementById('inputMajorSponsor').value = appState.sponsors.major;
+document.getElementById('inputMajorLogo').value = appState.sponsors.majorLogo || '';
+document.getElementById('inputBroadcastRights').value = appState.sponsors.rights.join(', ');
+document.getElementById('sponsorModal').classList.remove('hidden');
+}
+function closeSponsorModal() { document.getElementById('sponsorModal').classList.add('hidden'); }
+function saveSponsors() {
+appState.sponsors.leagueTitle = document.getElementById('inputLeagueTitle').value.trim() || "BAEKSANG";
+appState.sponsors.major = document.getElementById('inputMajorSponsor').value.trim() || "DIOR";
+appState.sponsors.majorLogo = document.getElementById('inputMajorLogo').value.trim() || `https://ui-avatars.com/api/?name=${encodeURIComponent(appState.sponsors.major)}&background=EC4899&color=fff`;
+appState.sponsors.rights = document.getElementById('inputBroadcastRights').value.split(',').map(s => s.trim()).filter(Boolean);
+saveStateToStorage(); renderSponsorsUI(); closeSponsorModal(); showToast("Sponsor disimpan!");
+}
+function toggleEventRulesModal() { document.getElementById('eventRulesModal').classList.toggle('hidden'); }
+
+function getSortedStandings() {
+return [...appState.actresses].sort((a, b) => {
+if (b.points !== a.points) return b.points - a.points; 
+return b.totalPercentage - a.totalPercentage;
+});
+}
+
+function renderStandings() {
+const sorted = getSortedStandings();
+const filterText = document.getElementById('searchActress')?.value.toLowerCase() || '';
+const container = document.getElementById('standingsContainer');
+const podiumContainer = document.getElementById('topPodiumCards');
+podiumContainer.innerHTML = '';
+const podiumRanks = [
+{ pos: 2, data: sorted[1], ring: 'avatar-ring-silver', color: 'text-slate-200', bg: 'bg-slate-800/80', order: 'order-1' },
+{ pos: 1, data: sorted[0], ring: 'avatar-ring-gold', color: 'text-amber-400', bg: 'bg-amber-950/40', order: 'order-2 scale-105 shadow-xl shadow-amber-500/10' },
+{ pos: 3, data: sorted[2], ring: 'avatar-ring-bronze', color: 'text-amber-600', bg: 'bg-amber-900/30', order: 'order-3' }
+];
+
+podiumRanks.forEach(item => {
+if (!item.data) return;
+const card = document.createElement('div');
+card.className = `glass-card rounded-2xl p-3 sm:p-4 flex flex-col items-center text-center justify-between border border-white/10 ${item.bg} ${item.order}`;
+card.innerHTML = `
+<div class="relative mb-2 inline-block">
+<img src="${getSafeAvatar(item.data.avatar, item.data.name)}" referrerpolicy="no-referrer" onerror="handleImageError(this, '${item.data.name.replace(/'/g, "\\'")}')" class="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover ${item.ring}">
+<span class="absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-950 font-black text-[10px] sm:text-xs ${item.color} border border-white/20 flex items-center justify-center">#${item.pos}</span>
+${getChampionBadge(item.data.name)}
+</div>
+<div class="font-extrabold text-xs sm:text-sm text-white truncate w-full mt-1">${item.data.name}</div>
+<div class="text-[11px] sm:text-xs font-black ${item.color} mt-0.5">${item.data.points} Pts</div>
+<div class="text-[10px] sm:text-[11px] text-purple-300 font-semibold">${item.data.totalPercentage}%</div>
+`;
+podiumContainer.appendChild(card);
+});
+
+container.innerHTML = '';
+sorted.forEach((actress, index) => {
+if (filterText && !actress.name.toLowerCase().includes(filterText)) return;
+const rank = index + 1;
+let statusBadge = ''; let bgClass = '';
+
+if (rank === 1) { bgClass = 'bg-shine-gold'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold text-[10px]"><i class="fa-solid fa-crown mr-1"></i> TOP 1</span>`; }
+else if (rank === 2) { bgClass = 'bg-shine-silver'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-slate-400/20 text-slate-300 border border-slate-400/30 font-bold text-[10px]">Rank 2</span>`; }
+else if (rank === 3) { bgClass = 'bg-shine-bronze'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-amber-700/20 text-amber-500 border border-amber-700/30 font-bold text-[10px]">Rank 3</span>`; }
+else if (rank <= 12) { bgClass = 'bg-safe'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold text-[10px]">Aman 16</span>`; }
+else if (rank <= 16) { bgClass = 'bg-playoff'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold text-[10px]">Playoff 1</span>`; }
+else if (rank <= 24) { bgClass = 'bg-playoff2'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-orange-500/20 text-orange-300 border border-orange-500/30 font-bold text-[10px]">Playoff 2</span>`; }
+else { bgClass = 'bg-danger'; statusBadge = `<span class="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/30 font-bold text-[10px]">Gugur</span>`; }
+
+const row = document.createElement('div');
+row.className = `glass-card-hover rounded-2xl p-3 sm:p-4 flex items-center justify-between gap-3 border border-white/10 ${bgClass}`;
+row.innerHTML = `
+<div class="flex items-center gap-3 overflow-hidden">
+<span class="w-6 text-center font-black text-slate-300 text-sm sm:text-base">${rank}</span>
+<div class="relative inline-block flex-shrink-0">
+<img src="${getSafeAvatar(actress.avatar, actress.name)}" referrerpolicy="no-referrer" onerror="handleImageError(this, '${actress.name.replace(/'/g, "\\'")}')" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border border-white/20">
+${getChampionBadge(actress.name)}
+</div>
+<div class="truncate">
+<div class="font-bold text-sm sm:text-base text-white truncate flex items-center gap-2">
+${actress.name}
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">⭐ ${actress.rating || 85}</span>
+${actress.initialPoints > 0 ? `<span class="text-[10px] px-1.5 py-0.5 rounded bg-purple-500/30 text-purple-200 font-bold">+${actress.initialPoints}</span>` : ''}
+</div>
+<div class="text-[10px] sm:text-xs text-slate-400 flex items-center gap-2.5 mt-0.5">
+<span>Main: <b>${actress.matchesPlayed}</b></span>
+<span>Total: <b class="text-purple-300">${actress.totalPercentage}%</b></span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 flex-shrink-0">
+<div class="text-right">
+<div class="font-black text-amber-400 text-sm sm:text-lg">${actress.points} Pts</div>
+</div>
+<div class="hidden sm:block">${statusBadge}</div>
+</div>
+`;
+container.appendChild(row);
+});
+}
+
+function generateMatchesForCurrentStage() {
+const stage = appState.currentStage;
+const stageLabel = document.getElementById('currentStageLabel');
+const stageTitle = document.getElementById('currentMatchdayTitle');
+const btnAdvance = document.getElementById('btnAdvanceStage');
+appState.matches = [];
+
+if (btnAdvance) {
+if (stage === 'FINALS') {
+btnAdvance.innerHTML = `<i class="fa-solid fa-flag-checkered mr-1"></i> Selesai Musim`;
+btnAdvance.className = "px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm shadow-lg flex-1 sm:flex-none";
+} else {
+btnAdvance.innerHTML = `Lanjut Tahap <i class="fa-solid fa-arrow-right"></i>`;
+btnAdvance.className = "px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg flex-1 sm:flex-none";
+}
+}
+
+if (stage.startsWith('MD')) {
+const mdNum = parseInt(stage.replace('MD', ''));
+stageLabel.innerText = "FASE LIGA";
+stageTitle.innerText = `Matchday ${mdNum} (${mdNum <= 4 ? 'Mode 2 vs 2' : 'Mode Solo 1 vs 1'})`;
+// Acak sempurna setiap matchday
+const pool = [...appState.actresses].sort(() => Math.random() - 0.5);
+if (mdNum <= 4) {
+for (let i = 0; i < 36; i += 4) {
+appState.matches.push({ id: `MD${mdNum}_M${(i/4)+1}`, type: 'LEAGUE_2V2', teamA: [pool[i], pool[i+1]], teamB: [pool[i+2], pool[i+3]], scoreA: null, scoreB: null, completed: false });
+}
+} else {
+for (let i = 0; i < 36; i += 2) {
+appState.matches.push({ id: `MD${mdNum}_M${(i/2)+1}`, type: 'LEAGUE_1V1', playerA: pool[i], playerB: pool[i+1], scoreA: null, scoreB: null, completed: false });
+}
+}
+} 
+else if (stage === 'PLAYOFF_1') {
+stageLabel.innerText = "FASE GUGUR - BO3"; stageTitle.innerText = "Playoff 1 (Rank 13-16)";
+const s = getSortedStandings();
+appState.matches = [
+{ id: 'P1_1', type: 'BO3', title: 'Playoff 1', playerA: s[12], playerB: s[15], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
+{ id: 'P1_2', type: 'BO3', title: 'Playoff 1', playerA: s[13], playerB: s[14], scoreA: null, scoreB: null, seriesDetails: null, completed: false }
+];
+}
+else if (stage === 'PLAYOFF_2') {
+stageLabel.innerText = "PLAYOFF MINI LIGA"; stageTitle.innerText = "Playoff 2 (10 Aktris, Main 2x Acak)";
+const s = getSortedStandings();
+const losers = appState.tournament.playoff1L;
+// 2 kalah dari P1 + Rank 17-24 (8 Aktris) = Total 10 Aktris
+const p2Pool = [...losers, ...s.slice(16, 24)];
+p2Pool.sort(() => Math.random() - 0.5); // Randomize untuk Playoff 2
+appState.tournament.p2Pool = p2Pool;
+appState.matches = [];
+for (let i = 0; i < 10; i++) {
+// i bermain melawan (i+1)%10 sehingga setiap pemain main tepat 2 kali (sebagai A dan B)
+appState.matches.push({ id: `P2_${i+1}`, type: 'BO1', playerA: p2Pool[i], playerB: p2Pool[(i+1)%10], scoreA: null, scoreB: null, completed: false });
+}
+}
+else if (stage === 'R16') {
+stageLabel.innerText = "FASE GUGUR - BO3"; stageTitle.innerText = "Babak 16 Besar (Lawan Diacak)";
+const s = getSortedStandings(); 
+const p1W = appState.tournament.playoff1W; 
+const p2W = appState.tournament.playoff2W;
+const r16Pool = [...s.slice(0, 12), ...p1W, ...p2W];
+r16Pool.sort(() => Math.random() - 0.5); // Randomize Duel 16 Besar
+appState.matches = [];
+for (let i = 0; i < 16; i+=2) {
+appState.matches.push({ id: `R16_${(i/2)+1}`, type: 'BO3', title: '16 Besar', playerA: r16Pool[i], playerB: r16Pool[i+1], scoreA: null, scoreB: null, seriesDetails: null, completed: false });
+}
+}
+else if (stage === 'R8_F1') {
+stageLabel.innerText = "MINI LIGA - FASE 1"; stageTitle.innerText = "Babak 8 Besar (1 Laga)";
+const w = appState.tournament.r16W;
+appState.matches = [
+{ id: 'R8F1_1', type: 'BO1', playerA: w[0], playerB: w[7], scoreA: null, scoreB: null, completed: false },
+{ id: 'R8F1_2', type: 'BO1', playerA: w[1], playerB: w[6], scoreA: null, scoreB: null, completed: false },
+{ id: 'R8F1_3', type: 'BO1', playerA: w[2], playerB: w[5], scoreA: null, scoreB: null, completed: false },
+{ id: 'R8F1_4', type: 'BO1', playerA: w[3], playerB: w[4], scoreA: null, scoreB: null, completed: false },
+];
+}
+else if (stage === 'R8_F1_TIE') {
+stageLabel.innerText = "DUEL TIKET SEMIFINAL 1"; stageTitle.innerText = "Rank 2 vs Rank 3 (Fase 1)";
+const std = appState.tournament.r8f1_standings;
+appState.matches = [ { id: 'R8F1_T', type: 'BO1', title: 'Perebutan Semifinal', playerA: std[1].player, playerB: std[2].player, scoreA: null, scoreB: null, completed: false } ];
+}
+else if (stage === 'R8_F2') {
+stageLabel.innerText = "MINI LIGA - FASE 2"; stageTitle.innerText = "Sisa 6 Aktris (1 Laga)";
+const p = appState.tournament.r8f2_pool;
+appState.matches = [
+{ id: 'R8F2_1', type: 'BO1', playerA: p[0], playerB: p[5], scoreA: null, scoreB: null, completed: false },
+{ id: 'R8F2_2', type: 'BO1', playerA: p[1], playerB: p[4], scoreA: null, scoreB: null, completed: false },
+{ id: 'R8F2_3', type: 'BO1', playerA: p[2], playerB: p[3], scoreA: null, scoreB: null, completed: false },
+];
+}
+else if (stage === 'R8_F2_TIE') {
+stageLabel.innerText = "DUEL TIKET SEMIFINAL 2"; stageTitle.innerText = "Rank 2 vs Rank 3 (Fase 2)";
+const std = appState.tournament.r8f2_standings;
+appState.matches = [ { id: 'R8F2_T', type: 'BO1', title: 'Perebutan Semifinal', playerA: std[1].player, playerB: std[2].player, scoreA: null, scoreB: null, completed: false } ];
+}
+else if (stage === 'SEMIS') {
+stageLabel.innerText = "SEMIFINAL - BO3"; stageTitle.innerText = "Babak 4 Besar (BO3)";
+const w = appState.tournament.semis_pool;
+appState.matches = [
+{ id: 'SF_1', type: 'BO3', title: 'Semifinal #1 (BO3)', playerA: w[0], playerB: w[3], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
+{ id: 'SF_2', type: 'BO3', title: 'Semifinal #2 (BO3)', playerA: w[1], playerB: w[2], scoreA: null, scoreB: null, seriesDetails: null, completed: false }
+];
+}
+else if (stage === 'FINALS') {
+stageLabel.innerText = "PUNCAK KLASEMEN"; stageTitle.innerText = "GRAND FINAL & JUARA 3";
+const fPlayers = appState.tournament.finals_players;
+appState.matches = [
+{ id: '3RD', type: 'BO3', title: 'Perebutan Juara 3 (BO3)', playerA: fPlayers.bronze[0], playerB: fPlayers.bronze[1], scoreA: null, scoreB: null, seriesDetails: null, completed: false },
+{ id: 'FIN', type: 'BO5', title: 'GRAND FINAL (BO5)', playerA: fPlayers.gold[0], playerB: fPlayers.gold[1], scoreA: null, scoreB: null, seriesDetails: null, completed: false }
+];
+}
+}
+
+function calculateBaseScore(rA, rB) {
+const exp = rA / (rA + rB);
+// Peluang naik drastis untuk mendapat telak (margin diperlebar)
+let swing = (Math.random() - 0.5) * 36; 
+let sA = Math.round((exp * 100) + swing);
+return Math.max(20, Math.min(80, sA));
+}
+
+function getRandomCommentary(type, scoreA) {
+if (type === 'LEAGUE_2V2') {
+if (scoreA === 50) return c_draw[Math.floor(Math.random() * c_draw.length)];
+if (scoreA >= 65 || scoreA <= 35) return c_blowout2v2[Math.floor(Math.random() * c_blowout2v2.length)];
+return c_win2v2[Math.floor(Math.random() * c_win2v2.length)];
+} else if (type === 'LEAGUE_1V1') {
+if (scoreA === 50) return c_draw[Math.floor(Math.random() * c_draw.length)];
+if (scoreA >= 65 || scoreA <= 35) return c_blowout1v1[Math.floor(Math.random() * c_blowout1v1.length)];
+return c_win1v1[Math.floor(Math.random() * c_win1v1.length)];
+} else {
+return c_knockout[Math.floor(Math.random() * c_knockout.length)];
+}
+}
+
+function simSingleMatch(index) {
+const match = appState.matches[index];
+if (match.completed) return;
+let ratingA = 50, ratingB = 50;
+if (match.type === 'LEAGUE_2V2') {
+ratingA = ((match.teamA[0].rating||85) + (match.teamA[1].rating||85)) / 2;
+ratingB = ((match.teamB[0].rating||85) + (match.teamB[1].rating||85)) / 2;
+} else { ratingA = match.playerA.rating||85; ratingB = match.playerB.rating||85; }
+
+if (match.type === 'LEAGUE_2V2' || match.type === 'LEAGUE_1V1') {
+let sA = calculateBaseScore(ratingA, ratingB);
+if (Math.abs(sA - 50) <= 2 && Math.random() < 0.35) sA = 50; // Chance of Draw
+applyMatchResults(match, sA, 100 - sA);
+} 
+else if (match.type === 'BO1') {
+let sA = calculateBaseScore(ratingA, ratingB);
+if (sA === 50) sA = Math.random() > 0.5 ? 51 : 49;
+applyMatchResults(match, sA, 100 - sA);
+}
+else if (match.type === 'BO3' || match.type === 'BO5') {
+let winsA = 0, winsB = 0; let target = match.type === 'BO5' ? 3 : 2;
+let details = [];
+while(winsA < target && winsB < target) {
+let sA = calculateBaseScore(ratingA, ratingB);
+if (sA === 50) sA = Math.random() > 0.5 ? 51 : 49;
+if (sA > (100-sA)) winsA++; else winsB++;
+details.push({ sA: sA, sB: 100-sA });
+}
+match.seriesDetails = details;
+applyMatchResults(match, winsA, winsB);
+}
+renderMatchList(); if (appState.currentStage.startsWith('MD')) renderStandings(); renderBracket();
+}
+
+function applyMatchResults(match, scoreA, scoreB) {
+match.scoreA = scoreA; match.scoreB = scoreB; match.completed = true;
+if (match.type.startsWith('LEAGUE')) {
+let ptsA = 0, ptsB = 0;
+if (scoreA === 50) { ptsA = 1; ptsB = 1; } 
+else if (scoreA > scoreB) { ptsA = scoreA >= 65 ? 4 : 3; } 
+else { ptsB = scoreB >= 65 ? 4 : 3; }
+
+const updateStats = (arr, p, s) => { arr.forEach(x => { const act = getActress(x.id); act.points += p; act.totalPercentage += s; act.matchesPlayed++; }); };
+if (match.type === 'LEAGUE_2V2') { 
+updateStats(match.teamA, ptsA, scoreA); 
+updateStats(match.teamB, ptsB, scoreB); 
+// Lacak Duo Terbaik Sesuai Margin Menang
+let margin = Math.abs(scoreA - scoreB);
+if (!appState.tournament.bestDuoMargin || margin > appState.tournament.bestDuoMargin) {
+appState.tournament.bestDuoMargin = margin;
+if (scoreA > scoreB) appState.tournament.bestDuo = `${match.teamA[0].name} & ${match.teamA[1].name}`;
+else appState.tournament.bestDuo = `${match.teamB[0].name} & ${match.teamB[1].name}`;
+}
+} 
+else { 
+updateStats([match.playerA], ptsA, scoreA); 
+updateStats([match.playerB], ptsB, scoreB); 
+}
+match.commentary = getRandomCommentary(match.type, scoreA);
+}
+else if (match.type === 'BO1') { match.commentary = `⚔️ ${(scoreA > scoreB ? match.playerA : match.playerB).name} menang dramatis dan melaju!`; }
+else { match.commentary = `🏆 ${(scoreA > scoreB ? match.playerA : match.playerB).name} memenangkan seri ${Math.max(scoreA,scoreB)} - ${Math.min(scoreA,scoreB)}!`; }
+saveStateToStorage();
+}
+
+function simCurrentStage() {
+appState.matches.forEach((m, i) => { if (!m.completed) simSingleMatch(i); });
+showToast("Tahap ini berhasil disimulasikan penuh!");
+}
+
+function advanceToNextStage() {
+if (appState.matches.filter(m => !m.completed).length > 0) { alertModal("Peringatan", "Selesaikan simulasi pertandingan dulu!"); return; }
+
+const getW = (m) => m.scoreA > m.scoreB ? m.playerA : m.playerB;
+const getL = (m) => m.scoreA > m.scoreB ? m.playerB : m.playerA;
+
+const stg = appState.currentStage;
+
+// Simpan history matches untuk knockout bracket UI
+if (!stg.startsWith('MD')) {
+if(!appState.tournament.historyMatches) appState.tournament.historyMatches = [];
+appState.tournament.historyMatches.push(...appState.matches);
+}
+
+if (stg.startsWith('MD')) {
+const md = parseInt(stg.replace('MD', ''));
+if (md < 9) appState.currentStage = `MD${md + 1}`; else appState.currentStage = 'PLAYOFF_1';
+} 
+else if (stg === 'PLAYOFF_1') { 
+appState.tournament.playoff1W = appState.matches.map(getW); 
+appState.tournament.playoff1L = appState.matches.map(getL);
+appState.currentStage = 'PLAYOFF_2'; 
+} 
+else if (stg === 'PLAYOFF_2') {
+let p2Stats = appState.tournament.p2Pool.map(p => ({ player: p, pct: 0 }));
+appState.matches.forEach(m => {
+let sA = p2Stats.find(x => x.player.id === m.playerA.id);
+let sB = p2Stats.find(x => x.player.id === m.playerB.id);
+if(sA) sA.pct += m.scoreA;
+if(sB) sB.pct += m.scoreB;
+});
+p2Stats.sort((a,b) => b.pct - a.pct);
+appState.tournament.playoff2_standings = p2Stats;
+appState.tournament.playoff2W = [p2Stats[0].player, p2Stats[1].player];
+appState.currentStage = 'R16';
+}
+else if (stg === 'R16') { appState.tournament.r16W = appState.matches.map(getW); appState.currentStage = 'R8_F1'; } 
+else if (stg === 'R8_F1') {
+let res = [];
+appState.matches.forEach(m => { res.push({ player: m.playerA, pct: m.scoreA }); res.push({ player: m.playerB, pct: m.scoreB }); });
+res.sort((a,b) => b.pct - a.pct);
+appState.tournament.r8f1_standings = res;
+appState.tournament.semis_pool = [res[0].player]; 
+appState.currentStage = 'R8_F1_TIE';
+}
+else if (stg === 'R8_F1_TIE') {
+const m = appState.matches[0];
+appState.tournament.semis_pool.push(getW(m));
+const f1 = appState.tournament.r8f1_standings;
+appState.tournament.r8f2_pool = [getL(m), f1[3].player, f1[4].player, f1[5].player, f1[6].player, f1[7].player];
+appState.currentStage = 'R8_F2';
+}
+else if (stg === 'R8_F2') {
+let res = [];
+appState.matches.forEach(m => { res.push({ player: m.playerA, pct: m.scoreA }); res.push({ player: m.playerB, pct: m.scoreB }); });
+res.sort((a,b) => b.pct - a.pct);
+appState.tournament.r8f2_standings = res;
+appState.tournament.semis_pool.push(res[0].player); 
+appState.currentStage = 'R8_F2_TIE';
+}
+else if (stg === 'R8_F2_TIE') {
+appState.tournament.semis_pool.push(getW(appState.matches[0]));
+appState.currentStage = 'SEMIS';
+}
+else if (stg === 'SEMIS') { 
+const m1 = appState.matches[0]; const m2 = appState.matches[1];
+appState.tournament.finals_players = { gold: [getW(m1), getW(m2)], bronze: [getL(m1), getL(m2)] };
+appState.currentStage = 'FINALS'; 
+} 
+else if (stg === 'FINALS') { finishSeasonAndArchive(); return; }
+
+generateMatchesForCurrentStage(); saveStateToStorage(); renderMatchList();
+if (stg.startsWith('MD')) renderStandings(); renderBracket(); switchTab('tabMatch'); window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function finishSeasonAndArchive() {
+if (appState.matches.filter(m => !m.completed).length > 0) { alertModal("Peringatan", "Selesaikan pertandingan Final terlebih dahulu!"); return; }
+
+if(!appState.tournament.historyMatches) appState.tournament.historyMatches = [];
+appState.tournament.historyMatches.push(...appState.matches);
+
+const match3rd = appState.matches.find(m => m.id === '3RD');
+const matchFin = appState.matches.find(m => m.id === 'FIN');
+
+const champion = matchFin.scoreA > matchFin.scoreB ? matchFin.playerA : matchFin.playerB;
+const runnerUp = matchFin.scoreA > matchFin.scoreB ? matchFin.playerB : matchFin.playerA;
+const thirdPlace = match3rd.scoreA > match3rd.scoreB ? match3rd.playerA : match3rd.playerB;
+
+const sortedByPct = [...appState.actresses].sort((a,b) => b.totalPercentage - a.totalPercentage);
+const sortedByPts = getSortedStandings();
+
+// The Best Awards
+const mostPopular = champion.name;
+const fanTersolid = sortedByPct[0].name;
+const bestOfTier = sortedByPts[0].name;
+const consistencyAct = sortedByPct.find(a => a.name !== fanTersolid).name;
+const bestDuoActress = appState.tournament.bestDuo || "Belum Ada Data";
+
+appState.hallOfFame.unshift({
+season: appState.seasonNumber,
+leagueTitle: appState.sponsors.leagueTitle,
+majorSponsor: appState.sponsors.major,
+champion: { name: champion.name, avatar: champion.avatar },
+runnerUp: { name: runnerUp.name, avatar: runnerUp.avatar },
+thirdPlace: { name: thirdPlace.name, avatar: thirdPlace.avatar },
+awards: { 
+mostPopular: mostPopular, 
+fanTersolid: fanTersolid, 
+bestOfTier: bestOfTier, 
+consistency: consistencyAct,
+bestDuo: bestDuoActress
+}
+});
+
+const prevSeason = appState.seasonNumber;
+appState.seasonNumber++;
+appState.currentStage = 'MD1';
+appState.tournament = { playoff1W: [], playoff1L: [], playoff2W: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [], finals_players: null, bestDuoMargin: 0, bestDuo: '', historyMatches: [], p2Pool: [], playoff2_standings: null };
+appState.actresses.forEach(a => {
+a.matchesPlayed = 0;
+a.totalPercentage = 0;
+if (a.id === champion.id) a.initialPoints = 3;
+else if (a.id === runnerUp.id) a.initialPoints = 2;
+else if (a.id === thirdPlace.id) a.initialPoints = 1;
+else a.initialPoints = 0;
+a.points = a.initialPoints;
+});
+
+saveStateToStorage();
+generateMatchesForCurrentStage(); renderSponsorsUI(); renderStandings(); renderMatchList(); renderBracket(); renderHallOfFame();
+alertModal("🏆 MUSIM SELESAI!", `Selamat! ${champion.name} keluar sebagai Juara Utama Season ${prevSeason}!\n\nData telah diarsipkan di Hall of Fame beserta The Best Awards. Privilese juara (Poin Modal) telah dibagikan dan Season ${appState.seasonNumber} resmi dimulai!`);
+switchTab('tabHallOfFame'); window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderMatchList() {
+const container = document.getElementById('matchListGrid');
+container.innerHTML = '';
+appState.matches.forEach((m, idx) => {
+const isFinal = m.type === 'BO5';
+const card = document.createElement('div');
+card.className = isFinal 
+? "epic-final-card rounded-3xl p-5 sm:p-7 space-y-4 relative flex flex-col md:col-span-2" 
+: "glass-card rounded-2xl p-4 sm:p-5 border border-white/10 space-y-3 relative flex flex-col";
+let teamAHTML = "", teamBHTML = "";
+let avaClass = isFinal ? "w-16 h-16 sm:w-24 sm:h-24 border-4 border-amber-400 shadow-[0_0_15px_#F59E0B]" : "w-10 h-10 border border-white/20";
+if (m.type === 'LEAGUE_2V2') {
+const a1 = getActress(m.teamA[0].id); const a2 = getActress(m.teamA[1].id);
+const b1 = getActress(m.teamB[0].id); const b2 = getActress(m.teamB[1].id);
+teamAHTML = `<div class="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left z-10 relative"><div class="flex -space-x-3"><div class="relative inline-block"><img src="${getSafeAvatar(a1.avatar,a1.name)}" class="w-8 h-8 rounded-full border border-slate-700 object-cover" referrerpolicy="no-referrer">${getChampionBadge(a1.name)}</div><div class="relative inline-block"><img src="${getSafeAvatar(a2.avatar,a2.name)}" class="w-8 h-8 rounded-full border border-slate-700 object-cover" referrerpolicy="no-referrer">${getChampionBadge(a2.name)}</div></div><span class="font-bold text-xs text-white leading-tight">${a1.name}<br>& ${a2.name}</span></div>`;
+teamBHTML = `<div class="flex flex-col sm:flex-row-reverse items-center gap-2 text-center sm:text-right z-10 relative"><div class="flex -space-x-3"><div class="relative inline-block"><img src="${getSafeAvatar(b1.avatar,b1.name)}" class="w-8 h-8 rounded-full border border-slate-700 object-cover" referrerpolicy="no-referrer">${getChampionBadge(b1.name)}</div><div class="relative inline-block"><img src="${getSafeAvatar(b2.avatar,b2.name)}" class="w-8 h-8 rounded-full border border-slate-700 object-cover" referrerpolicy="no-referrer">${getChampionBadge(b2.name)}</div></div><span class="font-bold text-xs text-white leading-tight">${b1.name}<br>& ${b2.name}</span></div>`;
+} else {
+const pA = getActress(m.playerA.id); const pB = getActress(m.playerB.id);
+teamAHTML = `<div class="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left z-10 relative"><div class="relative inline-block"><img src="${getSafeAvatar(pA.avatar,pA.name)}" class="${avaClass} rounded-full object-cover" referrerpolicy="no-referrer">${getChampionBadge(pA.name)}</div><div class="font-bold text-sm text-white ${isFinal?'sm:text-3xl drop-shadow-lg text-amber-100':''}">${pA.name}</div></div>`;
+teamBHTML = `<div class="flex flex-col sm:flex-row-reverse items-center gap-3 text-center sm:text-right z-10 relative"><div class="relative inline-block"><img src="${getSafeAvatar(pB.avatar,pB.name)}" class="${avaClass} rounded-full object-cover" referrerpolicy="no-referrer">${getChampionBadge(pB.name)}</div><div class="font-bold text-sm text-white ${isFinal?'sm:text-3xl drop-shadow-lg text-amber-100':''}">${pB.name}</div></div>`;
+}
+
+let sADisp = '-', sBDisp = '-';
+if (m.completed) { sADisp = m.scoreA + (m.type.startsWith('BO') && m.type !== 'BO1' ? '' : '%'); sBDisp = m.scoreB + (m.type.startsWith('BO') && m.type !== 'BO1' ? '' : '%'); }
+
+let seriesHTML = '';
+if (m.completed && m.seriesDetails) {
+seriesHTML = `<div class="flex flex-wrap gap-2 mt-2 justify-center relative z-10">`;
+m.seriesDetails.forEach((rd, i) => {
+let winA = rd.sA > rd.sB;
+seriesHTML += `<span class="px-2.5 py-1 rounded bg-slate-900 border ${winA ? 'border-purple-500/50 text-purple-300' : 'border-pink-500/50 text-pink-300'} text-[10px] font-bold shadow-md">R${i+1}: ${rd.sA}% - ${rd.sB}%</span>`;
+});
+seriesHTML += `</div>`;
+}
+
+let barW_A = 50, barW_B = 50;
+if(m.completed) {
+if (m.type.startsWith('BO') && m.type !== 'BO1') { let total = m.scoreA + m.scoreB; barW_A = total > 0 ? (m.scoreA / total) * 100 : 50; } else { barW_A = m.scoreA; }
+barW_B = 100 - barW_A;
+}
+
+card.innerHTML = `
+<div class="flex items-center justify-between text-xs text-slate-400 font-bold border-b border-white/10 pb-2 z-10 relative">
+<span class="${isFinal?'text-amber-400 font-black text-lg sm:text-2xl tracking-wider drop-shadow-md':''}">${isFinal?'<i class="fa-solid fa-crown mr-1"></i>':''}${m.title || `Laga #${idx + 1}`}</span>
+<span class="px-2.5 py-1 rounded-lg ${isFinal?'bg-amber-500/20 text-amber-300 border-amber-500/30 font-black':'bg-purple-500/20 text-purple-300 border-purple-500/30'} border text-[10px]">${m.type.replace('_', ' ')}</span>
+</div>
+<div class="grid grid-cols-5 items-center gap-2 my-2 flex-1 z-10 relative">
+<div class="col-span-2">${teamAHTML}</div>
+<div class="text-center">
+<div class="font-black text-xl ${isFinal?'sm:text-5xl text-amber-300':'sm:text-2xl text-amber-400'} drop-shadow-md">${sADisp} - ${sBDisp}</div>
+${m.type.startsWith('BO') && m.type !== 'BO1' ? `<div class="text-[9px] sm:text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-black">Seri Dimainkan</div>` : ''}
+</div>
+<div class="col-span-2">${teamBHTML}</div>
+</div>
+${seriesHTML}
+${m.completed && !m.seriesDetails ? `<div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden flex mb-2 shadow-inner z-10 relative"><div class="progress-bar animated-stripes bg-gradient-to-r from-purple-500 to-pink-500 h-full" style="width: ${barW_A}%"></div><div class="progress-bar animated-stripes bg-cyan-500 h-full" style="width: ${barW_B}%"></div></div>` : '<div class="mb-2"></div>'}
+<div class="p-3 rounded-xl bg-slate-900/60 border border-white/10 text-[11px] text-slate-300 flex items-start gap-2 shadow-inner z-10 relative">
+<i class="fa-solid fa-comment-dots text-purple-400 text-sm mt-0.5"></i>
+<span class="leading-relaxed font-medium">${m.commentary}</span>
+</div>
+<div class="flex items-center justify-end gap-2 pt-2 mt-auto z-10 relative">
+<button onclick="simSingleMatch(${idx})" ${m.completed ? 'disabled class="opacity-40 cursor-not-allowed px-3 py-1.5 rounded-xl bg-slate-800 text-slate-400 text-xs"' : `class="px-4 py-1.5 rounded-xl ${isFinal?'bg-amber-600 hover:bg-amber-500 shadow-amber-600/30':'bg-purple-600 hover:bg-purple-500 shadow-purple-600/30'} text-white font-bold text-xs shadow-md transition"`}>${m.completed ? 'Selesai' : 'Simulasi Laga'}</button>
+</div>
+`;
+container.appendChild(card);
+});
+}
+
+function renderBracketNode(player, score, isWinner) {
+if(!player) return `<div class="p-2 rounded-xl bg-slate-900/30 text-slate-500 border border-slate-800 text-[10px] text-center">TBD</div>`;
+const bgClass = isWinner ? 'bg-emerald-900/40 border-emerald-500/30' : 'bg-slate-900/60 border-slate-700/50';
+const textClass = isWinner ? 'text-white' : 'text-slate-400';
+return `
+<div class="p-1.5 sm:p-2 rounded-xl ${bgClass} border flex items-center justify-between gap-1 transition-all">
+<div class="flex items-center gap-1.5 overflow-hidden">
+<div class="relative inline-block flex-shrink-0">
+<img src="${getSafeAvatar(player.avatar, player.name)}" referrerpolicy="no-referrer" onerror="handleImageError(this, '${player.name.replace(/'/g, "\\'")}')" class="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover border border-white/10">
+${getChampionBadge(player.name)}
+</div>
+<span class="font-bold text-[9px] sm:text-[10px] ${textClass} truncate">${player.name}</span>
+</div>
+<span class="font-black text-[10px] sm:text-xs ${isWinner ? 'text-emerald-400' : 'text-slate-500'}">${score !== null ? score : '-'}</span>
+</div>
+`;
+}
+
+function drawMatches(containerId, matchIds) {
+const container = document.getElementById(containerId);
+if(!container) return; container.innerHTML = '';
+const allMatches = [...appState.matches, ...(appState.tournament.historyMatches || [])];
+let matchesFound = matchIds.map(id => allMatches.find(m => m.id === id)).filter(Boolean);
+
+if(matchesFound.length === 0) { container.innerHTML = `<div class="p-2 rounded-xl bg-slate-900/50 text-slate-500 italic text-center text-[10px]">Menunggu...</div>`; return; }
+matchesFound.forEach(m => {
+const wrap = document.createElement('div'); wrap.className = "p-2 rounded-xl bg-slate-950/40 border border-white/5 space-y-1.5 shadow-inner";
+wrap.innerHTML = `${renderBracketNode(m.playerA, m.scoreA, m.completed && m.scoreA > m.scoreB)}${renderBracketNode(m.playerB, m.scoreB, m.completed && m.scoreB > m.scoreA)}`;
+container.appendChild(wrap);
+});
+}
+
+function renderBracket() {
+const stg = appState.currentStage;
+if (!stg.startsWith('MD')) {
+drawMatches('bracketPlayoffList', ['P1_1', 'P1_2']);
+drawMatches('bracketR16List', ['R16_1', 'R16_2', 'R16_3', 'R16_4', 'R16_5', 'R16_6', 'R16_7', 'R16_8']);
+drawMatches('bracketSemisList', ['SF_1', 'SF_2']);
+drawMatches('bracketFinalsList', ['FIN', '3RD']);
+
+// Render Playoff 2 Standings
+const p2Container = document.getElementById('bracketPlayoff2List');
+if(p2Container) {
+if(appState.tournament.playoff2_standings) {
+let html = '';
+appState.tournament.playoff2_standings.forEach((s, i) => { 
+html += `<div class="flex justify-between items-center text-[10px] ${i<2?'text-emerald-400 font-bold':'text-slate-400'}"><span class="truncate pr-2">${i+1}. ${s.player.name}</span><span>${s.pct}%</span></div>`; 
+});
+p2Container.innerHTML = html;
+} else if (stg === 'PLAYOFF_2') {
+p2Container.innerHTML = `<div class="text-[10px] text-slate-500 italic text-center">Berlangsung...</div>`;
+} else {
+p2Container.innerHTML = `<div class="text-[10px] text-slate-500 italic text-center">Menunggu Playoff 1...</div>`;
+}
+}
+
+// Render 8 Besar Standings
+const r8 = document.getElementById('bracketR8List');
+if (stg.startsWith('R8') || stg === 'SEMIS' || stg === 'FINALS') {
+let html = '';
+html += `<div class="glass-card p-3 border border-cyan-500/30 rounded-xl bg-cyan-950/20"><div class="text-[11px] font-bold text-cyan-300 mb-2 text-center border-b border-white/10 pb-1">Fase 1 (Penyisihan 8)</div><div class="space-y-1">`;
+if (appState.tournament.r8f1_standings) {
+appState.tournament.r8f1_standings.forEach((s, i) => { html += `<div class="flex justify-between items-center text-[10px] ${i===0?'text-emerald-400 font-bold':(i<3?'text-amber-300':'text-slate-400')}"><span class="truncate pr-2">${i+1}. ${s.player.name}</span><span>${s.pct}%</span></div>`; });
+} else { html += `<div class="text-[10px] text-slate-500 italic text-center">Berlangsung...</div>`; }
+html += `</div></div>`;
+html += `<div class="glass-card p-3 border border-pink-500/30 rounded-xl bg-pink-950/20"><div class="text-[11px] font-bold text-pink-300 mb-2 text-center border-b border-white/10 pb-1">Fase 2 (Sisa 6 Aktris)</div><div class="space-y-1">`;
+if (appState.tournament.r8f2_standings) {
+appState.tournament.r8f2_standings.forEach((s, i) => { html += `<div class="flex justify-between items-center text-[10px] ${i===0?'text-emerald-400 font-bold':(i<3?'text-amber-300':'text-rose-400')}"><span class="truncate pr-2">${i+1}. ${s.player.name}</span><span>${s.pct}%</span></div>`; });
+} else { html += `<div class="text-[10px] text-slate-500 italic text-center">Menunggu Fase 1...</div>`; }
+html += `</div></div>`;
+r8.innerHTML = html;
+}
+}
+}
+
+function renderHallOfFame() {
+const container = document.getElementById('hallOfFameContainer'); container.innerHTML = '';
+if (appState.hallOfFame.length === 0) {
+container.innerHTML = `<div class="p-10 rounded-3xl bg-slate-900/50 text-center space-y-4 border border-white/10 shadow-inner"><div class="w-20 h-20 mx-auto rounded-full bg-slate-800 flex items-center justify-center border border-white/5"><i class="fa-solid fa-trophy text-4xl text-amber-500/30"></i></div><h4 class="font-bold text-white text-lg">Belum Ada Sejarah Juara</h4><p class="text-sm text-slate-400 max-w-md mx-auto leading-relaxed">Selesaikan seluruh pertandingan hingga Grand Final untuk mengabadikan pemenang di Hall of Fame!</p></div>`; return;
+}
+appState.hallOfFame.forEach(item => {
+const entry = document.createElement('div');
+entry.className = "glass-card rounded-3xl p-5 sm:p-6 border border-amber-500/20 space-y-5 bg-gradient-to-br from-indigo-950/40 via-slate-900/60 to-purple-950/40 relative overflow-hidden";
+entry.innerHTML = `
+<div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-bl-full blur-2xl"></div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 pb-4 relative z-10 gap-3">
+<span class="font-black text-lg sm:text-xl text-amber-400 font-display flex items-center gap-2"><i class="fa-solid fa-crown"></i> SEASON ${item.season}</span>
+<span class="text-[10px] sm:text-xs font-bold text-pink-300 px-3 py-1.5 rounded-xl bg-pink-500/10 border border-pink-500/20 w-fit">${item.leagueTitle} x ${item.majorSponsor}</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 relative z-10">
+<div class="p-4 rounded-2xl bg-gradient-to-b from-amber-500/20 to-amber-900/10 border border-amber-500/30 flex flex-row sm:flex-col items-center sm:text-center gap-4 shadow-lg shadow-amber-500/10 order-1 sm:order-2 transform sm:-translate-y-2">
+<div class="relative inline-block">
+<img src="${getSafeAvatar(item.champion.avatar, item.champion.name)}" referrerpolicy="no-referrer" onerror="handleImageError(this, '${item.champion.name.replace(/'/g, "\\'")}')" class="w-14 h-14 sm:w-20 sm:h-20 rounded-full object-cover avatar-ring-gold">
+${getChampionBadge(item.champion.name)}
+</div>
+<div><div class="text-[10px] text-amber-400 font-black tracking-widest uppercase mb-1">JUARA 1</div><div class="font-extrabold text-sm sm:text-base text-white">${item.champion.name}</div></div>
+</div>
+<div class="p-3 rounded-2xl bg-slate-800/60 border border-slate-500/30 flex flex-row sm:flex-col items-center sm:text-center gap-3 order-2 sm:order-1">
+<div class="relative inline-block">
+<img src="${getSafeAvatar(item.runnerUp.avatar, item.runnerUp.name)}" referrerpolicy="no-referrer" onerror="handleImageError(this, '${item.runnerUp.name.replace(/'/g, "\\'")}')" class="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover avatar-ring-silver">
+${getChampionBadge(item.runnerUp.name)}
+</div>
+<div><div class="text-[9px] text-slate-300 font-black tracking-widest uppercase mb-1">JUARA 2</div><div class="font-bold text-xs sm:text-sm text-white">${item.runnerUp.name}</div></div>
+</div>
+<div class="p-3 rounded-2xl bg-amber-950/30 border border-amber-700/30 flex flex-row sm:flex-col items-center sm:text-center gap-3 order-3">
+<div class="relative inline-block">
+<img src="${getSafeAvatar(item.thirdPlace.avatar, item.thirdPlace.name)}" referrerpolicy="no-referrer" onerror="handleImageError(this, '${item.thirdPlace.name.replace(/'/g, "\\'")}')" class="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover avatar-ring-bronze">
+${getChampionBadge(item.thirdPlace.name)}
+</div>
+<div><div class="text-[9px] text-amber-600 font-black tracking-widest uppercase mb-1">JUARA 3</div><div class="font-bold text-xs sm:text-sm text-white">${item.thirdPlace.name}</div></div>
+</div>
+</div>
+${item.awards ? `
+<div class="mt-4 pt-4 border-t border-white/10 grid grid-cols-2 lg:grid-cols-5 gap-3 relative z-10">
+<div class="p-3 bg-slate-900/50 rounded-xl border border-white/5 flex flex-col items-center text-center gap-2 shadow-inner">
+<i class="fa-solid fa-star text-amber-300 text-lg"></i>
+<div><div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Most Popular Actress</div><div class="text-xs font-bold text-white">${item.awards.mostPopular}</div></div>
+</div>
+<div class="p-3 bg-slate-900/50 rounded-xl border border-white/5 flex flex-col items-center text-center gap-2 shadow-inner">
+<i class="fa-solid fa-fire text-pink-400 text-lg"></i>
+<div><div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Best Fan Actress Tersolid</div><div class="text-xs font-bold text-white">${item.awards.fanTersolid}</div></div>
+</div>
+<div class="p-3 bg-slate-900/50 rounded-xl border border-white/5 flex flex-col items-center text-center gap-2 shadow-inner">
+<i class="fa-solid fa-coins text-cyan-400 text-lg"></i>
+<div><div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Best Of Tier Actress</div><div class="text-xs font-bold text-white">${item.awards.bestOfTier}</div></div>
+</div>
+<div class="p-3 bg-slate-900/50 rounded-xl border border-white/5 flex flex-col items-center text-center gap-2 shadow-inner">
+<i class="fa-solid fa-shield-heart text-emerald-400 text-lg"></i>
+<div><div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Best Of Consistency Act.</div><div class="text-xs font-bold text-white">${item.awards.consistency}</div></div>
+</div>
+<div class="p-3 bg-slate-900/50 rounded-xl border border-white/5 flex flex-col items-center text-center gap-2 shadow-inner lg:col-span-1 col-span-2">
+<i class="fa-solid fa-user-group text-purple-400 text-lg"></i>
+<div><div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Best Of Duo Actress</div><div class="text-xs font-bold text-white">${item.awards.bestDuo || 'Belum Ada'}</div></div>
+</div>
+</div>
+` : ''}
+`;
+container.appendChild(entry);
+});
+}
+
+function renderCustomizer() {
+const container = document.getElementById('customizerContainer'); container.innerHTML = '';
+appState.actresses.forEach((actress, i) => {
+const item = document.createElement('div');
+item.className = "glass-card rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 border border-white/10";
+item.innerHTML = `
+<div class="flex items-center gap-4 w-full md:w-auto">
+<span class="font-bold text-slate-500 text-sm w-6 text-center">${i + 1}</span>
+<img id="customizer-preview-${actress.id}" src="${getSafeAvatar(actress.avatar, actress.name)}" referrerpolicy="no-referrer" onerror="handleImageError(this, '${actress.name.replace(/'/g, "\\'")}')" class="w-12 h-12 rounded-full object-cover border border-white/20 flex-shrink-0">
+<input type="text" value="${actress.name}" onchange="updateActressName(${actress.id}, this.value)" class="glass-input px-4 py-2 rounded-xl text-sm font-bold text-white w-full md:w-48" placeholder="Nama Aktris">
+</div>
+<div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+<div class="flex items-center gap-2 w-full sm:w-auto">
+<i class="fa-solid fa-link text-slate-500 text-xs"></i>
+<div class="flex items-center gap-2 w-full sm:w-auto">
+<input type="text" id="avatar-input-${actress.id}" value="${actress.avatar}" oninput="previewAvatarInputChange(${actress.id}, this.value, '${actress.name.replace(/'/g, "\\'")}')" class="glass-input px-3 py-2 rounded-xl text-xs font-mono text-purple-300 w-full sm:w-60" placeholder="https:// (Link Foto)">
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5" title="Rating"><i class="fa-solid fa-star text-amber-400 text-xs"></i><input type="number" value="${actress.rating || 85}" min="50" max="99" onchange="updateActressRating(${actress.id}, this.value)" class="glass-input px-2 py-1.5 rounded-lg text-sm font-bold text-amber-300 w-14 text-center"></div>
+<div class="flex items-center gap-1.5" title="Modal Poin"><i class="fa-solid fa-coins text-purple-400 text-xs"></i><input type="number" value="${actress.initialPoints}" min="0" max="10" onchange="updateActressPoints(${actress.id}, this.value)" class="glass-input px-2 py-1.5 rounded-lg text-sm font-bold text-purple-300 w-12 text-center"></div>
+</div>
+</div>
+`;
+container.appendChild(item);
+});
+}
+
+function previewAvatarInputChange(id, val, name) { const p = document.getElementById(`customizer-preview-${id}`); if(p) p.src = getSafeAvatar(val.trim(), name); }
+function saveAllCustomizerChanges() {
+appState.actresses.forEach(a => { const input = document.getElementById(`avatar-input-${a.id}`); if(input) a.avatar = input.value.trim(); });
+appState.matches.forEach(m => {
+if (m.type === 'LEAGUE_2V2') { m.teamA.forEach(a => { const act = getActress(a.id); a.avatar = act.avatar; }); m.teamB.forEach(b => { const act = getActress(b.id); b.avatar = act.avatar; }); } 
+else { if (m.playerA) m.playerA.avatar = getActress(m.playerA.id).avatar; if (m.playerB) m.playerB.avatar = getActress(m.playerB.id).avatar; }
+});
+saveStateToStorage(); renderStandings(); renderMatchList(); renderBracket(); showToast("Semua data disimpan!");
+}
+
+function updateActressName(id, val) { const t = appState.actresses.find(a => a.id === id); if(t && val.trim()) { t.name = val.trim(); saveStateToStorage(); renderStandings(); } }
+function updateActressRating(id, val) { const t = appState.actresses.find(a => a.id === id); if(t) { t.rating = Math.max(50, Math.min(99, parseInt(val)||85)); saveStateToStorage(); } }
+function updateActressPoints(id, val) { const t = appState.actresses.find(a => a.id === id); if(t) { t.initialPoints = parseInt(val)||0; t.points = t.initialPoints; saveStateToStorage(); renderStandings(); } }
+
+function resetSeason() {
+if(confirm("Yakin mereset seluruh data?")) {
+localStorage.removeItem('k_actress_league_state_v10');
+appState.actresses = JSON.parse(JSON.stringify(DEFAULT_ACTRESSES));
+appState.currentStage = 'MD1'; appState.seasonNumber = 1; appState.hallOfFame = [];
+appState.tournament = { playoff1W: [], playoff1L: [], playoff2W: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [], finals_players: null, bestDuoMargin: 0, bestDuo: '', historyMatches: [], p2Pool: [], playoff2_standings: null };
+appState.sponsors = { leagueTitle: 'BAEKSANG', major: 'DIOR', majorLogo: 'https://ui-avatars.com/api/?name=Dior&background=EC4899&color=fff', rights: ['NETFLIX', 'SBS'] };
+saveStateToStorage(); generateMatchesForCurrentStage(); renderStandings(); renderCustomizer(); renderSponsorsUI(); renderBracket(); renderHallOfFame(); switchTab('tabKlasemen'); showToast("Reset berhasil!");
+}
+}
+
+window.onload = function() { loadStateFromStorage(); renderSponsorsUI(); if(appState.matches.length === 0) generateMatchesForCurrentStage(); renderStandings(); renderMatchList(); renderBracket(); renderHallOfFame(); };
+</script>
 </body>
 </html>
