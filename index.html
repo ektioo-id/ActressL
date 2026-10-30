@@ -188,7 +188,7 @@ animation: move-stripes 1s linear infinite;
 </div>
 </div>
 <div class="flex items-center gap-2.5 w-full md:w-auto justify-end">
-<button onclick="simCurrentStage()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 text-white font-bold text-sm shadow-lg flex-1 sm:flex-none"><i class="fa-solid fa-bolt text-amber-300"></i> Simulasi Tahap</button>
+<button onclick="simCurrentStage()" id="btnSimAll" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 text-white font-bold text-sm shadow-lg flex-1 sm:flex-none"><i class="fa-solid fa-bolt text-amber-300"></i> Simulasi Tahap</button>
 <button id="btnAdvanceStage" onclick="advanceToNextStage()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg flex-1 sm:flex-none">Lanjut Tahap <i class="fa-solid fa-arrow-right"></i></button>
 </div>
 </div>
@@ -286,7 +286,7 @@ animation: move-stripes 1s linear infinite;
 <div class="font-bold text-amber-400 mb-2">Sistem Poin (Natural Rules)</div>
 <ul class="list-disc list-inside space-y-1">
 <li>Menang Normal: <b class="text-white">+3 Poin</b></li>
-<li>Menang Telak (≥ 65%): <b class="text-emerald-400">+4 Poin</b> (Peluang Dinaikkan)</li>
+<li>Menang Telak (≥ 65%): <b class="text-emerald-400">+4 Poin</b> (Sangat Jarang)</li>
 <li>Seri Tepat (50%-50%): <b class="text-cyan-300">+1 Poin Keduanya</b></li>
 </ul>
 </div>
@@ -316,6 +316,42 @@ animation: move-stripes 1s linear infinite;
 </div>
 <div class="flex justify-end gap-3 pt-3"><button onclick="closeSponsorModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-sm font-semibold">Batal</button><button onclick="saveSponsors()" class="px-5 py-2 rounded-xl bg-pink-600 text-white text-sm font-bold">Simpan</button></div>
 </div>
+</div>
+
+<!-- Live Match Modal -->
+<div id="liveMatchModal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-xl hidden">
+    <div class="glass-card rounded-3xl w-full max-w-2xl p-6 md:p-10 border border-amber-500/30 shadow-2xl relative flex flex-col items-center space-y-6">
+        <h2 id="liveMatchTitle" class="text-2xl md:text-4xl font-black font-display text-amber-400 drop-shadow-md text-center uppercase tracking-widest">LIVE MATCH</h2>
+        <div id="liveMatchRoundInfo" class="px-6 py-1.5 rounded-xl bg-purple-500/20 text-purple-300 font-bold border border-purple-500/30 text-sm md:text-lg">Round 1</div>
+
+        <!-- Players -->
+        <div class="flex items-center justify-between w-full gap-2 md:gap-4 mt-4">
+            <div class="flex flex-col items-center gap-2 md:gap-4 w-2/5">
+                <img id="liveMatchImgA" src="" class="w-24 h-24 md:w-36 md:h-36 rounded-full object-cover border-4 border-purple-500 shadow-[0_0_15px_#a855f7]">
+                <span id="liveMatchNameA" class="font-bold text-white text-center text-sm md:text-xl truncate w-full">Player A</span>
+                <span id="liveMatchScoreA" class="font-black text-5xl md:text-7xl text-purple-400 drop-shadow-md">0</span>
+            </div>
+            <div class="w-1/5 text-center">
+                <div class="text-2xl md:text-4xl font-black text-slate-500 italic">VS</div>
+            </div>
+            <div class="flex flex-col items-center gap-2 md:gap-4 w-2/5">
+                <img id="liveMatchImgB" src="" class="w-24 h-24 md:w-36 md:h-36 rounded-full object-cover border-4 border-pink-500 shadow-[0_0_15px_#ec4899]">
+                <span id="liveMatchNameB" class="font-bold text-white text-center text-sm md:text-xl truncate w-full">Player B</span>
+                <span id="liveMatchScoreB" class="font-black text-5xl md:text-7xl text-pink-400 drop-shadow-md">0</span>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full bg-slate-900 rounded-full h-8 md:h-12 overflow-hidden flex shadow-inner relative border border-white/10 mt-4">
+            <div id="liveMatchBarA" class="progress-bar animated-stripes bg-gradient-to-r from-purple-600 to-purple-400 h-full flex items-center justify-start px-3 text-xs md:text-base font-black text-white" style="width: 50%"></div>
+            <div id="liveMatchBarB" class="progress-bar animated-stripes bg-gradient-to-l from-pink-600 to-pink-400 h-full flex items-center justify-end px-3 text-xs md:text-base font-black text-white" style="width: 50%"></div>
+        </div>
+
+        <!-- Commentary / Event -->
+        <div id="liveMatchEvent" class="h-12 md:h-16 flex items-center justify-center text-sm md:text-lg font-bold text-amber-300 text-center px-4 w-full bg-slate-900/50 rounded-xl border border-white/5 mt-2">
+            Tegangan memuncak...
+        </div>
+    </div>
 </div>
 
 <!-- JAVASCRIPT -->
@@ -368,6 +404,8 @@ matches: [],
 hallOfFame: [],
 tournament: { playoff1W: [], playoff1L: [], playoff2W: [], r16W: [], r8f1_standings: null, r8f2_pool: [], r8f2_standings: null, semis_pool: [], finals_players: null, bestDuoMargin: 0, bestDuo: '', historyMatches: [], p2Pool: [], playoff2_standings: null }
 };
+
+let isLiveSimActive = false; // Flag to prevent multiple clicks during live presentation
 
 // COMMENTARY BANKS
 const c_win1v1 = [
@@ -693,8 +731,13 @@ appState.matches = [
 
 function calculateBaseScore(rA, rB) {
 const exp = rA / (rA + rB);
-// Peluang naik drastis untuk mendapat telak (margin diperlebar)
-let swing = (Math.random() - 0.5) * 36; 
+let swing = 0;
+// Probabilitas hanya 10% untuk memicu swing/margin poin yang sangat besar (Menang telak jarang terjadi)
+if (Math.random() < 0.10) {
+swing = (Math.random() - 0.5) * 36;
+} else {
+swing = (Math.random() - 0.5) * 14; 
+}
 let sA = Math.round((exp * 100) + swing);
 return Math.max(20, Math.min(80, sA));
 }
@@ -713,9 +756,104 @@ return c_knockout[Math.floor(Math.random() * c_knockout.length)];
 }
 }
 
-function simSingleMatch(index) {
+async function simLiveKnockoutMatch(index) {
 const match = appState.matches[index];
 if (match.completed) return;
+
+isLiveSimActive = true;
+
+let ratingA = match.playerA.rating || 85;
+let ratingB = match.playerB.rating || 85;
+let winsA = 0, winsB = 0;
+let target = match.type === 'BO5' ? 3 : 2;
+let details = [];
+
+// Show Live Modal Setup
+document.getElementById('liveMatchTitle').innerText = match.title || "LIVE MATCH";
+document.getElementById('liveMatchImgA').src = getSafeAvatar(match.playerA.avatar, match.playerA.name);
+document.getElementById('liveMatchImgB').src = getSafeAvatar(match.playerB.avatar, match.playerB.name);
+document.getElementById('liveMatchNameA').innerText = match.playerA.name;
+document.getElementById('liveMatchNameB').innerText = match.playerB.name;
+document.getElementById('liveMatchScoreA').innerText = "0";
+document.getElementById('liveMatchScoreB').innerText = "0";
+document.getElementById('liveMatchBarA').style.width = "50%";
+document.getElementById('liveMatchBarB').style.width = "50%";
+document.getElementById('liveMatchBarA').innerText = "";
+document.getElementById('liveMatchBarB').innerText = "";
+document.getElementById('liveMatchEvent').innerText = "Bersiap memulai ronde...";
+document.getElementById('liveMatchModal').classList.remove('hidden');
+
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+await sleep(1500);
+
+let round = 1;
+while(winsA < target && winsB < target) {
+document.getElementById('liveMatchRoundInfo').innerText = `Round ${round}`;
+document.getElementById('liveMatchBarA').style.width = "50%";
+document.getElementById('liveMatchBarB').style.width = "50%";
+document.getElementById('liveMatchBarA').innerText = "";
+document.getElementById('liveMatchBarB').innerText = "";
+document.getElementById('liveMatchEvent').innerText = "Voting sedang berlangsung...";
+
+await sleep(1200);
+
+let sA = calculateBaseScore(ratingA, ratingB);
+if (sA === 50) sA = Math.random() > 0.5 ? 51 : 49;
+let sB = 100 - sA;
+
+details.push({ sA: sA, sB: sB });
+
+// Animate Progress Bar
+document.getElementById('liveMatchBarA').style.width = `${sA}%`;
+document.getElementById('liveMatchBarB').style.width = `${sB}%`;
+document.getElementById('liveMatchBarA').innerText = `${sA}%`;
+document.getElementById('liveMatchBarB').innerText = `${sB}%`;
+
+if (sA > sB) {
+winsA++;
+document.getElementById('liveMatchEvent').innerText = `🔥 ${match.playerA.name} memenangkan Round ${round}!`;
+} else {
+winsB++;
+document.getElementById('liveMatchEvent').innerText = `🔥 ${match.playerB.name} memenangkan Round ${round}!`;
+}
+
+await sleep(1200); // Tunggu animasi bar selesai bergerak
+document.getElementById('liveMatchScoreA').innerText = winsA;
+document.getElementById('liveMatchScoreB').innerText = winsB;
+
+await sleep(2000);
+round++;
+}
+
+document.getElementById('liveMatchRoundInfo').innerText = `MATCH SELESAI`;
+let winnerName = winsA > winsB ? match.playerA.name : match.playerB.name;
+document.getElementById('liveMatchEvent').innerText = `🏆 ${winnerName} MEMENANGKAN PERTANDINGAN! 🏆`;
+
+await sleep(3000);
+
+// Close Modal & Apply Results
+document.getElementById('liveMatchModal').classList.add('hidden');
+match.seriesDetails = details;
+applyMatchResults(match, winsA, winsB);
+renderMatchList();
+if (appState.currentStage.startsWith('MD')) renderStandings();
+renderBracket();
+
+isLiveSimActive = false;
+}
+
+async function simSingleMatch(index) {
+if (isLiveSimActive) return;
+const match = appState.matches[index];
+if (match.completed) return;
+
+// Live presentation trigger untuk Semifinal & Final
+if (appState.currentStage === 'SEMIS' || appState.currentStage === 'FINALS') {
+await simLiveKnockoutMatch(index);
+return;
+}
+
+// Proses Instan Untuk Stage Liga dan Knockout Awal
 let ratingA = 50, ratingB = 50;
 if (match.type === 'LEAGUE_2V2') {
 ratingA = ((match.teamA[0].rating||85) + (match.teamA[1].rating||85)) / 2;
@@ -778,12 +916,24 @@ else { match.commentary = `🏆 ${(scoreA > scoreB ? match.playerA : match.playe
 saveStateToStorage();
 }
 
-function simCurrentStage() {
+async function simCurrentStage() {
+if (isLiveSimActive) return;
+const stg = appState.currentStage;
+if (stg === 'SEMIS' || stg === 'FINALS') {
+for(let i=0; i<appState.matches.length; i++) {
+if(!appState.matches[i].completed) {
+await simLiveKnockoutMatch(i);
+}
+}
+showToast("Tahap ini berhasil disimulasikan penuh!");
+} else {
 appState.matches.forEach((m, i) => { if (!m.completed) simSingleMatch(i); });
 showToast("Tahap ini berhasil disimulasikan penuh!");
 }
+}
 
 function advanceToNextStage() {
+if (isLiveSimActive) return;
 if (appState.matches.filter(m => !m.completed).length > 0) { alertModal("Peringatan", "Selesaikan simulasi pertandingan dulu!"); return; }
 
 const getW = (m) => m.scoreA > m.scoreB ? m.playerA : m.playerB;
@@ -978,7 +1128,7 @@ ${m.completed && !m.seriesDetails ? `<div class="w-full bg-slate-900 rounded-ful
 <span class="leading-relaxed font-medium">${m.commentary}</span>
 </div>
 <div class="flex items-center justify-end gap-2 pt-2 mt-auto z-10 relative">
-<button onclick="simSingleMatch(${idx})" ${m.completed ? 'disabled class="opacity-40 cursor-not-allowed px-3 py-1.5 rounded-xl bg-slate-800 text-slate-400 text-xs"' : `class="px-4 py-1.5 rounded-xl ${isFinal?'bg-amber-600 hover:bg-amber-500 shadow-amber-600/30':'bg-purple-600 hover:bg-purple-500 shadow-purple-600/30'} text-white font-bold text-xs shadow-md transition"`}>${m.completed ? 'Selesai' : 'Simulasi Laga'}</button>
+<button onclick="simSingleMatch(${idx})" ${m.completed ? 'disabled class="opacity-40 cursor-not-allowed px-3 py-1.5 rounded-xl bg-slate-800 text-slate-400 text-xs"' : `class="px-4 py-1.5 rounded-xl ${isFinal?'bg-amber-600 hover:bg-amber-500 shadow-amber-600/30':'bg-purple-600 hover:bg-purple-500 shadow-purple-600/30'} text-white font-bold text-xs shadow-md transition"`}>${m.completed ? 'Selesai' : ((appState.currentStage === 'SEMIS' || appState.currentStage === 'FINALS') ? '<i class="fa-solid fa-play"></i> LIVE SIMULASI' : 'Simulasi Laga')}</button>
 </div>
 `;
 container.appendChild(card);
